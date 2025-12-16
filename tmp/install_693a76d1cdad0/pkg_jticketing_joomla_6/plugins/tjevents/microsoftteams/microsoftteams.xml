@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="tjevents" method="upgrade">
+	<name>PLG_TJEVENTS_MICROSOFTTEAMS</name>
+	<description>PLG_TJEVENTS_MICROSOFTTEAMS_XML_DESCRIPTION</description>
+	<author>Techjoomla</author>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>https://techjoomla.com</authorUrl>
+	<creationDate>Sep 19, 2022</creationDate>
+	<copyright>Copyright (C) 2009 - 2025 Techjoomla. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>1.0.3</version>
+
+	<files>
+		<filename plugin="microsoftteams">microsoftteams.php</filename>
+		<filename>index.html</filename>
+		<filename>composer.lock</filename>
+		<filename>composer.json</filename>
+		<folder>microsoftteams</folder>
+		<folder>vendor</folder>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_tjevents_microsoftteams.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_tjevents_microsoftteams.sys.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/administrator/components/com_jticketing/assets/elements">
+			<field
+					name="debug_integration"
+					type="radio"
+					label="PLG_TJEVENTS_MICROSOFTTEAMS_DEBUG_FIELD_LABEL"
+					description="PLG_TJEVENTS_MICROSOFTTEAMS_DEBUG_FIELD_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+					filter="integer"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="log_response"
+					type="radio"
+					label="PLG_TJEVENTS_MICROSOFTTEAMS_DEBUG_LOG_RESPONSE_FIELD_LABEL"
+					description="PLG_TJEVENTS_MICROSOFTTEAMS_DEBUG_LOG_RESPONSE_FIELD_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					showon="debug_integration:1"
+					filter="integer"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="enable_automatic_recording"
+					type="radio"
+					label="PLG_TJEVENTS_MICROSOFTTEAMS_ENABLE_AUTOMATIC_RECORDING_FIELD_LABEL"
+					description="PLG_TJEVENTS_MICROSOFTTEAMS_ENABLE_AUTOMATIC_RECORDING_FIELD_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+					filter="integer"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="lobby_bypass_scope"
+					type="list"
+					label="PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_FIELD_LABEL"
+					description="PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_FIELD_DESC"
+					default="organizationExcludingGuests"
+					filter="string"
+					>
+					<option value="none">JNONE</option>
+					<option value="organizer">PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_VALUE_ORGANIZER</option>
+					<option value="organization">PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_VALUE_ORGANIZATION</option>
+					<option value="organizationAndFederated">PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_VALUE_ORGANIZATION_AND_FEDERATED</option>
+					<option value="everyone">PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_VALUE_EVERYONE</option>
+					<option value="invited">PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_VALUE_INVITED</option>
+					<option value="organizationExcludingGuests">PLG_TJEVENTS_MICROSOFTTEAMS_LOBBY_BYPASS_SCOPE_VALUE_ORGANIZATION_EXCLUDING_GUESTS</option>
+				</field>
+
+				<field
+					name="lobby_bypass_scope_note"
+					type="note"
+					id="lobby_bypass_scope_note"
+					label=""
+				/>
+			</fieldset>
+		</fields>
+	</config>
+
+</extension>

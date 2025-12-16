@@ -10,19 +10,25 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', 'select');
-JHtml::_('jquery.token');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+
+HTMLHelper::_('bootstrap.tooltip');
+HTMLHelper::_('behavior.multiselect');
+// Joomla 6: formbehavior.chosen removed - using native select
+HTMLHelper::_('jquery.token');
 
 $listOrder  = $this->escape($this->state->get('list.ordering'));
 $listDirn   = $this->escape($this->state->get('list.direction'));
 ?>
 <div id="jtwrap" class="tjBs3">
-	<form action="<?php echo JRoute::_('index.php?option=com_jticketing&view=waitinglist'); ?>"
+	<form action="<?php echo Route::_('index.php?option=com_jticketing&view=waitinglist'); ?>"
 	method="post" name="adminForm" id="adminForm" class="jtFilters">
 
-		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));?>
+		<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));?>
 		<?php echo $this->addTJtoolbar();?>
 
 		<?php
@@ -30,7 +36,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 		{
 			?>
 			<div class="col-xs-12 pull-right alert alert-info jtleft">
-				<?php echo JText::_('COM_JTICKETING_NO_WAITING_LIST_FOUND'); ?>
+				<?php echo Text::_('COM_JTICKETING_NO_WAITING_LIST_FOUND'); ?>
 			</div>
 			<?php
 		}
@@ -42,19 +48,19 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 					<thead>
 						<tr>
 							<th width="1%" class="hidden-phone">
-							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo Text::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 							</th>
 
 							<th class='left'>
-							<?php echo  JText::_('COM_JTICKETING_WAITING_LIST_USER_NAME'); ?>
+							<?php echo  Text::_('COM_JTICKETING_WAITING_LIST_USER_NAME'); ?>
 							</th>
 
 							<th class='left'>
-							<?php echo  JText::_('COM_JTICKETING_WAITING_LIST_NAME'); ?>
+							<?php echo  Text::_('COM_JTICKETING_WAITING_LIST_NAME'); ?>
 							</th>
 
 							<th class='left'>
-								<?php echo JHtml::_('grid.sort',  'COM_JTICKETING_WAITING_LIST_EVENT_NAME', 'events.title', $listDirn, $listOrder); ?>
+								<?php echo HTMLHelper::_('grid.sort',  'COM_JTICKETING_WAITING_LIST_EVENT_NAME', 'events.title', $listDirn, $listOrder); ?>
 							</th>
 
 							<?php
@@ -63,7 +69,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								?>
 
 								<th align="left">
-									<?php echo  JText::_('COM_JTICKETING_WAITING_LIST_STATUS'); ?>
+									<?php echo  Text::_('COM_JTICKETING_WAITING_LIST_STATUS'); ?>
 								</th>
 
 							<?php
@@ -71,7 +77,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								?>
 
 							<th class='left'>
-								<?php echo JHtml::_('grid.sort',  'COM_JTICKETING_WAITING_LIST_ID', 'waitlist.id', $listDirn, $listOrder); ?>
+								<?php echo HTMLHelper::_('grid.sort',  'COM_JTICKETING_WAITING_LIST_ID', 'waitlist.id', $listDirn, $listOrder); ?>
 							</th>
 						</tr>
 					</thead>
@@ -85,7 +91,7 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 						?>
 						<tr class="row<?php echo $i % 2; ?>" >
 							<td class="center hidden-phone">
-								<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+								<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
 							</td>
 
 							<?php
@@ -93,21 +99,21 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								:
 							?>
 								<td class="center">
-									<?php echo JHtml::_('jgrid.published', $item->state, $i, 'waitinglist.', $canChange, 'cb'); ?>
+									<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'waitinglist.', $canChange, 'cb'); ?>
 								</td>
 							<?php
 								endif;
 							?>
 
-							<td data-title="<?php echo JText::_('COM_JTICKETING_WAITING_LIST_USER_NAME');?>">
+							<td data-title="<?php echo Text::_('COM_JTICKETING_WAITING_LIST_USER_NAME');?>">
 								<?php echo htmlspecialchars($item->username); ?>
 							</td>
 
-							<td data-title="<?php echo JText::_('COM_JTICKETING_WAITING_LIST_NAME');?>">
+							<td data-title="<?php echo Text::_('COM_JTICKETING_WAITING_LIST_NAME');?>">
 								<?php echo htmlspecialchars($item->name); ?>
 							</td>
 
-							<td data-title="<?php echo JText::_('COM_JTICKETING_WAITING_LIST_EVENT_NAME');?>">
+							<td data-title="<?php echo Text::_('COM_JTICKETING_WAITING_LIST_EVENT_NAME');?>">
 								<?php echo htmlspecialchars($item->title); ?>
 							</td>
 
@@ -117,18 +123,18 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 								$id = array();
 								$id = $item->id;
 							 ?>
-							 <td data-title="<?php echo JText::_('COM_JTICKETING_WAITING_LIST_STATUS');?>">
+							 <td data-title="<?php echo Text::_('COM_JTICKETING_WAITING_LIST_STATUS');?>">
 								<select id="assign_<?php echo $i ?>" name="assign_<?php echo $i ?>" onChange='jtCommon.waitinglist.changeStatus(<?php echo $i; ?>, <?php echo $id; ?>)'>
-									<option value="WL"><?php echo JText::_('COM_JTICKETING_WAITLIST'); ?></option>
-									<option value="C" <?php echo $item->status === 'c' || $item->status === 'C' ? 'selected':'' ?> ><?php echo JText::_('COM_JTICKETING_CLEAR'); ?></option>
-									<option value="CA" <?php echo $item->status === 'CA' || $item->status === 'ca' ? 'selected':'' ?> ><?php echo JText::_('COM_JTICKETING_CANCEL'); ?></option>
+									<option value="WL"><?php echo Text::_('COM_JTICKETING_WAITLIST'); ?></option>
+									<option value="C" <?php echo $item->status === 'c' || $item->status === 'C' ? 'selected':'' ?> ><?php echo Text::_('COM_JTICKETING_CLEAR'); ?></option>
+									<option value="CA" <?php echo $item->status === 'CA' || $item->status === 'ca' ? 'selected':'' ?> ><?php echo Text::_('COM_JTICKETING_CANCEL'); ?></option>
 								</select>
 							</td>
 							<?php
 							endif;
 							?>
 
-							<td data-title="<?php echo JText::_('COM_JTICKETING_WAITING_LIST_ID');?>">
+							<td data-title="<?php echo Text::_('COM_JTICKETING_WAITING_LIST_ID');?>">
 								<?php echo htmlspecialchars($item->id); ?>
 							</td>
 
@@ -163,12 +169,12 @@ $listDirn   = $this->escape($this->state->get('list.direction'));
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 		<input type="hidden" name="controller" id="controller" value="waitinglist" />
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HTMLHelper::_('form.token'); ?>
 	</form>
 </div>
 
 <script>
 	/** global: jticketing_baseurl */
-	var jticketing_baseurl = "<?php echo JUri::root();?>";
+	var jticketing_baseurl = "<?php echo Uri::root();?>";
 	var isAdmin = 0;
 </script>

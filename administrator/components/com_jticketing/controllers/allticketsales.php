@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 	/**
 	 * Allticketsales controller class.
@@ -31,7 +31,7 @@ class JticketingControllerallticketsales extends BaseController
 	 */
 	public function save()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$task = $input->get('task');
 
 		switch ($task)
@@ -50,7 +50,7 @@ class JticketingControllerallticketsales extends BaseController
 	 */
 	public function cancel()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$task = $input->get('task');
 
 		switch ($task)

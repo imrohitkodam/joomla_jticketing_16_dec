@@ -12,11 +12,12 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
-jimport('techjoomla.tjmoney.tjmoney');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjmoney/tjmoney.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjmoney/tjmoney.php'; }
 
 FormHelper::loadFieldClass('list');
 
@@ -28,7 +29,7 @@ FormHelper::loadFieldClass('list');
  * @since       2.2
  */
 
-class JFormFieldWaitinglist extends JFormFieldList
+class JFormFieldWaitinglist extends ListField
 {
 	/**
 	 * The form field type.

@@ -1,0 +1,6 @@
+<?php
+defined('_JEXEC') or die;
+return array (
+  'PLG_JTICKETING_TJLESSON' => 'JTicketing-TJLesson Integration plugin',
+  'PLG_JTICKETING_TJLESSON_XML_DESCRIPTION' => 'Integration between JTicketing and TJLesson',
+);

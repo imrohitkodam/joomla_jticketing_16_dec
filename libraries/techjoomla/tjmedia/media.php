@@ -8,9 +8,9 @@
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 
 /**
  * Media handler
@@ -76,7 +76,7 @@ class TJMedia
 
 		if ($retval)
 		{
-			// JFactory::getApplication()->enqueueMessage('Error generating thumbnail', 'error');
+			// Factory::getApplication()->enqueueMessage('Error generating thumbnail', 'error');
 		}
 		elseif ($output)
 		{

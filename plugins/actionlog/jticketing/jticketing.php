@@ -16,8 +16,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\Component\Actionlogs\Administrator\Helper\ActionlogsHelper;
 use Joomla\Component\Actionlogs\Administrator\Model\ActionlogModel;
+use Joomla\Database\DatabaseInterface;
 
-JTable::addIncludePath(JPATH_ROOT . '/administrator/components/com_jticketing/tables');
+Table::addIncludePath(JPATH_ROOT . '/administrator/components/com_jticketing/tables');
 /**
  * JTicketing Actions Logging Plugin.
  *
@@ -53,7 +54,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context = Factory::getApplication()->input->get('option');
+		$context = Factory::getApplication()->getInput()->get('option');
 
 		$jUser = Factory::getUser();
 
@@ -103,7 +104,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context            = Factory::getApplication()->input->get('option');
+		$context            = Factory::getApplication()->getInput()->get('option');
 		$jUser              = Factory::getUser();
 		$messageLanguageKey = 'PLG_ACTIONLOGS_JTICKETING_EVENT_DELETED';
 		$action             = 'delete';
@@ -143,8 +144,10 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$jticketingTableEvent = Table::getInstance('event', 'JTicketingTable', array());
-		$context              = Factory::getApplication()->input->get('option');
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTableEvent = Table::getInstance('Event', 'JticketingTable', array('dbo' => $db));
+		$context              = Factory::getApplication()->getInput()->get('option');
 		$jUser                = Factory::getUser();
 		$userId               = $jUser->id;
 		$userName             = $jUser->username;
@@ -212,7 +215,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context = Factory::getApplication()->input->get('option');
+		$context = Factory::getApplication()->getInput()->get('option');
 
 		$jUser = Factory::getUser();
 
@@ -262,7 +265,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context = Factory::getApplication()->input->get('option');
+		$context = Factory::getApplication()->getInput()->get('option');
 
 		$jUser              = Factory::getUser($venue->created_by);
 		$messageLanguageKey = 'PLG_ACTIONLOGS_JTICKETING_VENUE_DELETED';
@@ -303,8 +306,10 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$jticketingTablevenue = Table::getInstance('venue', 'JticketingTable', array());
-		$context              = Factory::getApplication()->input->get('option');
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTablevenue = Table::getInstance('Venue', 'JticketingTable', array('dbo' => $db));
+		$context              = Factory::getApplication()->getInput()->get('option');
 		$jUser                = Factory::getUser();
 		$userId               = $jUser->id;
 		$userName             = $jUser->username;
@@ -367,7 +372,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context = Factory::getApplication()->input->get('option');
+		$context = Factory::getApplication()->getInput()->get('option');
 		$jUser = Factory::getUser();
 
 		if ($isNew)
@@ -417,7 +422,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context            = Factory::getApplication()->input->get('option');
+		$context            = Factory::getApplication()->getInput()->get('option');
 		$jUser              = Factory::getUser();
 		$messageLanguageKey = 'PLG_ACTIONLOGS_JTICKETING_COUPON_DELETED';
 		$action             = 'delete';
@@ -457,8 +462,10 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$jticketingTablecoupon = Table::getInstance('coupon', 'JticketingTable', array());
-		$context               = Factory::getApplication()->input->get('option');
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTablecoupon = Table::getInstance('Coupon', 'JticketingTable', array('dbo' => $db));
+		$context               = Factory::getApplication()->getInput()->get('option');
 		$jUser                 = Factory::getUser();
 		$userId                = $jUser->id;
 		$userName              = $jUser->username;
@@ -517,8 +524,10 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$jticketingTableAttendeefields = Table::getInstance('attendeefields', 'jticketingTable', array());
-		$context              = Factory::getApplication()->input->get('option');
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTableAttendeefields = Table::getInstance('Attendeefields', 'JticketingTable', array('dbo' => $db));
+		$context              = Factory::getApplication()->getInput()->get('option');
 		$jUser                = Factory::getUser();
 		$messageLanguageKey   = 'PLG_ACTIONLOGS_JTICKETING_ATTENDEE_FIELDS_CHANGE_STATE';
 		$action               = 'update';
@@ -566,10 +575,12 @@ class PlgActionlogJTicketing extends CMSPlugin
 		$jUser     = Factory::getUser();
 		$userId    = $jUser->id;
 		$userName  = $jUser->username;
-		$context   = Factory::getApplication()->input->get('option');
+		$context   = Factory::getApplication()->getInput()->get('option');
 		$action    = 'update';
 
-		$jticketingTableEvent = Table::getInstance('event', 'JTicketingTable', array());
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTableEvent = Table::getInstance('Event', 'JticketingTable', array('dbo' => $db));
 		$jticketingTableEvent->load(array('id' => $checkinData['eventid']));
 
 		$attendeeUserData = Factory::getUser($checkinData['owner_id']);
@@ -616,14 +627,16 @@ class PlgActionlogJTicketing extends CMSPlugin
 		$jUser                = Factory::getUser();
 		$userId               = $jUser->id;
 		$userName             = $jUser->username;
-		$context               = Factory::getApplication()->input->get('option');
+		$context               = Factory::getApplication()->getInput()->get('option');
 		$action                = 'update';
 
 		BaseDatabaseModel::addIncludePath(JPATH_SITE . '/components/com_jticketing/models');
 		$attendeeFormModel = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 		$attendeeDetails   = $attendeeFormModel->getItem($attendeeId);
 
-		$jticketingTableEvent = Table::getInstance('event', 'JTicketingTable', array());
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTableEvent = Table::getInstance('Event', 'JticketingTable', array('dbo' => $db));
 		$jticketingTableEvent->load(array('id' => $attendeeDetails->event_id));
 
 		// Enrolled for self
@@ -687,14 +700,16 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context     = Factory::getApplication()->input->get('option');
+		$context     = Factory::getApplication()->getInput()->get('option');
 		$jUser       = Factory::getUser();
 		$userId      = $jUser->id;
 
 		$action       = 'add';
 		$orderDetails = JT::order()->loadByOrderId($orderId);
 
-		$jticketingTableEvent = Table::getInstance('event', 'JTicketingTable', array());
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTableEvent = Table::getInstance('Event', 'JticketingTable', array('dbo' => $db));
 		$jticketingTableEvent->load(array('id' => $orderDetails->event_details_id));
 
 		if ($orderDetails->user_id != 0)
@@ -751,13 +766,15 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context  = Factory::getApplication()->input->get('option');
+		$context  = Factory::getApplication()->getInput()->get('option');
 		$jUser    = Factory::getUser();
 		$userId   = $jUser->id;
 		$userName = $jUser->username;
 
 		$orderDetails         = JT::order()->loadByOrderId($orderId);
-		$jticketingTableEvent = Table::getInstance('event', 'JTicketingTable', array());
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/tables');
+		$jticketingTableEvent = Table::getInstance('Event', 'JticketingTable', array('dbo' => $db));
 		$jticketingTableEvent->load(array('id' => $orderDetails->event_details_id));
 		$messageLanguageKey   = 'PLG_ACTIONLOGS_JTICKETING_ORDER_STATUS_CHANGED';
 		$action               = 'update';
@@ -796,7 +813,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context            = Factory::getApplication()->input->get('option');
+		$context            = Factory::getApplication()->getInput()->get('option');
 		$jUser              = Factory::getUser();
 		$userId             = $jUser->id;
 		$userName           = $jUser->username;
@@ -835,7 +852,7 @@ class PlgActionlogJTicketing extends CMSPlugin
 			return;
 		}
 
-		$context            = Factory::getApplication()->input->get('option');
+		$context            = Factory::getApplication()->getInput()->get('option');
 		$jUser              = Factory::getUser();
 		$messageLanguageKey = '';
 
@@ -893,20 +910,9 @@ class PlgActionlogJTicketing extends CMSPlugin
 	 */
 	protected function addLog($messages, $messageLanguageKey, $context, $userId = null)
 	{
-		if (JVERSION >= '4.4.0')
-		{
-			$model = Factory::getApplication()->bootComponent('com_actionlogs')
-            ->getMVCFactory()->createModel('Actionlog', 'Administrator', ['ignore_request' => true]);
-		}
-		else if (JVERSION >= '4.0')
-		{
-			$model = new ActionlogModel;
-		}
-		else
-		{
-			JLoader::register('ActionlogsModelActionlog', JPATH_ADMINISTRATOR . '/components/com_actionlogs/models/actionlog.php');
-			$model = BaseDatabaseModel::getInstance('Actionlog', 'ActionlogsModel');
-		}
+		// Joomla 6: Use MVCFactory for model instantiation
+		$model = Factory::getApplication()->bootComponent('com_actionlogs')
+			->getMVCFactory()->createModel('Actionlog', 'Administrator', ['ignore_request' => true]);
 
 		/* @var ActionlogsModelActionlog $model */
 		$model->addLog($messages, $messageLanguageKey, $context, $userId);

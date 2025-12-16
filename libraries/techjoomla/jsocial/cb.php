@@ -14,11 +14,11 @@ use Joomla\CMS\User\User;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 
 jimport('techjoomla.jsocial');
 jimport('techjoomla.jsocial.helper');
-jimport('techjoomla.jsocial.jsocial');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
 
 /**
  * Interface to handle Social Extensions

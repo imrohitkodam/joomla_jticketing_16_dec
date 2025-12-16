@@ -16,7 +16,7 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\MVC\Controller\AdminController;
@@ -137,7 +137,7 @@ class JticketingControllerEvents extends AdminController
 	public function csvImport()
 	{
 		$app  = Factory::getApplication();
-		$fileArray  = $app->input->files->get('csvfile');
+		$fileArray  = $app->getInput()->files->get('csvfile');
 
 		if (!isset($fileArray['tmp_name']) || empty($fileArray) || !$fileArray['tmp_name']) 
 		{
@@ -655,7 +655,7 @@ class JticketingControllerEvents extends AdminController
 	public function saveOrderAjax()
 	{
 		// Get the input
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$pks   = $input->post->get('cid', array(), 'array');
 		$order = $input->post->get('order', array(), 'array');
 
@@ -687,7 +687,7 @@ class JticketingControllerEvents extends AdminController
 	 */
 	public function feature()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$cid   = $input->get('cid', '', 'array');
 		ArrayHelper::toInteger($cid);
 		$model        = $this->getModel('events');
@@ -724,7 +724,7 @@ class JticketingControllerEvents extends AdminController
 	 */
 	public function unfeature()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$cid   = $input->get('cid', '', 'array');
 		ArrayHelper::toInteger($cid);
 		$model        = $this->getModel('events');
@@ -799,7 +799,7 @@ class JticketingControllerEvents extends AdminController
 	public function delete()
 	{
 		$app        = Factory::getApplication();
-		$input		= Factory::getApplication()->input;
+		$input		= Factory::getApplication()->getInput();
 		$cid 		= $input->post->get('cid', array(), 'array');
 		ArrayHelper::toInteger($cid);
 		$count                = array();

@@ -243,8 +243,8 @@ class HierarchyModelHierarchy extends AdminModel
 			return false;
 		}
 
-		$db = Factory::getDatabase();
-		$query = $db->getQuery();
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
 
 		if ($onlyIds)
 		{
@@ -294,8 +294,8 @@ class HierarchyModelHierarchy extends AdminModel
 			return false;
 		}
 
-		$db = Factory::getDatabase();
-		$query = $db->getQuery();
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from($db->quoteName('#__hierarchy_users'));
 		$query->where($db->quoteName('user_id') . " = " . $db->quote($id));
@@ -328,7 +328,7 @@ class HierarchyModelHierarchy extends AdminModel
 			return false;
 		}
 
-		// $db = Factory::getDatabase();
+		// $db = Factory::getDbo();
 		// $db = Factory::getContainer()->get(DatabaseInterface::class);
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -361,8 +361,8 @@ class HierarchyModelHierarchy extends AdminModel
 		// Get search term
 		$searchTerm = $input->get('search', '', 'STRING');
 
-		$db = Factory::getDatabase();
-		$query = $db->getQuery();
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
 		$query->select('u.id AS value, u.name AS text');
@@ -394,7 +394,7 @@ class HierarchyModelHierarchy extends AdminModel
 	public function delete(&$pks)
 	{
 		$user = Factory::getUser();
-		$db   = Factory::getDatabase();
+		$db   = Factory::getDbo();
 
 		Table::addIncludePath(JPATH_ROOT . '/administrator/components/com_hierarchy/tables');
 

@@ -13,8 +13,8 @@ defined('_JEXEC') or die;
 
 
 // Load frontend venueform model
-JLoader::import('venueform', JPATH_SITE . '/components/com_jticketing/controllers');
-JLoader::import('common', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/controllers/venueform.php')) { require_once JPATH_SITE . '/components/com_jticketing/controllers/venueform.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
 
 /**
  * Venue controller class.

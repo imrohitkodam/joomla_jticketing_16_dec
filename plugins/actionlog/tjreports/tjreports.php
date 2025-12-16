@@ -108,7 +108,7 @@ class PlgActionlogTjreports extends CMSPlugin
 			return;
 		}
 
-		$context = Factory::getApplication()->input->get('option');
+		$context = Factory::getApplication()->getInput()->get('option');
 
 		$user = Factory::getUser();
 
@@ -169,7 +169,7 @@ class PlgActionlogTjreports extends CMSPlugin
 			return;
 		}
 
-		$context            = Factory::getApplication()->input->get('option');
+		$context            = Factory::getApplication()->getInput()->get('option');
 		$user               = Factory::getUser();
 
 		if (!empty($table->client))

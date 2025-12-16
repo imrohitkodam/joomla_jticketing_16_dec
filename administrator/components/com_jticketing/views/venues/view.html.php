@@ -60,10 +60,7 @@ class JticketingViewVenues extends HtmlView
 		// Get component params
 		$this->params     = ComponentHelper::getParams('com_jticketing');
 
-		if (JVERSION >= '3.0')
-		{
-			$this->sidebar = JHtmlSidebar::render();
-		}
+		// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
 
 		$this->addToolbar();
 		parent::display($tpl);
@@ -81,13 +78,14 @@ class JticketingViewVenues extends HtmlView
 		$state   = $this->get('State');
 		$canDo = JticketingHelper::getActions();
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_TITLE_VENUES'), 'book');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_TITLE_VENUES'), 'book');
 		}
 		else
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_TITLE_VENUES'), 'courses.png');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_TITLE_VENUES'), 'courses.png');
 		}
 
 		// Check if the form exists before showing the add/edit buttons
@@ -95,50 +93,50 @@ class JticketingViewVenues extends HtmlView
 
 		if (file_exists($formPath))
 		{
-			if ($canDo->get('core.create'))
+			if ($canDo->{'core.create'})
 			{
-				ToolBarHelper::addNew('venue.add', 'JTOOLBAR_NEW');
+				ToolbarHelper::addNew('venue.add', 'JTOOLBAR_NEW');
 			}
 
-			if ($canDo->get('venue.edit') && isset($this->items[0]))
+			if ($canDo->{'venue.edit'} && isset($this->items[0]))
 			{
-				ToolBarHelper::editList('venue.edit', 'JTOOLBAR_EDIT');
+				ToolbarHelper::editList('venue.edit', 'JTOOLBAR_EDIT');
 			}
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]->state))
 			{
-				ToolBarHelper::divider();
-				ToolBarHelper::custom('venues.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
-				ToolBarHelper::custom('venues.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+				ToolbarHelper::divider();
+				ToolbarHelper::custom('venues.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
+				ToolbarHelper::custom('venues.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 			}
 			elseif (isset($this->items[0]))
 			{
 				// If this component does not use state then show a direct delete button as we can not trash
-				ToolBarHelper::deleteList('COM_JTICKETING_VENUE_DELETE_MSG', 'venues.delete', 'JTOOLBAR_DELETE');
+				ToolbarHelper::deleteList('COM_JTICKETING_VENUE_DELETE_MSG', 'venues.delete', 'JTOOLBAR_DELETE');
 			}
 		}
 
 		// Show trash and delete for components that uses the state field
 		if (isset($this->items[0]->state))
 		{
-			if ($state->get('filter.statefilter') == -2 && $canDo->get('core.delete'))
+			if ($state->get('filter.statefilter') == -2 && $canDo->{'core.delete'})
 			{
-				ToolBarHelper::deleteList('COM_JTICKETING_VENUE_DELETE_MSG', 'venues.delete', 'JTOOLBAR_EMPTY_TRASH');
-				ToolBarHelper::divider();
+				ToolbarHelper::deleteList('COM_JTICKETING_VENUE_DELETE_MSG', 'venues.delete', 'JTOOLBAR_EMPTY_TRASH');
+				ToolbarHelper::divider();
 			}
-			elseif ($canDo->get('core.edit.state'))
+			elseif ($canDo->{'core.edit.state'})
 			{
-				ToolBarHelper::trash('venues.trash', 'JTOOLBAR_TRASH');
-				ToolBarHelper::divider();
+				ToolbarHelper::trash('venues.trash', 'JTOOLBAR_TRASH');
+				ToolbarHelper::divider();
 			}
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
-			ToolBarHelper::preferences('com_jticketing');
+			ToolbarHelper::preferences('com_jticketing');
 		}
 	}
 

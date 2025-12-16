@@ -20,7 +20,7 @@ use Joomla\CMS\MVC\Model\FormModel;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
-JLoader::import('components.com_jticketing.events.event', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/event.php'; }
 
 
 /**
@@ -45,13 +45,13 @@ class JticketingModelEvent extends FormModel
 		$app = Factory::getApplication('com_jticketing');
 
 		// Load state from the request userState on edit or from the passed variable on default
-		if (Factory::getApplication()->input->get('layout') == 'edit')
+		if (Factory::getApplication()->getInput()->get('layout') == 'edit')
 		{
 			$id = Factory::getApplication()->getUserState('com_jticketing.edit.event.id');
 		}
 		else
 		{
-			$id = Factory::getApplication()->input->get('id');
+			$id = Factory::getApplication()->getInput()->get('id');
 			Factory::getApplication()->setUserState('com_jticketing.edit.event.id', $id);
 		}
 
@@ -176,7 +176,7 @@ class JticketingModelEvent extends FormModel
 		$eventData->isboughtEvent = $eventBookButtonDetails['isboughtEvent'];
 
 		// Get event organizer information
-		JLoader::import('integrations', JPATH_SITE . '/components/com_jticketing/helpers');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/integrations.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/integrations.php'; }
 		$jTicketingIntegrationsHelper  = new JTicketingIntegrationsHelper;
 		$eventData->organizerAvatar = JT::integration()->getUserAvatar($eventData->created_by);
 		$eventData->organizerProfileUrl = JT::utilities()->getUserProfileUrl($eventData->created_by);

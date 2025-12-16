@@ -20,8 +20,8 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Component\ComponentHelper;
 
-JLoader::import('fronthelper', JPATH_SITE . '/components/com_tjvendors/helpers');
-JLoader::import('vendorclientxref', JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables');
+if (file_exists(JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php')) { require_once JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php'; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables/vendorclientxref.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables/vendorclientxref.php'; }
 
 /**
  * JTicketing Couponform model

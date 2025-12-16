@@ -21,7 +21,7 @@ use Joomla\CMS\MVC\Model\BaseDatabaseModel;
  *
  * @since  1.0.0
  */
-class JFormFieldTjlesson extends JFormField
+class JFormFieldTjlesson extends FormField
 {
 	/**
 	 * The form field type.

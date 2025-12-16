@@ -55,7 +55,7 @@ class JticketingViewEvents extends HtmlView
 		$user = Factory::getUser();
 
 		// Default layout is default.
-		$this->layout = Factory::getApplication()->input->get('layout', 'default');
+		$this->layout = Factory::getApplication()->getInput()->get('layout', 'default');
 		$this->setLayout($this->layout);
 
 		if ($this->layout == 'my')
@@ -78,9 +78,9 @@ class JticketingViewEvents extends HtmlView
 
 		$model = $this->getModel('events');
 
-		if ($app->input->get('catid', '', 'INT') > 1)
+		if ($app->getInput()->get('catid', '', 'INT') > 1)
 		{
-			$model->setState('filter_events_cat', $app->input->get('catid', '', 'INT'));
+			$model->setState('filter_events_cat', $app->getInput()->get('catid', '', 'INT'));
 		}
 
 		$this->PageTitle = $this->params->get('page_title', '');
@@ -131,7 +131,7 @@ class JticketingViewEvents extends HtmlView
 
 		if (empty($this->singleEventItemid))
 		{
-			$this->singleEventItemid = Factory::getApplication()->input->get('Itemid');
+			$this->singleEventItemid = Factory::getApplication()->getInput()->get('Itemid');
 		}
 
 		$this->myEventsItemid     = $this->utilities->getItemId('index.php?option=com_jticketing&view=events&layout=my');
@@ -249,7 +249,7 @@ class JticketingViewEvents extends HtmlView
 			// Setup toolbar
 			$this->addTJtoolbar();
 			$canDo = JticketingHelper::getActions();
-			$this->isCreateDuplicates = $canDo->get('core.create') ? 1 : 0;
+			$this->isCreateDuplicates = $canDo->{'core.create'} ? 1 : 0;
 			$this->adminApproval        = $this->params->get('event_approval');
 			$this->canChange     = ($user->authorise('core.edit.state', 'com_jticketing') && $this->adminApproval == 0) ? 1 : 0;
 		}
@@ -342,10 +342,10 @@ class JticketingViewEvents extends HtmlView
 		$smallButtonClass = JVERSION < '4.0' ? 'btn-small' : 'btn-sm';
 
 		// Add toolbar buttons
-		jimport('techjoomla.tjtoolbar.toolbar');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php'; }
 		$tjbar = TJToolbar::getInstance('tjtoolbar', 'pull-right float-end');
 
-		if ($canDo->get('core.create'))
+		if ($canDo->{'core.create'})
 		{
 			$tjbar->appendButton('eventform.add', 'TJTOOLBAR_NEW', '', 'class="btn btn-sm btn-success"');
 
@@ -355,12 +355,12 @@ class JticketingViewEvents extends HtmlView
 			}
 		}
 
-		if ($canDo->get('core.edit.own') && isset($this->items[0]))
+		if ($canDo->{'core.edit.own'} && isset($this->items[0]))
 		{
 			$tjbar->appendButton('eventform.edit', 'TJTOOLBAR_EDIT', '', 'class="btn btn-sm btn-success"');
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]))
 			{

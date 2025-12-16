@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 	/**
 	 * Pendingpaid controller class.
@@ -33,7 +33,7 @@ class JticketingControllerpendingpaid extends BaseController
 	 */
 	public function save()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$task = $input->get('task');
 
 		switch ($task)
@@ -52,7 +52,7 @@ class JticketingControllerpendingpaid extends BaseController
 	 */
 	public function cancel()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$task = $input->get('task');
 
 		switch ($task)
@@ -103,7 +103,7 @@ class JticketingControllerpendingpaid extends BaseController
 		$csvData .= "\n";
 		echo $csvData;
 
-		/*'P'=>JText::_('JT_PSTATUS_PENDING'),
+		/*'P'=>Text::_('JT_PSTATUS_PENDING'),
 		'C'=>Text::_('JT_PSTATUS_COMPLETED'),
 		'D'=>Text::_('JT_PSTATUS_DECLINED'),
 		'E'=>Text::_('JT_PSTATUS_FAILED'),

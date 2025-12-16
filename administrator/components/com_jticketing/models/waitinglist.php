@@ -11,4 +11,4 @@
 defined('_JEXEC') or die(';)');
 
 // Load frontend waitinglist model
-JLoader::import('com_jticketing.models.waitinglist', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/waitinglist.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/waitinglist.php'; }

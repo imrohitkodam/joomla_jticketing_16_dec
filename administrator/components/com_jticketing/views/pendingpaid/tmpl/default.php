@@ -9,7 +9,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
-jimport( 'joomla.utilities.date');
+// Joomla 6: jimport removed - Date class is autoloaded
 $bootstrapclass="";
 $tableclass="table table-striped  table-hover";
 $document=Factory::getDocument();
@@ -22,7 +22,7 @@ $show_js_toolbar = $com_params->get('show_js_toolbar');
 $currency = $com_params->get('currency');
 
 $user =Factory::getUser();
-$input=Factory::getApplication()->input;
+$input=Factory::getApplication()->getInput();
 
 if(empty($user->id))
 {

@@ -12,7 +12,7 @@
 defined('_JEXEC') or die();
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * Class for Jticketing All Ticket Sales Controller

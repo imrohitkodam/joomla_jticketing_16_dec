@@ -24,8 +24,8 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
-JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
 
 /**
  * Model for getting event list
@@ -85,7 +85,7 @@ class JticketingModelEvents extends ListModel
 		// List state information
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit'));
 		$this->setState('list.limit', $limit);
-		$limitstart = Factory::getApplication()->input->getInt('limitstart', 0);
+		$limitstart = Factory::getApplication()->getInput()->getInt('limitstart', 0);
 		$this->setState('list.start', $limitstart);
 
 		// Load the parameters. Merge Global and Menu Item params into new object
@@ -189,7 +189,7 @@ class JticketingModelEvents extends ListModel
 		}
 
 		$query  = $db->getQuery(true);
-		$userid = $app->input->get('jt_user_id', '');
+		$userid = $app->getInput()->get('jt_user_id', '');
 
 		if (!empty($userid))
 		{
@@ -240,11 +240,11 @@ class JticketingModelEvents extends ListModel
 
 		// Filter by search in title
 		$search = $this->getState('filter.search');
-		$search = (!empty($search)) ? $search : $app->input->get('search', '', 'STRING');
+		$search = (!empty($search)) ? $search : $app->getInput()->get('search', '', 'STRING');
 
 		// Filter by venue
 		$venue = $this->getState('filter_venue');
-		$venue = (!empty($venue)) ? $venue : $app->input->get('venue', '', 'INT');
+		$venue = (!empty($venue)) ? $venue : $app->getInput()->get('venue', '', 'INT');
 
 		if ($integration == 2)
 		{
@@ -565,7 +565,7 @@ class JticketingModelEvents extends ListModel
 		{
 			// Filter by search in title
 			$search = $this->getState('filter.search');
-			$search = (!empty($search)) ? $search : $app->input->get('search', '', 'STRING');
+			$search = (!empty($search)) ? $search : $app->getInput()->get('search', '', 'STRING');
 
 			// Select the required fields from the table.
 			$query->select($this->getState('list.select', 'events.*,events.address AS location,events.description	AS short_description'));
@@ -675,7 +675,7 @@ class JticketingModelEvents extends ListModel
 		{
 			// Filter by search in title
 			$search = $this->getState('filter.search');
-			$search = (!empty($search)) ? $search : $app->input->get('search', '', 'STRING');
+			$search = (!empty($search)) ? $search : $app->getInput()->get('search', '', 'STRING');
 
 			$select = 'events.*, events.location AS location,events.description AS short_description, events.startdate AS startdate, events.enddate AS enddate,
 			events.cover AS image';
@@ -777,7 +777,7 @@ class JticketingModelEvents extends ListModel
 		{
 			// Filter by search in title
 			$search = $this->getState('filter.search');
-			$search = (!empty($search)) ? $search : $app->input->get('search', '', 'STRING');
+			$search = (!empty($search)) ? $search : $app->getInput()->get('search', '', 'STRING');
 
 			// Select the required fields from the table.
 			$query->select('events.*');
@@ -1273,7 +1273,7 @@ class JticketingModelEvents extends ListModel
 				$mediaXrefLib = TJMediaXref::getInstance();
 				$data = array('clientId' => $item->id, 'client' => 'com_jticketing.event','isGallery' => 1);
 				$mediaGallery = $mediaXrefLib->retrive($data);
-				JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+				if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 
 				if ($mediaGallery)
 				{
@@ -1540,7 +1540,7 @@ class JticketingModelEvents extends ListModel
 
 			case 'com_community':
 
-				JLoader::import('eventcategories', JPATH_ADMINISTRATOR . '/components/com_community/models');
+				if (file_exists(JPATH_ADMINISTRATOR . '/components/com_community/models/eventcategories.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_community/models/eventcategories.php'; }
 				$jomsocialCategoryModel = new CommunityModelEventCategories;
 				$categories = $jomsocialCategoryModel->getCategories();
 

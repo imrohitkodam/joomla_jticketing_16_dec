@@ -868,7 +868,7 @@ class JTicketingEvent extends CMSObject
 
 			if ($showbook)
 			{
-				$itemId = Factory::getApplication()->input->get('Itemid');
+				$itemId = Factory::getApplication()->getInput()->get('Itemid');
 				$redirect = '';
 
 				if (!empty($redirectionUrl))
@@ -938,7 +938,8 @@ class JTicketingEvent extends CMSObject
 			$modalConfig['title'] = Text::_('COM_JTICKETING_VIEW_TICKET_BUTTON');
 			$jtViewTicketBtnHTML =  HTMLHelper::_('bootstrap.renderModal', 'jtViewTicketBtn'. $attendees['0']->id, $modalConfig);
 
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				return $jtViewTicketBtnHTML . "<a data-target='#jtViewTicketBtn" . $attendees['0']->id . "' data-toggle='modal' class='af-relative af-d-block btn btn-default btn-info' title='"
 				. Text::_('COM_JTICKETING_VIEW_TICKET_BUTTON_TOOLTIP') . "'>"

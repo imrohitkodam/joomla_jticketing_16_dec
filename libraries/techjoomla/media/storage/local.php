@@ -8,7 +8,7 @@
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Object\CMSObject;
@@ -17,13 +17,13 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\User\UserHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Image\Image;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
-defined('JPATH_PLATFORM') or die();
+defined('_JEXEC') or die();
 
 jimport('techjoomla.media.tjmedia');
 jimport('techjoomla.object.object');
-JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
 
 /* load language file for plugin frontend */
 $lang = Factory::getLanguage();
@@ -170,7 +170,7 @@ class TJMediaStorageLocal extends CMSObject implements TjMedia
 	 */
 	public function load($id)
 	{
-		JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+		if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 		$table = Table::getInstance('Files', 'TJMediaTable');
 
 		// Load the object based on the id or throw a warning.
@@ -374,7 +374,7 @@ class TJMediaStorageLocal extends CMSObject implements TjMedia
 
 				if ($this->saveData)
 				{
-					JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+					if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 					$tjMediaTable = Table::getInstance('Files', 'TJMediaTable');
 
 					if (!$tjMediaTable->save($this->getProperties()))
@@ -1135,7 +1135,7 @@ class TJMediaStorageLocal extends CMSObject implements TjMedia
 		$returnData['storage'] = $this->storage;
 		$returnData['params'] = $this->params;
 
-		JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+		if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 		$tjMediaTable = Table::getInstance('Files', 'TJMediaTable');
 
 		if (!$tjMediaTable->save($returnData))

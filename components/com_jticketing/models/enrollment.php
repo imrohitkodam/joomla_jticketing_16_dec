@@ -20,15 +20,15 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Component\ComponentHelper;
 
-JLoader::import('tickettype', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('attendeeform', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('eventform', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('common', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('frontendhelper', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('components.com_jticketing.helpers.mail', JPATH_SITE);
-JLoader::import('components.com_jticketing.events.attendee', JPATH_SITE);
-JLoader::import('event', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/tickettype.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/tickettype.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/eventform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/eventform.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/mail.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/mail.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/attendee.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/attendee.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/event.php'; }
 
 /**
  * Methods supporting a list of Jticketing records.
@@ -235,7 +235,7 @@ class JticketingModelEnrollment extends ListModel
 
 		if ($subUsers == 1)
 		{
-			JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+			if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php'; }
 			$hasUsers = JticketingHelper::getSubusers();
 
 			if (!$hasUsers)

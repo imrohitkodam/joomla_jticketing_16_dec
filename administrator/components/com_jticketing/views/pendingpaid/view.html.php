@@ -33,9 +33,9 @@ class jticketingViewpendingpaid extends HtmlView
 		{
 			HTMLHelper::_('bootstrap.tooltip');
 			HTMLHelper::_('behavior.multiselect');
-			HTMLHelper::_('formbehavior.chosen', 'select');
+			// Joomla 6: formbehavior.chosen removed - using native select
 		}
-		$input=Factory::getApplication()->input;
+		$input=Factory::getApplication()->getInput();
 		$this->jticketingmainhelper=new jticketingmainhelper();
 		global $mainframe, $option;
 		$mainframe = Factory::getApplication();
@@ -43,7 +43,7 @@ class jticketingViewpendingpaid extends HtmlView
 		$search_event = $mainframe->getUserStateFromRequest( $option.'search_event', 'search_event','', 'string' );
 		$search_event = StringHelper::strtolower( $search_event );
 		$user=Factory::getUser();
-		$layout=Factory::getApplication()->input->get('layout','default');
+		$layout=Factory::getApplication()->getInput()->get('layout','default');
 
 		$status_event = array();
 		$eventlist=$this->jticketingmainhelper->geteventnamesByCreator();
@@ -62,7 +62,7 @@ class jticketingViewpendingpaid extends HtmlView
 		}
 
 		$model = $this->getModel();
-		$eventid = Factory::getApplication()->input->get('event');
+		$eventid = Factory::getApplication()->getInput()->get('event');
 		$this->status_event=$status_event;
 
 		$this->user_filter_options=$this->get('UserFilterOptions');
@@ -117,16 +117,18 @@ class jticketingViewpendingpaid extends HtmlView
 		$JticketingHelper->addSubmenu('pendingpaid');
 
 
-		if (JVERSION >= '3.0' && JVERSION < '4.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0' && JVERSION < '4.0')
 		{	JHtmlBehavior::framework();
 
 		}
-		else if (JVERSION < '3.0')
+		else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '3.0')
 			HTMLHelper::_('behavior.mootools');
 		$this->setToolBar();
 
 		if(JVERSION>='3.0')
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		$this->setLayout($layout);
 
 		parent::display($tpl);
@@ -138,23 +140,23 @@ class jticketingViewpendingpaid extends HtmlView
 		$document =Factory::getDocument();
 		HTMLHelper::_('stylesheet', 'components/com_jticketing/css/jticketing.css');
 		$bar =ToolBar::getInstance('toolbar');
-		ToolBarHelper::title( Text::_( 'COM_JTICKETING_PENDING_PAID_VIEW' ), 'icon-48-jticketing.png' );
+		ToolbarHelper::title( Text::_( 'COM_JTICKETING_PENDING_PAID_VIEW' ), 'icon-48-jticketing.png' );
 			if(JVERSION>=3.0)
-				ToolBarHelper::custom(Text::_('COM_JTICKETING_COMPONENT') . 'csvexport', 'icon-32-save.png', 'icon-32-save.png',Text::_("CSV_EXPORT"), false);
+				ToolbarHelper::custom(Text::_('COM_JTICKETING_COMPONENT') . 'csvexport', 'icon-32-save.png', 'icon-32-save.png',Text::_("CSV_EXPORT"), false);
 			else{
 				$button = "<a href='#' onclick=\"javascript:document.getElementById('task').value = 'csvexport';document.getElementById('controller').value = 'pendingpaid';document.adminForm.submit();\" ><span class='icon-32-save' title='Export'></span>".Text::_('CSV_EXPORT')."</a>";
 				$bar->appendButton( 'Custom', $button);
 			}
-		ToolBarHelper::back( Text::_('JT_HOME') , 'index.php?option=com_jticketing&view=cp');
+		ToolbarHelper::back( Text::_('JT_HOME') , 'index.php?option=com_jticketing&view=cp');
 		//ToolbarHelper::deleteList('', 'remove','JTOOLBAR_DELETE');
 
-		$layout=Factory::getApplication()->input->get('layout','default');
+		$layout=Factory::getApplication()->getInput()->get('layout','default');
 
 		if(JVERSION>=3.0 and $layout=='default')
 		{
-			JHtmlSidebar::setAction('index.php?option=com_jticketing');
+			// Joomla 6: HTMLHelperSidebar::setAction() removed
 
-			JHtmlSidebar::addFilter(
+			HTMLHelperSidebar::addFilter(
 				Text::_('SELONE_EVENT'),
 				'search_event',
 				HTMLHelper::_('select.options', $this->status_event, 'value', 'text', $this->lists['search_event'], true)
@@ -162,7 +164,7 @@ class jticketingViewpendingpaid extends HtmlView
 			);
 		}
 
-		ToolBarHelper::preferences('com_jticketing');
+		ToolbarHelper::preferences('com_jticketing');
 	}
 }
 ?>

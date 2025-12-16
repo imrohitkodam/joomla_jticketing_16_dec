@@ -33,7 +33,7 @@ if (isset($fieldValue->field_value))
 }
 
 ?>
-<label><?php if (isset($field->placehoder)) $field->placehoder; else  echo JText::_($field->label); if ($field->required) echo "<span class='required-star'>&nbsp;*</span>"; ?></label>
+<label><?php if (isset($field->placehoder)) $field->placehoder; else  echo Text::_($field->label); if ($field->required) echo "<span class='required-star'>&nbsp;*</span>"; ?></label>
 <span class="date_field">
 	<?php
 

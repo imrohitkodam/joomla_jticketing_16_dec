@@ -274,7 +274,7 @@ class JTicketingModelAttendeefields extends AdminModel
 	{
 		if (parent::publish($pks, $state))
 		{
-			$extension = Factory::getApplication()->input->get('option');
+			$extension = Factory::getApplication()->getInput()->get('option');
 
 			// Include the content plugins for the change of category state event.
 			PluginHelper::importPlugin('jticketing');

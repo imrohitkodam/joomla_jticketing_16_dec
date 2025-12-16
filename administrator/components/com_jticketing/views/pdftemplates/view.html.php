@@ -170,7 +170,7 @@ class JticketingViewPDFTemplates extends BaseHtmlView
 		$this->jticketingmainhelper = new Jticketingmainhelper;
 
 		$this->addToolbar();
-		$this->sidebar = \JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 		parent::display($tpl);
 	}
@@ -184,42 +184,41 @@ class JticketingViewPDFTemplates extends BaseHtmlView
 	 */
 	protected function addToolbar()
 	{
-		JLoader::register('JticketingHelper', JPATH_COMPONENT . '/components/com_jticketing/helpers/jticketing.php');
+		JLoader::register('JticketingHelper', JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/components/com_jticketing/helpers/jticketing.php');
 		$canDo = ContentHelper::getActions('com_jticketing');
 
-		ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_PDF_TEMPLATES'), 'list');
+		ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_PDF_TEMPLATES'), 'list');
 
-		if ($canDo->get('core.create'))
+		if ($canDo->{'core.create'})
 		{
-			ToolBarHelper::addNew('pdftemplate.add', 'JTOOLBAR_NEW');
+			ToolbarHelper::addNew('pdftemplate.add', 'JTOOLBAR_NEW');
 		}
 
-		if ($canDo->get('core.edit') && isset($this->items[0]))
+		if ($canDo->{'core.edit'} && isset($this->items[0]))
 		{
-			ToolBarHelper::editList('pdftemplate.edit', 'JTOOLBAR_EDIT');
+			ToolbarHelper::editList('pdftemplate.edit', 'JTOOLBAR_EDIT');
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
-			ToolBarHelper::divider();
-			ToolBarHelper::publish('pdftemplates.publish', 'JTOOLBAR_PUBLISH', true);
-			ToolBarHelper::unpublish('pdftemplates.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+			ToolbarHelper::divider();
+			ToolbarHelper::publish('pdftemplates.publish', 'JTOOLBAR_PUBLISH', true);
+			ToolbarHelper::unpublish('pdftemplates.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 		}
 
 		if (isset($this->items[0]))
 		{
-			if ($canDo->get('core.delete'))
+			if ($canDo->{'core.delete'})
 			{
-				ToolBarHelper::deleteList(Text::_('COM_JTICKETING_ARE_YOU_SURE_YOU_TO_DELETE_THE_PDF_TEMPLATE'), 'pdftemplates.delete', 'JTOOLBAR_DELETE');
+				ToolbarHelper::deleteList(Text::_('COM_JTICKETING_ARE_YOU_SURE_YOU_TO_DELETE_THE_PDF_TEMPLATE'), 'pdftemplates.delete', 'JTOOLBAR_DELETE');
 			}
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
-			ToolBarHelper::preferences('com_jticketing');
+			ToolbarHelper::preferences('com_jticketing');
 		}
 
-		// Set sidebar action - New in 3.0
-		\JHtmlSidebar::setAction('index.php?option=com_jticketing&view=pdftemplates');
+		// Joomla 6: HTMLHelperSidebar::setAction() removed - sidebar functionality removed
 	}
 }

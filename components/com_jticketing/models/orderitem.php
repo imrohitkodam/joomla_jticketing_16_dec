@@ -159,7 +159,7 @@ class JticketingModelOrderItem extends AdminModel
 		$attendeeData['owner_id'] = $user->id;
 		$attendeeData['owner_email'] = $user->email;
 
-		JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 		$model = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 
 		$attendeeId = $model->save($attendeeData);

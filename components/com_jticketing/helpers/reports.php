@@ -16,7 +16,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 
-JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
+BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
 
 /**
  * mail helper class
@@ -41,7 +41,7 @@ class JticketingReportsHelper
 	 */
 	public function getCatFilterOptions($default = true)
 	{
-		$categories = JHtmlCategory::categories('com_jticketing');
+		$categories = HTMLHelper::_('category.options', 'com_jticketing');
 
 		// Remove add to Root from category list
 		array_pop($categories);
@@ -80,7 +80,11 @@ class JticketingReportsHelper
 
 		if ($myteam)
 		{
-			JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+			$helperPath = JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php';
+			if (file_exists($helperPath))
+			{
+				require_once $helperPath;
+			}
 			$hasUsers = JticketingHelper::getSubusers();
 
 			if (!empty($hasUsers))
@@ -125,7 +129,11 @@ class JticketingReportsHelper
 
 		if ($myteam)
 		{
-			JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+			$helperPath = JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php';
+			if (file_exists($helperPath))
+			{
+				require_once $helperPath;
+			}
 			$hasUsers = JticketingHelper::getSubusers();
 
 			if (!empty($hasUsers))

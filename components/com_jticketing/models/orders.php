@@ -154,7 +154,7 @@ class JticketingModelorders extends ListModel
 	protected function getListQuery()
 	{
 		$app         = Factory::getApplication();
-		$layout      = $app->input->get('layout', '', 'STRING');
+		$layout      = $app->getInput()->get('layout', '', 'STRING');
 		$user        = Factory::getUser();
 		$integration = JT::getIntegration(true);
 
@@ -383,7 +383,7 @@ class JticketingModelorders extends ListModel
 	 */
 	public function getEventName()
 	{
-		$input     = Factory::getApplication()->input;
+		$input     = Factory::getApplication()->getInput();
 		$eventid   = $input->get('event', '', 'INT');
 		$query     = $this->jticketingmainhelper->getEventName($eventid);
 		$this->_db->setQuery($query);
@@ -401,7 +401,7 @@ class JticketingModelorders extends ListModel
 	 */
 	public function Eventdetails()
 	{
-		$input     = Factory::getApplication()->input;
+		$input     = Factory::getApplication()->getInput();
 		$mainframe = Factory::getApplication();
 		$eventid   = $input->get('event', '', 'INT');
 		$db = $this->getDatabase();
@@ -668,7 +668,7 @@ class JticketingModelorders extends ListModel
 		$db->setQuery($query);
 		$db->execute();
 
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$post    = $input->post;
 		$comment = $post->get('comment', '', 'STRING');
 		$orderItemsId = $post->get('order_items_id');
@@ -800,7 +800,7 @@ class JticketingModelorders extends ListModel
 			return false;
 		}
 
-		$input            = Factory::getApplication()->input;
+		$input            = Factory::getApplication()->getInput();
 		$privateKeyInUrl = $input->get('pkey', '', 'STRING');
 		$returnMsg       = array();
 
@@ -1015,7 +1015,7 @@ class JticketingModelorders extends ListModel
 
 		// Delete all entries in queue which are not sent
 		$query              = "";
-		$input              = Factory::getApplication()->input;
+		$input              = Factory::getApplication()->getInput();
 		$doNotAddPending = $input->get('do_not_add_pending');
 		$debug              = $input->get('jt_debug');
 
@@ -1245,7 +1245,7 @@ class JticketingModelorders extends ListModel
 		 * and if email reminder not sent previously or error occured for monthly,weekly then only send one day reminder
 		 */
 
-		$input              = Factory::getApplication()->input;
+		$input              = Factory::getApplication()->getInput();
 		$doNotAddPending = $input->get('do_not_add_pending');
 
 		if (empty($doNotAddPending))

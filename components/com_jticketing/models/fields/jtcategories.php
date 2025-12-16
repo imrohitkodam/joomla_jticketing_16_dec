@@ -10,11 +10,9 @@
 
 defined('JPATH_BASE') or die;
 
-use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-
-FormHelper::loadFieldClass('list');
 
 /**
  * getting html list of categories
@@ -23,7 +21,7 @@ FormHelper::loadFieldClass('list');
  * @subpackage  component
  * @since       1.0
  */
-class JFormFieldJtcategories extends JFormFieldList
+class JFormFieldJtcategories extends ListField
 {
 	/**
 	 * The form field type.

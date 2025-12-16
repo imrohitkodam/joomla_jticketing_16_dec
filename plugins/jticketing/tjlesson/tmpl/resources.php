@@ -18,7 +18,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Uri\Uri;
 
-jimport('techjoomla.common');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/common.php')) { require_once JPATH_LIBRARIES . '/techjoomla/common.php'; }
 JLoader::import('components.com_tjlms.includes.tjlms', JPATH_ADMINISTRATOR);
 JLoader::register('comtjlmsHelper', JPATH_SITE . '/components/com_tjlms/helpers/main.php');
 

@@ -13,9 +13,9 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Object\CMSObject;
+// Joomla 6: CMSObject deprecated - use stdClass or specific classes
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Component\ComponentHelper;
@@ -45,13 +45,14 @@ class JticketingHelper
 	 */
 	public static function addSubmenu()
 	{
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION checks removed - always use modern approach
+		if (false) // Legacy code path disabled for Joomla 6
 		{
 			$params               = JT::config();
 			$integration          = $params->get('integration', '', 'INT');
 			$enableWaitingList    = $params->get('enable_waiting_list', '', 'STRING');
 			$enableCertification  = JT::event()->isCertificationEnabled();
-			$input                = Factory::getapplication()->input;
+			$input                = Factory::getApplication()->getInput();
 			$vName                = $input->get('view', '', 'STRING');
 			$client               = $input->get('client', '', 'STRING');
 			$extension            = $input->get('extension', '', 'STRING');
@@ -103,107 +104,117 @@ class JticketingHelper
 			$eventJoomlaFieldView        = 'index.php?option=com_fields&context=com_jticketing.event';
 			$eventJoomlaFieldGroupView   = 'index.php?option=com_fields&view=groups&context=com_jticketing.event';
 
-			JHtmlSidebar::addEntry(Text::_('JT_CP'), 'index.php?option=com_jticketing&view=cp', $vName == 'cp');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('JT_CP'), 'index.php?option=com_jticketing&view=cp', $vName == 'cp');
 
-			JHtmlSidebar::addEntry(
-				Text::_('COM_JTICKETING_TITLE_VENUES_CATS'),
-				$venues_categories,
-				$vName == 'categories' && $extension == 'com_jticketing.venues'
-			);
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry: Text::_('COM_JTICKETING_TITLE_VENUES_CATS'), $venues_categories, $vName == 'categories' && $extension == 'com_jticketing.venues'
 
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_TITLE_VENUES'), $venues, $vName == 'venues');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_TITLE_VENUES'), $venues, $vName == 'venues');
 
 			// Showing Native event and event category menus
 			if ($integration == 2)
 			{
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_TITLE_EVENTS'), $events_view, $vName == 'events');
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_SUBMENU_CATEGORIES'), $categories_view, $vName == 'categories' && $extension == 'com_jticketing');
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_TITLE_CATIMPORTEXPORT'), $catimpexp, $vName == 'catimpexp');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_TITLE_EVENTS'), $events_view, $vName == 'events');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_SUBMENU_CATEGORIES'), $categories_view, $vName == 'categories' && $extension == 'com_jticketing');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_TITLE_CATIMPORTEXPORT'), $catimpexp, $vName == 'catimpexp');
 			}
 
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_TICKET_SALES_REPORT'), $sales_view, $vName == 'allticketsales');
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_ORDERS'), $orders_view, $vName == 'orders');
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_ATTENDEES'), $enrollments_list_view, $vName == 'attendees');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_TICKET_SALES_REPORT'), $sales_view, $vName == 'allticketsales');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_ORDERS'), $orders_view, $vName == 'orders');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_ATTENDEES'), $enrollments_list_view, $vName == 'attendees');
 
 			if ($enableWaitingList != 'none')
 			{
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_WAITING_LIST'), $waitlist_View, $vName == 'waitinglist');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_WAITING_LIST'), $waitlist_View, $vName == 'waitinglist');
 			}
 
 			if ($vName == 'categories')
 			{
-				ToolBarHelper::title('Jticketing: Categories (Events)');
+				ToolbarHelper::title('Jticketing: Categories (Events)');
 			}
 
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_EMAIL_CONFIG'), $email_config_view, $vName == 'email_config');
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_EMAIL_TEMPLATE'), $notification_templates_view, $vName == 'notifications');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_EMAIL_CONFIG'), $email_config_view, $vName == 'email_config');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_EMAIL_TEMPLATE'), $notification_templates_view, $vName == 'notifications');
 
-			JHtmlSidebar::addEntry(
-				Text::_('COM_JTICKETING_NOTIFICATIONS_SUBSCRIPTIONS'), $subscriptions_view, $vName == 'subscriptions'
-			);
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry: Text::_('COM_JTICKETING_NOTIFICATIONS_SUBSCRIPTIONS'), $subscriptions_view, $vName == 'subscriptions'
 
 			if ($enableCertification)
 			{
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_CERTIFICATE_TEMPLATE'), $certificateTemplatesView, $vName == "templates");
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_CERTIFICATE_ISSUED'), $issuedcertificateView, $vName == "certificates");
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_CERTIFICATE_TEMPLATE'), $certificateTemplatesView, $vName == "templates");
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_CERTIFICATE_ISSUED'), $issuedcertificateView, $vName == "certificates");
 			}
 
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_REMINDER_TYPES'), $reminder_view, $vName == 'reminders');
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_COUPONS'), $coupon_view, $vName == 'coupons');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_REMINDER_TYPES'), $reminder_view, $vName == 'reminders');
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_COUPONS'), $coupon_view, $vName == 'coupons');
 
 			if ($fieldsIntegration == 'com_tjfields')
 			{
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_EVENT_FIELD_MENU'), $event_field_view, $client_event_fields == 1);
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_EVENT_GROUP_MENU'), $event_field_group_view, $client_event_groups == 1);
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_EVENT_FIELD_MENU'), $event_field_view, $client_event_fields == 1);
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_EVENT_GROUP_MENU'), $event_field_group_view, $client_event_groups == 1);
 			}
 			elseif ($fieldsIntegration == 'com_fields')
 			{
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_EVENT_FIELD_MENU'), $eventJoomlaFieldView, $vName == 'fields.fields');
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_EVENT_GROUP_MENU'), $eventJoomlaFieldGroupView, $vName == 'fields.groups');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_EVENT_FIELD_MENU'), $eventJoomlaFieldView, $vName == 'fields.fields');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_EVENT_GROUP_MENU'), $eventJoomlaFieldGroupView, $vName == 'fields.groups');
 			}
 
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_ATTENDEE_FIELD_MENU'), $attendee_field_view, $client_ticket_fields == 1);
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_ATTENDEE_FIELDS_GROUP'), $attendee_field_group_view, $client_ticket_groups == 1);
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_CORE_ATTENDEE_FIELDS'), $ticket_attendee_view, $vName == "attendeecorefields");
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_ATTENDEE_FIELD_MENU'), $attendee_field_view, $client_ticket_fields == 1);
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_ATTENDEE_FIELDS_GROUP'), $attendee_field_group_view, $client_ticket_groups == 1);
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_CORE_ATTENDEE_FIELDS'), $ticket_attendee_view, $vName == "attendeecorefields");
 
 			// Event Category fields and fieldgroups
 			if (ComponentHelper::isEnabled('com_fields'))
 			{
-				JHtmlSidebar::addEntry(
-					Text::_('COM_JTICKETING_EVENT_CATEGORIES_FIELD'),
-					'index.php?option=com_fields&context=com_jticketing.categories',
-					$vName == 'fields.fields'
-				);
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry: Text::_('COM_JTICKETING_EVENT_CATEGORIES_FIELD'), 'index.php?option=com_fields&context=com_jticketing.categories', $vName == 'fields.fields'
 
-				JHtmlSidebar::addEntry(
-					Text::_('COM_JTICKETING_EVENT_CATEGORIES_FIELD_GROUPS'),
-					'index.php?option=com_fields&view=groups&context=com_jticketing.categories',
-					$vName == 'fields.groups'
-				);
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry: Text::_('COM_JTICKETING_EVENT_CATEGORIES_FIELD_GROUPS'), 'index.php?option=com_fields&view=groups&context=com_jticketing.categories', $vName == 'fields.groups'
 			}
 
-				JHtmlSidebar::addEntry(
-					Text::_('COM_JTICKETING_EVENT_VENUES_FIELD'),
-					'index.php?option=com_fields&context=com_jticketing.venue',
-					$vName == 'fields.fields'
-				);
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry: Text::_('COM_JTICKETING_EVENT_VENUES_FIELD'), 'index.php?option=com_fields&context=com_jticketing.venue', $vName == 'fields.fields'
 
-				JHtmlSidebar::addEntry(
-					Text::_('COM_JTICKETING_EVENT_VENUES_FIELD_GROUPS'),
-					'index.php?option=com_fields&view=groups&context=com_jticketing.venue',
-					$vName == 'fields.groups'
-				);
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry: Text::_('COM_JTICKETING_EVENT_VENUES_FIELD_GROUPS'), 'index.php?option=com_fields&view=groups&context=com_jticketing.venue', $vName == 'fields.groups'
 
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_VENDORS'), $vendor_view, $vName == "vendors");
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_COUNTRIES'), $country_view, $vName == "countries");
-			JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_REGIONS'), $regions_view, $vName == "regions");
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_VENDORS'), $vendor_view, $vName == "vendors");
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_COUNTRIES'), $country_view, $vName == "countries");
+			// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_REGIONS'), $regions_view, $vName == "regions");
 
 			$enabledPlugins = PluginHelper::getPlugin('tjreports');
 
 			if (!empty($enabledPlugins))
 			{
 				$report = 'index.php?option=com_tjreports&client=com_jticketing&task=reports.defaultReport';
-				JHtmlSidebar::addEntry(Text::_('COM_JTICKETING_TITLE_TJREPORT'), $report, $vName == 'reports');
+				// Joomla 6: HTMLHelperSidebar::addEntry() removed - sidebar functionality removed
+			// Removed sidebar entry:Text::_('COM_JTICKETING_TITLE_TJREPORT'), $report, $vName == 'reports');
 			}
 		}
 	}
@@ -218,7 +229,7 @@ class JticketingHelper
 	public static function getActions()
 	{
 		$user      = Factory::getUser();
-		$result    = new CMSObject;
+		$result    = new \stdClass;
 		$assetName = 'com_jticketing';
 		$actions   = array(
 						'core.admin',
@@ -232,7 +243,7 @@ class JticketingHelper
 
 		foreach ($actions as $action)
 		{
-			$result->set($action, $user->authorise($action, $assetName));
+			$result->$action = $user->authorise($action, $assetName);
 		}
 
 		return $result;
@@ -385,7 +396,7 @@ class JticketingHelper
 
 		$canDo = self::getActions();
 
-		if ($canDo->get('core.create'))
+		if ($canDo->{'core.create'})
 		{
 			$selected = 1;
 			array_unshift($options, HTMLHelper::_('select.option', $selected, Text::_('COM_JTICKETING_REPORT_CREATED_BY_ME')));
@@ -425,7 +436,12 @@ class JticketingHelper
 
 			if (self::isHierarchyEnabled())
 			{
-				JLoader::import('administrator.components.com_hierarchy.models.hierarchy', JPATH_SITE);
+				// Joomla 6: JLoader removed - use require_once
+				$hierarchyPath = JPATH_ADMINISTRATOR . '/components/com_hierarchy/models/hierarchy.php';
+				if (file_exists($hierarchyPath))
+				{
+					require_once $hierarchyPath;
+				}
 				$hierarchyModel = BaseDatabaseModel::getInstance('Hierarchy', 'HierarchyModel');
 				$subuser = $hierarchyModel->getSubUsers($userId, true);
 

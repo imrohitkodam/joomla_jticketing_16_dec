@@ -110,7 +110,7 @@ class JticketingViewVenue extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		Factory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->getInput()->set('hidemainmenu', true);
 
 		$user  = Factory::getUser();
 		$isNew = ($this->item->id == 0);
@@ -140,7 +140,7 @@ class JticketingViewVenue extends HtmlView
 		ToolbarHelper::apply('venue.apply', 'JTOOLBAR_APPLY');
 		ToolbarHelper::save('venue.save', 'JTOOLBAR_SAVE');
 
-		if (!$checkedOut && ($canDo->get('core.create')))
+		if (!$checkedOut && ($canDo->{'core.create'}))
 		{
 			ToolbarHelper::custom('venue.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
 		}

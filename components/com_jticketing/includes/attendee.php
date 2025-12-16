@@ -310,7 +310,7 @@ class JTicketingAttendee extends CMSObject
 	 */
 	public function checkCertificateIssued()
 	{
-		JLoader::import('components.com_tjcertificate.includes.tjcertificate', JPATH_ADMINISTRATOR);
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_tjcertificate/includes/tjcertificate.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_tjcertificate/includes/tjcertificate.php'; }
 		$tjCert = TJCERT::Certificate();
 
 		return $tjCert::getIssued(self::$certificateClient, $this->event_id, 0, false, $this->id);

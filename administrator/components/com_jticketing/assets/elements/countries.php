@@ -19,7 +19,7 @@ use Joomla\CMS\HTML\HTMLHelper;
  * @subpackage  component
  * @since       1.0
  */
-class JFormFieldCountries extends JFormField
+class JFormFieldCountries extends FormField
 {
 	public $TjGeoHelper;
 	/**

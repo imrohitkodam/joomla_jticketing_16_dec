@@ -10,10 +10,15 @@
 
 // No direct access.
 defined('_JEXEC') or die;
-JLoader::import('joomla.application.component.model');
+// Joomla 6: JLoader removed - use autoloading
 use Joomla\CMS\Factory;
 
-JLoader::import('jticketlist', JPATH_ROOT . '/administrator/components/com_jticketing/controllers');
+// Joomla 6: JLoader removed - use require_once
+$jticketlistPath = JPATH_ADMINISTRATOR . '/components/com_jticketing/controllers/jticketlist.php';
+if (file_exists($jticketlistPath))
+{
+	require_once $jticketlistPath;
+}
 
 /**
  * Coupons list controller class.
@@ -47,7 +52,7 @@ class JticketingControllerCoupons extends JTicketingControllerJticketlist
 	 */
 	public function getVendorSpecificEvents()
 	{
-		$input    = Factory::getApplication()->input;
+		$input    = Factory::getApplication()->getInput();
 		$vendorId = $input->get('vendorId');
 		$eventsList = array();
 

@@ -11,20 +11,18 @@
 // No direct access.
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Factory;
 use Joomla\CMS\User\User;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
-
-FormHelper::loadFieldClass('list');
 
 /**
  * Supports an HTML select list of courses
  *
  * @since  2.1.0
  */
-class JFormFieldEventsList extends JFormFieldList
+class JFormFieldEventsList extends ListField
 {
 	/**
 	 * The form field type.
@@ -65,7 +63,7 @@ class JFormFieldEventsList extends JFormFieldList
 			$eventList = $eventsModel->getItems();
 		}
 
-		if (Factory::getApplication()->input->get('view') != 'couponform')
+		if (Factory::getApplication()->getInput()->get('view') != 'couponform')
 		{
 			$options[] = HTMLHelper::_('select.option', '', Text::_('SELONE_EVENT'));
 		}

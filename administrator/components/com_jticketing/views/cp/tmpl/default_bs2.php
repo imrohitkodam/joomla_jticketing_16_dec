@@ -17,7 +17,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
 HTMLHelper::_('bootstrap.tooltip');
-if (JVERSION < '4.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 {
 HTMLHelper::_('behavior.framework');
 }

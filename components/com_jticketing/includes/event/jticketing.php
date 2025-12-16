@@ -963,7 +963,7 @@ class JTicketingEventJticketing extends JTicketingEvent
 
 	public function getRecurringEventsByEventDetails($eventDetails)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		if (empty($eventDetails->id)) {
 			return [];
 		}

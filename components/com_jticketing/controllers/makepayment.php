@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * Makepayment controller class.
@@ -32,11 +32,11 @@ class JticketingControllermakepayment extends BaseController
 	 */
 	public function setOrder()
 	{
-		JLoader::import('frontendhelper', JPATH_SITE . '/components/com_jticketing/helpers');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php'; }
 		$mainHelper = new jticketingfrontendhelper;
-		$id = Factory::getApplication()->input->get('id');
+		$id = Factory::getApplication()->getInput()->get('id');
 		$target_data = $mainHelper->getbookingDetails($id);
-		$postdata = Factory::getApplication()->input->get('post');
+		$postdata = Factory::getApplication()->getInput()->get('post');
 		$total = '';
 
 		foreach ($postdata as $key => $value)

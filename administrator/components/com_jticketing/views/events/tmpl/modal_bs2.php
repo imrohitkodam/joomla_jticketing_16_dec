@@ -20,10 +20,10 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 $document = Factory::getDocument();
-ToolBarHelper::preferences( 'com_jticketing' );
+ToolbarHelper::preferences( 'com_jticketing' );
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 $core_js = Uri::root() . 'media/system/js/core.js';
 
@@ -49,11 +49,11 @@ if ($app->isClient("site"))
 	Session::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 }
 
-$function  = $app->input->getCmd('function', 'jSelectBook_');
+$function  = $app->getInput()->getCmd('function', 'jSelectBook_');
 $listOrder = $this->state->get('list.ordering');
 $listDirn = $this->state->get('list.direction');
 
-$fieldView = $app->input->getInt('fieldView');
+$fieldView = $app->getInput()->getInt('fieldView');
 
 // Special case for the search field tooltip.
 $searchFilterDesc = $this->filterForm->getFieldAttribute('search', 'description', null, 'filter');

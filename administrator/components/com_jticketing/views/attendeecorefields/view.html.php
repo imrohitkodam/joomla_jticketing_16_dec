@@ -43,7 +43,7 @@ class JticketingViewAttendeeCoreFields extends HtmlView
 		$this->state = $this->get('State');
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
-		$this->input = Factory::getApplication()->input;
+		$this->input = Factory::getApplication()->getInput();
 		$this->user      = Factory::getUser();
 		$this->listOrder = $this->state->get('list.ordering', '');
 		$this->listDirn  = $this->state->get('list.direction', '');
@@ -60,7 +60,7 @@ class JticketingViewAttendeeCoreFields extends HtmlView
 
 		$this->addToolbar();
 
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		parent::display($tpl);
 	}
 
@@ -73,13 +73,13 @@ class JticketingViewAttendeeCoreFields extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$state = $this->get('State');
 		$canDo = JticketingHelper::getActions();
 
 		ToolbarHelper::title(Text::_('COM_JTICKETING_TITLE_ATTENDEE_CORE_FIELDS'), 'book');
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]->state))
 			{
@@ -89,13 +89,12 @@ class JticketingViewAttendeeCoreFields extends HtmlView
 			}
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
 			ToolbarHelper::preferences('com_jticketing');
 		}
 
-		// Set sidebar action - New in 3.0
-		JHtmlSidebar::setAction('index.php?option=com_jticketing&view=attendeecorefields');
+		// Joomla 6: HTMLHelperSidebar::setAction() removed - sidebar functionality removed
 
 		$this->extra_sidebar = '';
 	}

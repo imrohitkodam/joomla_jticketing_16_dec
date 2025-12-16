@@ -14,10 +14,10 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/');
+HTMLHelper::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/');
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 $user      = Factory::getUser();
 // Joomla Component Creator code to allow adding non select list filters
 if (!empty($this->extra_sidebar))

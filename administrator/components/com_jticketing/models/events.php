@@ -171,8 +171,9 @@ class JticketingModelEvents extends ListModel
 		$query->select('jt_xref.checkin AS attended_count');
 		$query->select('jt_xref.id AS integrationId');
 		$query->join('LEFT', '#__jticketing_integration_xref AS jt_xref ON jt_xref.eventid = a.id');
+		$source = 'com_jticketing';
 		$query->where($db->quoteName('jt_xref.source') . ' = :source')
-			->bind(':source', 'com_jticketing', ParameterType::STRING);
+			->bind(':source', $source, ParameterType::STRING);
 
 		$online_offline = $this->getState('filter.online_offline');
 
@@ -316,7 +317,7 @@ class JticketingModelEvents extends ListModel
 	 */
 	public function getTicketTypes($eventid = '', $allTicketTypes = false)
 	{
-		$eventid = Factory::getApplication()->input->get('id');
+		$eventid = Factory::getApplication()->getInput()->get('id');
 
 		if (!empty($eventid))
 		{

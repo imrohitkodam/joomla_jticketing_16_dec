@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\MVC\Controller\BaseController;
@@ -39,7 +39,7 @@ class JticketingController extends BaseController
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-		require_once JPATH_COMPONENT . '/helpers/jticketing.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/jticketing.php';
 
 		$view   = $this->input->get('view', 'cp');
 		$layout = $this->input->get('layout');
@@ -69,7 +69,7 @@ class JticketingController extends BaseController
 
 	public function getplugindata()
 	{
-		$jinput = Factory::getApplication()->input;
+		$jinput = Factory::getApplication()->getInput();
 
 		$plug_name = $jinput->getString('plug_name', '');
 		$plug_type = $jinput->getString('plug_type', '');
@@ -121,7 +121,7 @@ class JticketingController extends BaseController
 	 */
 	public function downloadLog()
 	{
-		$prefix   = Factory::getApplication()->input->getVar('prefix');
+		$prefix   = Factory::getApplication()->getInput()->getVar('prefix');
 		$session  = Factory::getSession();
 		$config   = Factory::getConfig();
 

@@ -18,8 +18,12 @@ use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
-// Import Csv export button
-jimport('techjoomla.tjtoolbar.button.csvexport');
+// Joomla 6: jimport() removed - use autoloading or require_once
+$csvExportPath = JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php';
+if (file_exists($csvExportPath))
+{
+	require_once $csvExportPath;
+}
 
 /**
  * View class for a list of Jticketing.
@@ -45,7 +49,7 @@ class JticketingViewEvents extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$input            = Factory::getApplication()->input;
+		$input            = Factory::getApplication()->getInput();
 		$layout        	= $input->get('layout');
 		$params = ComponentHelper::getParams('com_jticketing');
 		$integration = $params->get('integration');
@@ -55,7 +59,12 @@ class JticketingViewEvents extends HtmlView
 		$model        = $this->getModel();
 		$this->issite = 0;
 
-		JLoader::import('time', JPATH_SITE . '/components/com_jticketing/helpers');
+		// Joomla 6: JLoader removed - use require_once
+		$helperPath = JPATH_SITE . '/components/com_jticketing/helpers/time.php';
+		if (file_exists($helperPath))
+		{
+			require_once $helperPath;
+		}
 
 		$this->utilities = JT::utilities();
 
@@ -70,8 +79,9 @@ class JticketingViewEvents extends HtmlView
 		// Native Event Manager.
 		if ($integration < 1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
-			ToolBarHelper::preferences('com_jticketing');
+			// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
+			// Sidebar rendering is no longer available in Joomla 6
+			ToolbarHelper::preferences('com_jticketing');
 		?>
 			<div class="alert alert-info alert-help-inline">
 		<?php echo Text::_('COMJTICKETING_INTEGRATION_NOTICE');
@@ -103,10 +113,7 @@ class JticketingViewEvents extends HtmlView
 
 		$this->addToolbar();
 
-		if (JVERSION >= '3.0')
-		{
-			$this->sidebar = JHtmlSidebar::render();
-		}
+		// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
 
 		parent::display($tpl);
 	}
@@ -120,130 +127,103 @@ class JticketingViewEvents extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		require_once JPATH_COMPONENT . '/helpers/jticketing.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php';
 
 		$state = $this->get('State');
 		$canDo = JticketingHelper::getActions($state->get('filter.category_id'));
-		$bar   = ToolBar::getInstance('toolbar');
+		$bar   = Toolbar::getInstance('toolbar');
 
-		ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_EVENTS'), 'list');
+		// Register CsvExport button path for Joomla 6
+		$csvExportPath = JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php';
+		if (file_exists($csvExportPath))
+		{
+			require_once $csvExportPath;
+			$bar->addButtonPath(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button');
+		}
+
+		ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_EVENTS'), 'list');
 
 		// Check if the form exists before showing the add/edit buttons.
-		$formPath = JPATH_COMPONENT_ADMINISTRATOR . '/views/event';
+		$formPath = JPATH_ADMINISTRATOR . '/components/com_jticketing/views/event';
 
 		if (file_exists($formPath))
 		{
-			if ($canDo->get('core.create'))
+			if ($canDo->{'core.create'})
 			{
-				ToolBarHelper::addNew('event.add', 'JTOOLBAR_NEW');
+				ToolbarHelper::addNew('event.add', 'JTOOLBAR_NEW');
 			}
 
-			if (JVERSION >= '4.0.0')
-			{
-				$dropdown = $bar->dropdownButton('status-group')
-					->text('JTOOLBAR_CHANGE_STATUS')
-					->toggleSplit(false)
-					->icon('icon-ellipsis-h')
-					->buttonClass('btn btn-action')
-					->listCheck(true);
+			// Joomla 6: Always use Toolbar dropdown
+			$dropdown = $bar->dropdownButton('status-group')
+				->text('JTOOLBAR_CHANGE_STATUS')
+				->toggleSplit(false)
+				->icon('icon-ellipsis-h')
+				->buttonClass('btn btn-action')
+				->listCheck(true);
 
-				$childBar = $dropdown->getChildToolbar();
-			}
+			$childBar = $dropdown->getChildToolbar();
 
-			if ($canDo->get('core.edit') && isset($this->items[0]))
+			if ($canDo->{'core.edit'} && isset($this->items[0]))
 			{
-				ToolBarHelper::editList('event.edit', 'JTOOLBAR_EDIT');
-				ToolbarHelper::custom('events.duplicate', 'copy.png', 'copy_f2.png', 'JTOOLBAR_DUPLICATE', true);
+				ToolbarHelper::editList('event.edit', 'JTOOLBAR_EDIT');
+				ToolbarHelper::custom('events.duplicate', 'copy', 'copy_f2', 'JTOOLBAR_DUPLICATE', true);
 			}
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]->state))
 			{
-				ToolBarHelper::divider();
+				ToolbarHelper::divider();
 
-				if (JVERSION < '4.0.0')
-				{
-					ToolBarHelper::custom('events.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
-					ToolBarHelper::custom('events.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
-				}
-				else
-				{
-					$childBar->publish('events.publish')->listCheck(true);
-					$childBar->unpublish('events.unpublish')->listCheck(true);
-				}
+				// Joomla 6: Use Toolbar dropdown for publish/unpublish
+				$childBar->publish('events.publish')->listCheck(true);
+				$childBar->unpublish('events.unpublish')->listCheck(true);
 			}
 			elseif (isset($this->items[0]))
 			{
 				// If this component does not use state then show a direct delete button as we can not trash
-				ToolBarHelper::deleteList('', 'events.delete', 'JTOOLBAR_DELETE');
+				ToolbarHelper::deleteList('', 'events.delete', 'JTOOLBAR_DELETE');
 			}
 
 			if (isset($this->items[0]->state))
 			{
-				ToolBarHelper::divider();
+				ToolbarHelper::divider();
 
-				if (JVERSION < '4.0.0')
-				{
-					ToolBarHelper::archiveList('events.archive', 'JTOOLBAR_ARCHIVE');
-				}
-				else
-				{
-					$childBar->archive('events.archive')->listCheck(true);
-				}
+				// Joomla 6: Use Toolbar dropdown for archive
+				$childBar->archive('events.archive')->listCheck(true);
 			}
 
 			if (isset($this->items[0]->checked_out))
 			{
-				if (JVERSION < '4.0.0')
-				{
-					ToolBarHelper::custom('events.checkin', 'checkin.png', 'checkin_f2.png', 'JTOOLBAR_CHECKIN', true);
-				}
-				else
-				{
-					$childBar->checkin('events.checkin')->listCheck(true);
-				}
+				// Joomla 6: Use Toolbar dropdown for checkin
+				$childBar->checkin('events.checkin')->listCheck(true);
 			}
 		}
 
 		// Show trash and delete for components that uses the state field
 		if (isset($this->items[0]->state))
 		{
-			if ($state->get('filter.state') == -2 && $canDo->get('core.delete'))
+			if ($state->get('filter.state') == -2 && $canDo->{'core.delete'})
 			{
-				ToolBarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'events.delete', 'JTOOLBAR_EMPTY_TRASH');
-				ToolBarHelper::divider();
+				ToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'events.delete', 'JTOOLBAR_EMPTY_TRASH');
+				ToolbarHelper::divider();
 			}
-			elseif ($canDo->get('core.delete'))
+			elseif ($canDo->{'core.delete'})
 			{
-				if (JVERSION < '4.0.0')
-				{
-					ToolBarHelper::trash('events.trash', 'JTOOLBAR_TRASH');
-				}
-				else
-				{
-					$childBar->trash('events.trash')->listCheck(true);
-				}
+			// Joomla 6: Use Toolbar dropdown for trash
+			$childBar->trash('events.trash')->listCheck(true);
 
-				ToolBarHelper::divider();
+				ToolbarHelper::divider();
 			}
 		}
 
-		if ($canDo->get('core.create'))
+		if ($canDo->{'core.create'})
 		{
-			if (JVERSION < '4.0.0')
-			{
-				$buttonImport = '<a data-target="#import_eventswrap" data-toggle="modal" class="btn ImportButton">
-				<span class="icon-upload icon-white"></span>' . Text::_('COMJTICKETING_EVENT_IMPORT_CSV') . '</a>';
-				$bar->appendButton('Custom', $buttonImport);
-			}
-			else
-			{
-				$buttonImport = '&nbsp;&nbsp;<a data-bs-target="#import_eventswrap" data-bs-toggle="modal" class="btn ImportButton">
-				<span class="icon-upload icon-white"></span>' . Text::_('COMJTICKETING_EVENT_IMPORT_CSV') . '</a>';
-				$bar->appendButton('Custom', $buttonImport);
-			}
+			// Joomla 6: Use Bootstrap 5 data attributes
+			$buttonImport = '&nbsp;&nbsp;<a data-bs-target="#import_eventswrap" data-bs-toggle="modal" class="btn ImportButton">
+			<span class="icon-upload icon-white"></span>' . Text::_('COMJTICKETING_EVENT_IMPORT_CSV') . '</a>';
+			$bar->appendButton('Custom', $buttonImport);
 		}
 
 		if (isset($this->items[0]->state))
@@ -255,13 +235,15 @@ class JticketingViewEvents extends HtmlView
 
 			if (!empty($this->items))
 			{
-				$bar->appendButton('CsvExport',  $message);
+				// Joomla 6: Use legacy format for now (button type + args)
+				// The button class will handle the rendering
+				$bar->appendButton('CsvExport', $message);
 			}
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
-			ToolBarHelper::preferences('com_jticketing');
+			ToolbarHelper::preferences('com_jticketing');
 		}
 	}
 

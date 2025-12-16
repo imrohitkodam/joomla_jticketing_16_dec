@@ -16,19 +16,19 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\User\UserHelper;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\MVC\Controller\AdminController;
 
-JLoader::import('components.com_jticketing.events.attendee', JPATH_SITE);
-JLoader::import('enrollment', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('components.com_users.models.user', JPATH_ADMINISTRATOR);
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/attendee.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/attendee.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/enrollment.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/enrollment.php'; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_users/models/user.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_users/models/user.php'; }
 
 /**
  * Enrollments list controller class.
@@ -75,7 +75,7 @@ class JticketingControllerAttendees extends AdminController
 		// Check for permission to enrollment
 		$app                 = Factory::getApplication();
 		$user                = Factory::getUser();
-		$post                = $app->input->post;
+		$post                = $app->getInput()->post;
 		$notify              = $post->get('notify', false);
 		$data                = array();
 
@@ -124,7 +124,7 @@ class JticketingControllerAttendees extends AdminController
 	 */
 	public function checkin()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		// Get some variables from the request
 		$attendeeIds = $input->get('cid', array(), 'post', 'array');
@@ -172,7 +172,7 @@ class JticketingControllerAttendees extends AdminController
 	 */
 	public function undochekin()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		// Get some variables from the request
 		$attendeeIds = $input->get('cid', array(), 'post', 'array');
@@ -275,7 +275,7 @@ class JticketingControllerAttendees extends AdminController
 	public function redirectforEmail()
 	{
 		$mainframe = Factory::getApplication();
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$cids	= $input->get('cid', '', 'POST', 'ARRAY');
 		$session =& Factory::getSession();
 		$session->set('selected_order_item_ids', $cids);
@@ -315,7 +315,7 @@ class JticketingControllerAttendees extends AdminController
 			jexit();
 		}
 
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$files = $input->files;
 		$post = $input->post;
 
@@ -793,7 +793,7 @@ class JticketingControllerAttendees extends AdminController
 	 */
 	public function downloadPDF()
 	{
-		$input    = Factory::getApplication()->input;
+		$input    = Factory::getApplication()->getInput();
 		$config = Factory::getConfig();
 		$eventid  = $input->get('eventid', '', 'INT');
 		$ticketid = $input->get('ticketid');
@@ -839,7 +839,7 @@ class JticketingControllerAttendees extends AdminController
 		$config			       = JT::config();
 		$pkeyForMarkAttendance = $config->get('attendancecron_key', '');
 		$app   				   = Factory::getApplication();
-		$privateKeyInUrl       = $app->input->get('pkey', '', 'STRING');
+		$privateKeyInUrl       = $app->getInput()->get('pkey', '', 'STRING');
 		$cronLimit 			   = $config->get('cron_limit');
 
 		if ($pkeyForMarkAttendance != $privateKeyInUrl)

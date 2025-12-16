@@ -14,14 +14,14 @@ use Joomla\CMS\User\User;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\Registry\Registry;
 
-jimport('techjoomla.common');
-jimport('techjoomla.jsocial.jsocial');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/common.php')) { require_once JPATH_LIBRARIES . '/techjoomla/common.php'; }
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
 
 /**
  * Interface to handle Social Extensions

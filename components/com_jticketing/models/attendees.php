@@ -10,8 +10,8 @@
 
 defined('_JEXEC') or die;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('components.com_users.models.user', JPATH_ADMINISTRATOR);
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_users/models/user.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_users/models/user.php'; }
 
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Factory;
@@ -427,7 +427,7 @@ class JticketingModelAttendees extends ListModel
 	 */
 	public function getAttendeeEmail($attendee_ids)
 	{
-		JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 		$model = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 		$email_array = array();
 
@@ -492,7 +492,7 @@ class JticketingModelAttendees extends ListModel
 	 */
 	public function getItems()
 	{
-		JLoader::import('time', JPATH_SITE . '/components/com_jticketing/helpers');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/time.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/time.php'; }
 		$comParams                   = JT::config();
 		$collectAttendeeInfoCheckout = $comParams->get('collect_attendee_info_checkout');
 		$items                       = parent::getItems();

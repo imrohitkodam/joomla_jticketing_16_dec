@@ -24,7 +24,7 @@ use Joomla\CMS\Component\ComponentHelper;
 
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 HTMLHelper::_('jquery.token');
-jimport('techjoomla.common');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/common.php')) { require_once JPATH_LIBRARIES . '/techjoomla/common.php'; }
 $this->techjoomlacommon = new TechjoomlaCommon;
 JticketingCommonHelper::getLanguageConstant();
 $eventUrl          = 'index.php?option=com_jticketing&view=event&id=' . (int) $this->item->id;

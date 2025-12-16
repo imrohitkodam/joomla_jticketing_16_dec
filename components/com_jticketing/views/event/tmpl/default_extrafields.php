@@ -29,11 +29,13 @@ $customFieldValues = $customFieldsmodel->getItems();
 
 foreach($customFieldValues as $field)
 {
-	if (JVERSION < '4.0.0')
+	// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 	{
 		$customFieldmodel  = BaseDatabaseModel::getInstance('Field', 'FieldsModel', array('ignore_request' => true));
 	}
-	else if (JVERSION < '5.0.0')
+	else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '5.0.0')
 	{
 		
 		JLoader::register('FieldModel', JPATH_ADMINISTRATOR . '/components/com_fields/src/Model/FieldModel.php');

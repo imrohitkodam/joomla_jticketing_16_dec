@@ -12,4 +12,4 @@
 defined('_JEXEC') or die;
 
 // Load frontend venues model
-JLoader::import('com_jticketing.models.pdftemplates', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/pdftemplates.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/pdftemplates.php'; }

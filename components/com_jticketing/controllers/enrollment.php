@@ -18,8 +18,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\MVC\Controller\AdminController;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('event', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/event.php'; }
 
 /**
  * Jtickeing list enrollment controller.
@@ -67,10 +67,10 @@ class JticketingControllerEnrollment extends AdminController
 		$alreadyEnrolledCount = 0;
 		$config               = JT::config();
 
-		$userIds     = $app->input->get('cid', '0', 'ARRAY');
-		$eventIds    = $app->input->get('selected_events', '0', 'ARRAY');
-		$redirectUrl = $app->input->get('redirectUrl', '', 'STRING');
-		$notify      = $app->input->get('notify_user_enroll', '', 'INT');
+		$userIds     = $app->getInput()->get('cid', '0', 'ARRAY');
+		$eventIds    = $app->getInput()->get('selected_events', '0', 'ARRAY');
+		$redirectUrl = $app->getInput()->get('redirectUrl', '', 'STRING');
+		$notify      = $app->getInput()->get('notify_user_enroll', '', 'INT');
 
 		// Enroll each user to every event
 		foreach ($userIds as $userId)

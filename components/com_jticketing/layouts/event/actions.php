@@ -146,7 +146,7 @@ if ($enableSelfEnrollment && $user->authorise('core.enroll', 'com_jticketing.eve
 
 	if ($showbook)
 	{
-		$itemId = Factory::getApplication()->input->get('Itemid');
+		$itemId = Factory::getApplication()->getInput()->get('Itemid');
 		$redirect = '';
 
 		if (!empty($redirectionUrl))
@@ -288,7 +288,8 @@ if ($event->isBuyingLimitExceed($userId) && !empty($userId) && empty($event->isO
 	$modalConfig['title'] = Text::_('COM_JTICKETING_VIEW_TICKET_BUTTON');
 	echo HTMLHelper::_('bootstrap.renderModal', 'jtActionsBtn' . $attendees['0']->id, $modalConfig);
 
-	if (JVERSION < '4.0.0')
+	// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 	{
 		echo "<a data-target='#jtActionsBtn" . $attendees['0']->id . "' data-toggle='modal' class='af-relative af-d-block btn btn-info' title='"
 		. Text::_('COM_JTICKETING_VIEW_TICKET_BUTTON_TOOLTIP') . "'

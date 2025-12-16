@@ -28,8 +28,8 @@ class jticketingViewemail_config extends HtmlView
 		// Native Event Manager.
 		if($integration<1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
-			ToolBarHelper::preferences('com_jticketing');
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
+			ToolbarHelper::preferences('com_jticketing');
 		?>
 			<div class="alert alert-info alert-help-inline">
 		<?php echo Text::_('COMJTICKETING_INTEGRATION_NOTICE');
@@ -42,12 +42,11 @@ class jticketingViewemail_config extends HtmlView
 		$JticketingHelper=new JticketingHelper();
 		$JticketingHelper->addSubmenu('email_config');
 		$this->_setToolBar();
-		if(JVERSION>='3.0')
-		$this->sidebar = JHtmlSidebar::render();
+		// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
 
 		//Get the model
 		$model = $this->getModel();
-		$input=Factory::getApplication()->input;
+		$input=Factory::getApplication()->getInput();
 		$option = $input->set('layout','email_config');
 		$this->setLayout('email_config');
 
@@ -62,21 +61,22 @@ class jticketingViewemail_config extends HtmlView
 		$document =Factory::getDocument();
 		HTMLHelper::_('stylesheet', 'components/com_jticketing/assets/css/jticketing.css');
 		$bar =ToolBar::getInstance('toolbar');
-		ToolBarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
+		ToolbarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			ToolBarHelper::title( Text::_('COM_JTICKETING_COMPONENT') . Text::_( 'TABS_TEMPLATE' ), 'folder' );
+			ToolbarHelper::title( Text::_('COM_JTICKETING_COMPONENT') . Text::_( 'TABS_TEMPLATE' ), 'folder' );
 		}
 		else
 		{
-			ToolBarHelper::title( Text::_('COM_JTICKETING_COMPONENT') . Text::_( 'TABS_TEMPLATE' ), 'icon-48-jticketing.png' );
+			ToolbarHelper::title( Text::_('COM_JTICKETING_COMPONENT') . Text::_( 'TABS_TEMPLATE' ), 'icon-48-jticketing.png' );
 		}
 
 		if(JVERSION >='1.6.0')
-     		ToolBarHelper::save('email_config.save','COM_JTICKETING_SAVE');
+     		ToolbarHelper::save('email_config.save','COM_JTICKETING_SAVE');
     		else
-     		ToolBarHelper::save();
-			ToolBarHelper::preferences('com_jticketing');
+     		ToolbarHelper::save();
+			ToolbarHelper::preferences('com_jticketing');
 	}
 }

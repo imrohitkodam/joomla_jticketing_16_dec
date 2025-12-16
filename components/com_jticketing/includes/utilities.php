@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die();
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -738,7 +738,7 @@ class JTicketingUtilities
 	public function getJticketingJsFiles(&$jsFilesArray)
 	{
 		$db       = Factory::getDbo();
-		$input    = Factory::getApplication()->input;
+		$input    = Factory::getApplication()->getInput();
 		$option   = $input->get('option', '');
 		$view     = $input->get('view', '');
 		$app      = Factory::getApplication();
@@ -797,22 +797,22 @@ class JTicketingUtilities
 		{
 			if ($socialIntegrationOption == 'joomla')
 			{
-				jimport('techjoomla.jsocial.joomla');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 				$sociallibraryclass = new JSocialJoomla;
 			}
 			elseif ($socialIntegrationOption == 'jomsocial')
 			{
-				jimport('techjoomla.jsocial.jomsocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 				$sociallibraryclass = new JSocialJomsocial;
 			}
 			elseif ($socialIntegrationOption == 'EasySocial')
 			{
-				jimport('techjoomla.jsocial.easysocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php'; }
 				$sociallibraryclass = new JSocialEasysocial;
 			}
 			elseif($socialIntegrationOption == 'cb')
 			{
-				jimport('techjoomla.jsocial.cb');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/cb.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/cb.php'; }
 				$sociallibraryclass = new JSocialCB;
 			}
 

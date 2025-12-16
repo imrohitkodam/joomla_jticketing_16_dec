@@ -27,12 +27,27 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\User\UserHelper;
 
-jimport('techjoomla.tjnotifications.tjnotifications');
-jimport('techjoomla.tjmoney.tjmoney');
+// Joomla 6: jimport() removed - use require_once or autoloading
+$tjNotificationsPath = JPATH_LIBRARIES . '/techjoomla/tjnotifications/tjnotifications.php';
+if (file_exists($tjNotificationsPath))
+{
+	require_once $tjNotificationsPath;
+}
+
+$tjMoneyPath = JPATH_LIBRARIES . '/techjoomla/tjmoney/tjmoney.php';
+if (file_exists($tjMoneyPath))
+{
+	require_once $tjMoneyPath;
+}
 
 use Joomla\String\StringHelper;
 
-JLoader::import('time', JPATH_SITE . '/components/com_jticketing/helpers');
+// Joomla 6: JLoader removed - use require_once
+$timeHelperPath = JPATH_SITE . '/components/com_jticketing/helpers/time.php';
+if (file_exists($timeHelperPath))
+{
+	require_once $timeHelperPath;
+}
 include_once  JPATH_SITE . '/components/com_jticketing/includes/jticketing.php';
 
 $com_params         = ComponentHelper::getParams('com_jticketing');
@@ -1667,8 +1682,17 @@ class Jticketingmainhelper
 
 		if ($integration == 2)
 		{
-			JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-			JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+			// Joomla 6: JLoader removed - use require_once
+			$storagePath = JPATH_LIBRARIES . '/techjoomla/media/storage/local.php';
+			$xrefPath = JPATH_LIBRARIES . '/techjoomla/media/xref.php';
+			if (file_exists($storagePath))
+			{
+				require_once $storagePath;
+			}
+			if (file_exists($xrefPath))
+			{
+				require_once $xrefPath;
+			}
 			$mediaXrefLib   = TJMediaXref::getInstance();
 
 			$xrefMediaData  = array('clientId' => $eventdata->id, 'client' => 'com_jticketing.event','isGallery' => 0);
@@ -2522,7 +2546,7 @@ class Jticketingmainhelper
 	public function getEventName($eventid)
 	{
 		$integration = JT::getIntegration(true);
-		$input       = Factory::getApplication()->input;
+		$input       = Factory::getApplication()->getInput();
 		$mainframe   = Factory::getApplication();
 		$option      = $input->get('option');
 		$eventid     = $input->get('event', '', 'INT');
@@ -5097,8 +5121,8 @@ class Jticketingmainhelper
 
 		if ($integration == 2 && $result)
 		{
-			JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-			JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+			if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+			if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
 			$mediaXrefLib   = TJMediaXref::getInstance();
 
 			foreach ($result AS $key => $res)
@@ -5342,8 +5366,8 @@ class Jticketingmainhelper
 
 		if ($integration == 2 && $results)
 		{
-			JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-			JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+			if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+			if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
 			$mediaXrefLib   = TJMediaXref::getInstance();
 
 			foreach ($results AS $key => $result)
@@ -5581,7 +5605,8 @@ class Jticketingmainhelper
 
 		$JDate_start = Factory::getDate($date);
 
-		if (JVERSION >= 3.0)
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= 3.0
 		{
 			$offset = $config->get('offset');
 		}

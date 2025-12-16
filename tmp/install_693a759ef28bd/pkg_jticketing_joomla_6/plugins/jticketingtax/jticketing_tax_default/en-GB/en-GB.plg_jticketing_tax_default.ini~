@@ -1,0 +1,5 @@
+;backend
+PLG_TAX="Tax Value"
+PLG_TAX_DESC="Tax in % to be applied to Jticketing (Don't append %). For example 12.5"
+
+

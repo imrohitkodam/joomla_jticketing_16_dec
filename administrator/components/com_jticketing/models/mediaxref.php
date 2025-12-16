@@ -10,4 +10,4 @@
 
 // No direct access
 defined('_JEXEC') or die();
-JLoader::import('com_jticketing.models.mediaxref', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/mediaxref.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/mediaxref.php'; }

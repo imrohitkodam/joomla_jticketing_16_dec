@@ -29,7 +29,7 @@ if (file_exists(JPATH_ROOT . '/media/techjoomla_strapper/tjstrapper.php'))
  * @subpackage  component
  * @since       1.0
  */
-class JFormFieldLegend extends JFormField
+class JFormFieldLegend extends FormField
 {
 	/**
 	 * The form field type.
@@ -53,7 +53,8 @@ class JFormFieldLegend extends JFormField
 		$legendClass = 'jticket-elements-legend';
 		$hintClass = "jticket-elements-legend-hint";
 
-		if (JVERSION < '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '3.0')
 		{
 			$element = (array) $this->element;
 			$hint = $element['@attributes']['hint'];

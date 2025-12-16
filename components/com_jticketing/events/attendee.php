@@ -16,10 +16,10 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('enrollment', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('frontendhelper', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('common', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/enrollment.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/enrollment.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
 
 /**
  * JTicketing triggers class for attendee and enrollment

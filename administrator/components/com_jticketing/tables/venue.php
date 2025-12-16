@@ -36,26 +36,19 @@ class JticketingTablevenue extends Table
 	 */
 	public function __construct(&$db)
 	{
-		if(JVERSION < 4.0)
-		{
-			JObserverMapper::addObserverClassToClass('JTableObserverContenthistory', 'JticketingTablevenue', array('typeAlias' => 'com_jticketing.venue'));
-		}
-		else
-		{
-			// Create or set a Dispatcher
-			$dispatcher = Factory::getApplication()->getDispatcher();
+		// Joomla 6: JObserverMapper removed - using event dispatcher instead
+		// Create or set a Dispatcher
+		$dispatcher = Factory::getApplication()->getDispatcher();
+		$this->setDispatcher($dispatcher);
 
-			$this->setDispatcher($dispatcher);
+		$event = \Joomla\CMS\Event\AbstractEvent::create(
+			'onTableObjectCreate',
+			[
+				'subject'	=> $this,
+			]
+		);
 
-			$event = Joomla\CMS\Event\AbstractEvent::create(
-				'onTableObjectCreate',
-				[
-					'subject'	=> $this,
-				]
-			);
-
-			$this->getDispatcher()->dispatch('onTableObjectCreate', $event);
-		}
+		$this->getDispatcher()->dispatch('onTableObjectCreate', $event);
 
 		parent::__construct('#__jticketing_venues', 'id', $db);
 	}
@@ -73,7 +66,7 @@ class JticketingTablevenue extends Table
 	 */
 	public function bind($array, $ignore = '')
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		$task = $input->getString('task', '');
 
@@ -194,7 +187,8 @@ class JticketingTablevenue extends Table
 		}
 
 		// Check if category with same alias is present
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
 			Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_categories/tables');
 			$category = Table::getInstance('Category', 'CategoriesTable');
@@ -339,7 +333,7 @@ class JticketingTablevenue extends Table
 	 *
 	 * @return string The asset name
 	 *
-	 * @see JTable::_getAssetName
+	 * @see Table::_getAssetName
 	 */
 	protected function _getAssetName()
 	{
@@ -354,7 +348,7 @@ class JticketingTablevenue extends Table
 	 * @param   JTable   $table  Table name
 	 * @param   integer  $id     Id
 	 *
-	 * @see JTable::_getAssetParentId
+	 * @see Table::_getAssetParentId
 	 *
 	 * @return mixed The id on success, false on failure.
 	 */

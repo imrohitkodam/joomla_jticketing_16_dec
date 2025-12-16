@@ -19,7 +19,7 @@ use Joomla\CMS\Language\Text;
  * @subpackage  site
  * @since       1.0
  */
-class JFormFieldAupfilesocialads extends JFormField
+class JFormFieldAupfilesocialads extends FormField
 {
 	/**
 	 * The form field type.
@@ -42,9 +42,9 @@ class JFormFieldAupfilesocialads extends JFormField
 	{
 		if ($this->id == 'jform_params_aupfilesocialads')
 		{
-			$html = '<div style="float:left"><a href="' . JURI::root() . 'plugins/payment/alphauserpoints/alphauserpoints/socialads_aup.zip"> '
+			$html = '<div style="float:left"><a href="' . Uri::root() . 'plugins/payment/alphauserpoints/alphauserpoints/socialads_aup.zip"> '
 			. Text::_('AUP_CLK') . '</a><span> ' . Text::_('AUP_INST') . ' </span><a href="'
-			. JURI::base() . 'index.php?option=com_alphauserpoints&task=plugins" target="_blank">' . Text::_('HERE')
+			. Uri::base() . 'index.php?option=com_alphauserpoints&task=plugins" target="_blank">' . Text::_('HERE')
 			. '</a>. <a href="http://techjoomla.com/documentation-for-socialads/configuring-payment-plugins-for-socialads.html" target="_blank">'
 			. Text::_('CLK_DOC') . '</a></div>';
 

@@ -16,10 +16,10 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\Toolbar;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 // Import Csv export button
-jimport('techjoomla.tjtoolbar.button.csvexport');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php'; }
 
 /**
  * View class for a list of Jticketing.
@@ -59,7 +59,7 @@ class JTicketingViewWaitinglist extends HtmlView
 	{
 		$this->canDo = ContentHelper::getActions('com_jticketing');
 		$com_params  = ComponentHelper::getParams('com_jticketing');
-		$layout      = Factory::getApplication()->input->get('layout', 'default');
+		$layout      = Factory::getApplication()->getInput()->get('layout', 'default');
 
 		$this->enableWaitingList = $com_params->get('enable_waiting_list');
 
@@ -109,7 +109,7 @@ class JTicketingViewWaitinglist extends HtmlView
 	 */
 	protected function addTJtoolbar()
 	{
-		$layout = Factory::getApplication()->input->get('layout', 'default');
+		$layout = Factory::getApplication()->getInput()->get('layout', 'default');
 		$com_params = ComponentHelper::getParams('com_jticketing');
 		$autoAdvanceWaitingList = $com_params->get('auto_advance_waiting_list');
 		$toolbar = Toolbar::getInstance('toolbar');
@@ -149,7 +149,7 @@ class JTicketingViewWaitinglist extends HtmlView
 						<span class="icon-mail"></span> ' . Text::_('COM_JTICKETING_EMAIL_TO_ALL_SELECTED_WAITLISTED_USERS') . '
 					</button>');
 
-				if (($canDo->get('core.enrollall') || $canDo->get('core.enrollown'))
+				if (($canDo->{'core.enrollall'} || $canDo->{'core.enrollown'})
 					&& empty($autoAdvanceWaitingList) && ($this->enableWaitingList == 'both' || $this->enableWaitingList == 'classroom_training'))
 				{
 					$taskName = 'waitinglist.enroll';

@@ -10,7 +10,7 @@
 
 // No direct access
 defined('_JEXEC') or die('Restricted access');
-JLoader::import('jlike', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/jlike.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/jlike.php'; }
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
@@ -151,7 +151,7 @@ class JticketingTriggerEvent
 				$downloadCertificateUrlOpts             = array ();
 				$downloadCertificateUrlOpts['absolute'] = true;
 
-				JLoader::import('components.com_tjcertificate.includes.tjcertificate', JPATH_ADMINISTRATOR);
+				if (file_exists(JPATH_ADMINISTRATOR . '/components/com_tjcertificate/includes/tjcertificate.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_tjcertificate/includes/tjcertificate.php'; }
 
 				$attendeeObj = JT::attendee($checkinDetails['attendeeId']);
 

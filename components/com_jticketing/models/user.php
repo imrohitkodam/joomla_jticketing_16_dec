@@ -21,8 +21,8 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Plugin\PluginHelper;
 
-JLoader::import('common', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 /**
  * Model for buy for creating order and other
@@ -158,12 +158,12 @@ class JticketingModelUser extends AdminModel
 				$orderInfo['email'] = $data['email1'];
 
 				// Update the order details.
-				JLoader::import('components.com_jticketing.models.order', JPATH_SITE);
+				if (file_exists(JPATH_SITE . '/components/com_jticketing/models/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/order.php'; }
 				$orderModel = BaseDatabaseModel::getInstance('Order', 'JticketingModel');
 				$orderModel->updateOrderDetails($orderId, $orderInfo);
 
 				// Get order items for this order.
-				JLoader::import('components.com_jticketing.models.orderitem', JPATH_SITE);
+				if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orderitem.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orderitem.php'; }
 				$ordrItemModel = BaseDatabaseModel::getInstance('Orderitem', 'JticketingModel');
 				$orderItems = $ordrItemModel->getOrderItems($orderId);
 
@@ -172,7 +172,7 @@ class JticketingModelUser extends AdminModel
 				{
 					foreach ($orderItems as $orderItem)
 					{
-						JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+						if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 						$attendeeFormModel = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 						$attendeeFormModel->updateAttendeeOwner($orderItem->attendee_id, $ownerId = 0, $ownerEmail = $data['email1']);
 					}
@@ -199,12 +199,12 @@ class JticketingModelUser extends AdminModel
 					$orderInfo['user_id'] = isset($data['user_id']) ? Factory::getUser()->id : $data['user_id'];
 
 					// Update the order details.
-					JLoader::import('components.com_jticketing.models.order', JPATH_SITE);
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/order.php'; }
 					$orderModel = BaseDatabaseModel::getInstance('Order', 'JticketingModel');
 					$orderModel->updateOrderDetails($orderId, $orderInfo);
 
 					// Get order items for this order.
-					JLoader::import('components.com_jticketing.models.orderitem', JPATH_SITE);
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orderitem.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orderitem.php'; }
 					$ordrItemModel = BaseDatabaseModel::getInstance('Orderitem', 'JticketingModel');
 					$orderItems = $ordrItemModel->getOrderItems($orderId);
 
@@ -213,7 +213,7 @@ class JticketingModelUser extends AdminModel
 					{
 						foreach ($orderItems as $orderItem)
 						{
-							JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+							if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 							$attendeeFormModel = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 							$attendeeFormModel->updateAttendeeOwner($orderItem->attendee_id, $ownerId = $data['user_id'], $ownerEmail = '');
 						}
@@ -325,12 +325,12 @@ class JticketingModelUser extends AdminModel
 			$orderInfo['user_id'] = Factory::getUser()->id;
 
 			// Update the order details.
-			JLoader::import('components.com_jticketing.models.order', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jticketing/models/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/order.php'; }
 			$orderModel = BaseDatabaseModel::getInstance('Order', 'JticketingModel');
 			$orderModel->updateOrderDetails($orderId, $orderInfo);
 
 			// Get order items for this order.
-			JLoader::import('components.com_jticketing.models.orderitem', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orderitem.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orderitem.php'; }
 			$ordrItemModel = BaseDatabaseModel::getInstance('Orderitem', 'JticketingModel');
 			$orderItems = $ordrItemModel->getOrderItems($orderId);
 
@@ -339,7 +339,7 @@ class JticketingModelUser extends AdminModel
 			{
 				foreach ($orderItems as $oi)
 				{
-					JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 					$attendeeFormModel = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 					$attendeeFormModel->updateAttendeeOwner($oi->attendee_id, $owner_id = Factory::getUser()->id);
 				}
@@ -680,7 +680,7 @@ class JticketingModelUser extends AdminModel
 
 		if ($myteam)
 		{
-			JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+			if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php'; }
 			$hasUsers = JticketingHelper::getSubusers();
 
 			if (!empty($hasUsers))
@@ -725,7 +725,7 @@ class JticketingModelUser extends AdminModel
 
 		if ($myteam)
 		{
-			JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+			if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php'; }
 			$hasUsers = JticketingHelper::getSubusers();
 
 			if (!empty($hasUsers))

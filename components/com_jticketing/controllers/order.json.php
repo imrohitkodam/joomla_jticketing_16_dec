@@ -82,7 +82,7 @@ class JticketingControllerOrder extends jticketingController
 			$this->app->close();
 		}
 
-		$jinput         = Factory::getApplication()->input;
+		$jinput         = Factory::getApplication()->getInput();
 		$country        = $jinput->get('country', '', 'STRING');
 		$model          = JT::model("order", array('ignore_request' => true));
 		$regionList     = $model->getRegionList($country);
@@ -971,7 +971,8 @@ class JticketingControllerOrder extends jticketingController
 		$data->id = $event->id;
 		$data->title = $event->getTitle();
 
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
 			Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_categories/tables');
 			$categoryTable = Table::getInstance('Category', 'CategoriesTable');

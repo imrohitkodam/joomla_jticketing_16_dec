@@ -42,7 +42,7 @@ class TjreportsModelEventreport extends TjreportsModelReports
 	 */
 	public function __construct($config = array())
 	{
-		JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php'; }
 
 		$lang = Factory::getLanguage();
 		$base_dir = JPATH_SITE . '/administrator';

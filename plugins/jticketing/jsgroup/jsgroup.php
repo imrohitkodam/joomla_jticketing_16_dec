@@ -10,7 +10,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
@@ -18,7 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\HTML\HTMLHelper;
 
-jimport('techjoomla.jsocial.jomsocial');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 
 require_once JPATH_ROOT . '/plugins/jticketing/jsgroup/elements/groupcategories.php';
 include_once JPATH_SITE . '/components/com_jticketing/includes/jticketing.php';
@@ -51,7 +51,7 @@ class PlgJticketingJsgroup extends CMSPlugin
 		$params = ComponentHelper::getParams('com_jticketing');
 		$app    = Factory::getApplication();
 
-		$cid = $app->input->get('id', 0, 'INT');
+		$cid = $app->getInput()->get('id', 0, 'INT');
 
 		// To get the event information
 		$eventFormModel = JT::model('eventform');

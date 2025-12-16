@@ -16,7 +16,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\Toolbar;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 /**
  * View class for a list of Jticketing.
@@ -76,7 +76,7 @@ class JticketingViewEnrollments extends HtmlView
 		$this->modal_params           = array();
 		$this->modal_params['height'] = "500px";
 		$this->modal_params['width']  = "500px";
-		$this->modal_params['url']    = JURI::base(true) . '/index.php?option=com_jticketing&view=enrollment&tmpl=component';
+		$this->modal_params['url']    = Uri::base(true) . '/index.php?option=com_jticketing&view=enrollment&tmpl=component';
 		$this->body                   = "";
 
 		// Check for errors.
@@ -111,11 +111,11 @@ class JticketingViewEnrollments extends HtmlView
 		$canDo = $this->canDo;
 
 		// Add toolbar buttons
-		jimport('techjoomla.tjtoolbar.toolbar');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php'; }
 		$tjbar = TJToolbar::getInstance('tjtoolbar', 'pull-right float-end');
 		$title = Text::_('COM_JTICKETING_TITLE_ENROLLMENTS_NEW');
 
-		if ($canDo->get('core.enrollall') || $canDo->get('core.enrollown'))
+		if ($canDo->{'core.enrollall'} || $canDo->{'core.enrollown'})
 		{
 			// No use of enroll.save
 			$tjbar->appendButton('custom.new', $title, '', 'class="af-d-block  af-ml-10 btn btn-sm btn-success" href="#myModal" data-toggle="modal"');

@@ -11,7 +11,7 @@
 // No direct access.
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\Utilities\ArrayHelper;
@@ -52,7 +52,7 @@ class JticketingControllerCatimpexp extends AdminController
 	public function csvImport()
 	{
 		$mainframe = Factory::getApplication();
-		$fileArray = $mainframe->input->files->get('csvfile', '', 'NONE');
+		$fileArray = $mainframe->getInput()->files->get('csvfile', '', 'NONE');
 		$uploads_dir = $mainframe->get('tmp_path') . '/';
 
 		// Start file heandling functionality *
@@ -142,7 +142,7 @@ class JticketingControllerCatimpexp extends AdminController
 		}
 		else
 		{
-			// $msg = JText::_('File not open');
+			// $msg = Text::_('File not open');
 			$application = Factory::getApplication();
 			$application->enqueueMessage(Text::_('COM_JTICKETING_SOME_ERROR_OCCURRED'), 'error');
 			$mainframe->redirect(Route::_('index.php?option=com_jticketing&view=catimpexp', false));
@@ -191,16 +191,17 @@ class JticketingControllerCatimpexp extends AdminController
 	public function csvexport()
 	{
 		// #load categories model file as it is
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
-			JLoader::import('categories', JPATH_ADMINISTRATOR . '/components/com_categories/models');
+			if (file_exists(JPATH_ADMINISTRATOR . '/components/com_categories/models/categories.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_categories/models/categories.php'; }
 		}
 		else
 		{
-			JLoader::import('CategoriesModel', JPATH_ADMINISTRATOR . '/components/com_categories/src/Model');
+			// Joomla 6: Use JoomlaComponentCategoriesAdministratorModelCategoriesModel
 		}
 
-		/*$table = JTable::getInstance('Category', 'CategoriesTable', $config = array());
+		/*$table = Table::getInstance('Category', 'CategoriesTable', $config = array());
 
 		$categoriesModel = new CategoriesModelCategories;
 		$extension       = $categoriesModel->setState('filter.extension', 'com_jticketing');
@@ -261,7 +262,7 @@ class JticketingControllerCatimpexp extends AdminController
 	public function saveOrderAjax()
 	{
 		// Get the input
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$pks = $input->post->get('cid', array(), 'array');
 		$order = $input->post->get('order', array(), 'array');
 

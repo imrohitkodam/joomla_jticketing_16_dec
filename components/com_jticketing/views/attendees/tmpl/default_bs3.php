@@ -17,7 +17,7 @@ use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 HTMLHelper::_('jquery.token');
 
@@ -25,7 +25,7 @@ $listOrder  = $this->escape($this->state->get('list.ordering'));
 $listDirn   = $this->escape($this->state->get('list.direction'));
 
 // Modal pop up for mass enrollment
-echo JHtmlBootstrap::renderModal('myModal', $this->modal_params, $this->body);
+echo HTMLHelper::_('bootstrap.renderModal', 'myModal', $this->modal_params, $this->body);
 ?>
 <div class="modal fade z-index-9999 move-attendee" id="move_attendee" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

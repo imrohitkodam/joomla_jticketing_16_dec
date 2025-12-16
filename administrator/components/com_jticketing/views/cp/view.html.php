@@ -51,7 +51,7 @@ class JticketingViewcp extends HtmlView
 		$this->downloadid         = $com_params->get('downloadid');
 		$this->currency           = $com_params->get('currency');
 		$this->siteadmin_comm_per = $com_params->get('siteadmin_comm_per');
-		$input             = Factory::getApplication()->input;
+		$input             = Factory::getApplication()->getInput();
 		$layout            = $input->get('layout');
 		$model             = $this->getModel();
 		$this->ordersArray = $model->getOrdersArray();
@@ -107,7 +107,7 @@ class JticketingViewcp extends HtmlView
 		}
 
 		// Get installed version from xml file
-		$xml           = simplexml_load_file(JPATH_COMPONENT . '/jticketing.xml');
+		$xml           = simplexml_load_file(JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/jticketing.xml');
 		$version       = (string) $xml->version;
 		$this->version = $version;
 		$model         = $this->getModel();
@@ -121,10 +121,7 @@ class JticketingViewcp extends HtmlView
 			$this->setLayout('default');
 		}
 
-		if (JVERSION >= '3.0')
-		{
-			$this->sidebar = JHtmlSidebar::render();
-		}
+		// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
 
 		$this->utilities = JT::utilities();
 
@@ -147,7 +144,7 @@ class JticketingViewcp extends HtmlView
 			ToolbarHelper::custom('cp.migrate', 'refresh', 'refresh', 'JTOOLBAR_MIGRATE', false);
 			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_COMPONENT_DASHBOARD'), 'dashboard');
 
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		$toolbar = Toolbar::getInstance('toolbar');
 		$toolbar->appendButton(

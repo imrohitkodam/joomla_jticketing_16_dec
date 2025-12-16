@@ -119,7 +119,7 @@ class JticketingViewPDFTemplate extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		Factory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->getInput()->set('hidemainmenu', true);
 
 		$user  = Factory::getUser();
 		$isNew = ($this->item->id == 0);
@@ -142,7 +142,7 @@ class JticketingViewPDFTemplate extends HtmlView
 		ToolbarHelper::apply('pdftemplate.apply', 'JTOOLBAR_APPLY');
 		ToolbarHelper::save('pdftemplate.save', 'JTOOLBAR_SAVE');
 
-		if (!$checkedOut && ($canDo->get('core.create')))
+		if (!$checkedOut && ($canDo->{'core.create'}))
 		{
 			ToolbarHelper::custom('pdftemplate.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
 		}

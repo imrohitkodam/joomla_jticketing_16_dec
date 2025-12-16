@@ -1,0 +1,8 @@
+<?php
+defined('_JEXEC') or die;
+return array (
+  'PLG_TAX' => 'Tax Value',
+  'PLG_TAX_DESC' => 'Tax in % to be applied to Jticketing (Don\'t append %). For example 12.5',
+  'PLG_JTICKETINGTAX_JTICKETING_TAX_DEFAULT' => 'Taxation to JTicketing',
+  'PLG_JTICKETING_TAX_DEFAULT_DESC' => 'Plugin for adding Taxation to JTicketing',
+);

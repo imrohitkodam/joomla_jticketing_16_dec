@@ -15,7 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * JticketingController helper
@@ -35,9 +35,9 @@ class JticketingControllerticket extends BaseController
 	 */
 	public function setRefund()
 	{
-		$data  = Factory::getApplication()->input->get('post');
+		$data  = Factory::getApplication()->getInput()->get('post');
 
-		// $oid	= Factory::getApplication()->input->get( 'oid', array(), 'post', 'array' );
+		// $oid	= Factory::getApplication()->getInput()->get( 'oid', array(), 'post', 'array' );
 		$model = $this->getModel('ticket');
 		$val   = $model->processRefund($data);
 
@@ -62,9 +62,9 @@ class JticketingControllerticket extends BaseController
 	 */
 	public function setTransfer()
 	{
-		$data  = Factory::getApplication()->input->get('post');
+		$data  = Factory::getApplication()->getInput()->get('post');
 
-		// $oid	= Factory::getApplication()->input->get( 'oid', array(), 'post', 'array' );
+		// $oid	= Factory::getApplication()->getInput()->get( 'oid', array(), 'post', 'array' );
 		$model = $this->getModel('ticket');
 		$val   = $model->processTransfer($data);
 

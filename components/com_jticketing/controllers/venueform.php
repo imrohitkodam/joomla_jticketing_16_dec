@@ -53,8 +53,8 @@ class JticketingControllerVenueForm extends FormController
 		$app = Factory::getApplication();
 
 		$params = array();
-		$element  = $app->input->getString('element');
-		$venueId  = $app->input->getInt('venue_id');
+		$element  = $app->getInput()->getString('element');
+		$venueId  = $app->getInput()->getInt('venue_id');
 
 		if (empty($element))
 		{
@@ -143,8 +143,8 @@ class JticketingControllerVenueForm extends FormController
 			$model = $this->getModel('venue', 'JticketingModel');
 
 			// Get the user data.
-			$id = $app->input->getInt('id');
-			$state = $app->input->getInt('state');
+			$id = $app->getInput()->getInt('id');
+			$state = $app->getInput()->getInt('state');
 
 			// Attempt to save the data.
 			$return = $model->publish($id, $state);
@@ -198,7 +198,7 @@ class JticketingControllerVenueForm extends FormController
 
 		$tjGeoHelper = new TjGeoHelper;
 
-		$jinput = Factory::getApplication()->input;
+		$jinput = Factory::getApplication()->getInput();
 		$country = $jinput->get('country', '', 'STRING');
 		echo json_encode($tjGeoHelper->getRegionListFromCountryID($country));
 
@@ -214,7 +214,7 @@ class JticketingControllerVenueForm extends FormController
 	 */
 	public function getLocation()
 	{
-		$post = Factory::getApplication()->input->post;
+		$post = Factory::getApplication()->getInput()->post;
 
 		$model = $this->getModel('venue');
 		$result = $model->getCurrentLocation($post);
@@ -244,7 +244,7 @@ class JticketingControllerVenueForm extends FormController
 		$model = $this->getModel('venue', 'JticketingModel');
 
 		// Get the user data.
-		$data = Factory::getApplication()->input->get('jform', array(), 'array');
+		$data = Factory::getApplication()->getInput()->get('jform', array(), 'array');
 
 		if (empty($data['created_by']))
 		{
@@ -258,7 +258,7 @@ class JticketingControllerVenueForm extends FormController
 		$all_jform_data = $data;
 
 		// Jform tweak - Get all posted data.
-		$post = Factory::getApplication()->input->post;
+		$post = Factory::getApplication()->getInput()->post;
 
 		$data['userName'] = Factory::getUser($data['created_by'])->name;
 
@@ -381,7 +381,7 @@ class JticketingControllerVenueForm extends FormController
 		}
 
 		$msg      = Text::_('COM_JTICKETING_MSG_SUCCESS_SAVE_VENUE');
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$id = $input->get('id');
 
 		if (empty($id))
@@ -557,7 +557,7 @@ class JticketingControllerVenueForm extends FormController
 	 */
 	public function edit($key = 'id', $urlVar = 'id')
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$cid = $input->get('cid', array(), 'post', 'array');
 
 		if (!count($cid))

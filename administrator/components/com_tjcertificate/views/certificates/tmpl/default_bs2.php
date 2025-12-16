@@ -24,7 +24,7 @@ $options['relative'] = true;
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 HTMLHelper::script('com_tjcertificate/certificateImage.min.js', $options);
 

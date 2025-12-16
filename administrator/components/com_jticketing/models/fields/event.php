@@ -25,7 +25,7 @@ use Joomla\CMS\HTML\HTMLHelper;
  * @package  JTicketing
  * @since    1.8
  */
-class JFormFieldModal_Event extends JFormField
+class JFormFieldModal_Event extends FormField
 {
 	/**
 	 * field type
@@ -98,7 +98,8 @@ class JFormFieldModal_Event extends JFormField
 		$html[] = '<div class="button2-left">';
 		$html[] = '  <div class="blank">';
 
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
 			$html[] = '    <a data-target="#jtSelectEvent' . $this->id . '" data-toggle="modal" title="' .
 			Text::_('COM_JTICKETING_SELECT_EVENT_TITLE') . '">' . Text::_('COM_JTICKETING_SELECT_CHANGE') . '</a>';

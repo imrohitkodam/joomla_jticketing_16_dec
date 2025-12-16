@@ -11,4 +11,4 @@
 defined('_JEXEC') or die(';)');
 
 // Load frontend attendees model
-JLoader::import('com_jticketing.models.attendees', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendees.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendees.php'; }

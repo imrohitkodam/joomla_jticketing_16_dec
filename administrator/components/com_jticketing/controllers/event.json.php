@@ -38,7 +38,7 @@ class JTicketingControllerEvent extends FormController
 	 */
 	public function getVenueList()
 	{
-		$input  = Factory::getApplication()->input->post;
+		$input  = Factory::getApplication()->getInput()->post;
 		$eventData["radioValue"] = $input->get('radioValue', '', 'STRING');
 		$eventData["silentVendor"] = $input->get('silentVendor', '', 'INTEGER');
 		$eventData["eventId"] = $input->get('eventId', '', 'INT');
@@ -91,7 +91,7 @@ class JTicketingControllerEvent extends FormController
 			$app->close();
 		}
 
-		$venueId = $app->input->post->getInt('venueId');
+		$venueId = $app->getInput()->post->getInt('venueId');
 		$venue = JT::venue($venueId);
 
 		if (!$venue->id)
@@ -116,7 +116,7 @@ class JTicketingControllerEvent extends FormController
 	 */
 	public function getScoID()
 	{
-		$post = Factory::getApplication()->input->post;
+		$post = Factory::getApplication()->getInput()->post;
 		$venueId = $post->get('venueId');
 		$venueurl = $post->get('venueurl');
 
@@ -147,8 +147,8 @@ class JTicketingControllerEvent extends FormController
 	{
 		Session::checkToken() or die('Invalid Token');
 		$app        = Factory::getApplication();
-		$uploadFile = $app->input->post->get('upload_type', '', 'string');
-		$isGallary  = $app->input->post->get('isGallary', '', 'INT');
+		$uploadFile = $app->getInput()->post->get('upload_type', '', 'string');
+		$isGallary  = $app->getInput()->post->get('isGallary', '', 'INT');
 		$jtParams   = ComponentHelper::getParams('com_jticketing');
 		$model      = $this->getModel('Media', 'JTicketingModel');
 
@@ -157,8 +157,8 @@ class JTicketingControllerEvent extends FormController
 		if ($uploadFile == "link")
 		{
 			$data = array();
-			$data['name']        = $app->input->post->get('name', '', 'string');
-			$data['type']        = $app->input->post->get('type', '', 'string');
+			$data['name']        = $app->getInput()->post->get('name', '', 'string');
+			$data['type']        = $app->getInput()->post->get('type', '', 'string');
 			$data['upload_type'] = $uploadFile;
 			$returnData[0]       = $model->uploadLink($data);
 
@@ -171,11 +171,12 @@ class JTicketingControllerEvent extends FormController
 		}
 		else
 		{
-			$files    = $app->input->files->get('file', '', 'array');
+			$files    = $app->getInput()->files->get('file', '', 'array');
 			$fileType = explode("/", $files[0]['type']);
 			$comMediaParam  = ComponentHelper::getParams('com_media');
 
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				$allowedExtension = explode(',', $comMediaParam->get('upload_extensions'));
 			}
@@ -227,7 +228,7 @@ class JTicketingControllerEvent extends FormController
 	public function deleteMedia()
 	{
 		Session::checkToken() or die('Invalid Token');
-		JLoader::import('common', JPATH_SITE . '/components/com_jticketing/helpers');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
 		$jtParams = ComponentHelper::getParams('com_jticketing');
 		$app      = Factory::getApplication();
 		$model    = $this->getModel('Media', 'JTicketingModel');
@@ -321,7 +322,7 @@ class JTicketingControllerEvent extends FormController
 	 */
 	public function getCategorySpecificEventCount()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$catId = $input->get('catid');
 
 		$db   = Factory::getDbo();
@@ -355,7 +356,7 @@ class JTicketingControllerEvent extends FormController
 	/*public function getEventsDetails()
 	{
 		$db       = Factory::getDbo();
-		$input    = Factory::getApplication()->input;
+		$input    = Factory::getApplication()->getInput();
 		$event_id = $input->get('event_id');
 		$query    = $db->getQuery(true);
 
@@ -381,7 +382,7 @@ class JTicketingControllerEvent extends FormController
 	/*public function isFreeEvent()
 	{
 		require_once JPATH_SITE . "/components/com_jticketing/helpers/main.php";
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$eventid = $input->get('event_id');
 
 		$jticketingmainhelper = new jticketingmainhelper;
@@ -405,7 +406,7 @@ class JTicketingControllerEvent extends FormController
 	/*public function getEvents()
 	{
 		require_once JPATH_SITE . "/components/com_jticketing/helpers/main.php";
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$catId = $input->get('cat_id');
 		$params = array();
 		$params['category_id'] = $catId;
@@ -433,7 +434,7 @@ class JTicketingControllerEvent extends FormController
 		require_once JPATH_SITE . "/components/com_jticketing/helpers/main.php";
 
 		$db       = Factory::getDbo();
-		$input    = Factory::getApplication()->input;
+		$input    = Factory::getApplication()->getInput();
 		$eventId  = $input->get('event');
 
 		$jticketingmainhelper = new Jticketingmainhelper;

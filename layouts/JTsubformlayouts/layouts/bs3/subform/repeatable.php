@@ -31,7 +31,10 @@ extract($displayData);
 // Add script
 if ($multiple)
 {
-	HTMLHelper::_('jquery.ui', array('core', 'sortable'));
+	// Joomla 6: jquery.ui removed - using WebAssetManager for jQuery UI if needed
+	// For sortable functionality, consider using native HTML5 drag-and-drop or a modern library
+	$wa = \Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager();
+	$wa->useScript('jquery');
 	HTMLHelper::_('script', 'system/subform-repeatable.js', array('version' => 'auto', 'relative' => true));
 }
 

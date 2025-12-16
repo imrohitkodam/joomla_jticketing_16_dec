@@ -21,8 +21,8 @@ use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Component\ComponentHelper;
 
-jimport('techjoomla.common');
-require_once JPATH_COMPONENT . '/controller.php';
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/common.php')) { require_once JPATH_LIBRARIES . '/techjoomla/common.php'; }
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * Event controller class.
@@ -82,7 +82,7 @@ class JticketingControllerEvent extends JticketingController
 		$model = $this->getModel('Event', 'JticketingModel');
 
 		// Get the user data.
-		$data = Factory::getApplication()->input->get('jform', array(), 'array');
+		$data = Factory::getApplication()->getInput()->get('jform', array(), 'array');
 
 		// Validate the posted data.
 		$form = $model->getForm();
@@ -224,7 +224,7 @@ class JticketingControllerEvent extends JticketingController
 			$app->close();
 		}
 
-		$eventId = $app->input->getInt('eventId');
+		$eventId = $app->getInput()->getInt('eventId');
 		$event = JT::event($eventId);
 
 		// Get the attendee id using the event id and user ID
@@ -275,7 +275,7 @@ class JticketingControllerEvent extends JticketingController
 			$app->close();
 		}
 
-		$eventId = $app->input->get('eventId', 0, 'INT');
+		$eventId = $app->getInput()->get('eventId', 0, 'INT');
 		$eventData = JT::event($eventId);
 
 		if (!$eventData->isBought($user->id) && !$eventData->isCreator($user->id))
@@ -352,7 +352,7 @@ class JticketingControllerEvent extends JticketingController
 	public function addGoogleEvent()
 	{
 		$app = Factory::getApplication();
-		$eventId = $app->input->get('id', '', 'INTEGER');
+		$eventId = $app->getInput()->get('id', '', 'INTEGER');
 
 		BaseDatabaseModel::addIncludePath(JPATH_SITE . '/components/com_jticketing/models', 'eventform');
 		$jTicketingModelEventform = BaseDatabaseModel::getInstance('Eventform', 'JTicketingModel');
@@ -375,7 +375,7 @@ class JticketingControllerEvent extends JticketingController
 		$params = ComponentHelper::getParams('com_jticketing');
 		$currency = $params->get('currency_symbol');
 
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		$this->techjoomlacommon = new TechjoomlaCommon;
 		$lastTwelveMonth = $this->techjoomlacommon->getLastTwelveMonths();
@@ -551,7 +551,7 @@ class JticketingControllerEvent extends JticketingController
 	 */
 	public function viewMoreAttendee()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$post  = $input->post;
 
 		$eventId         = $post->get('eventId', '', 'INT');

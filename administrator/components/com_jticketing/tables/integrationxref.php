@@ -55,7 +55,7 @@ class JTicketingTableIntegrationxref extends Table
 	 *
 	 * @return string The asset name
 	 *
-	 * @see JTable::_getAssetName
+	 * @see Table::_getAssetName
 	 */
 	protected function _getAssetName()
 	{

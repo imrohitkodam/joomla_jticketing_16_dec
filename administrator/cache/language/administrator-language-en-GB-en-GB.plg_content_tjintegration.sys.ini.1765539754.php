@@ -1,0 +1,6 @@
+<?php
+defined('_JEXEC') or die;
+return array (
+  'PLG_CONTENT_TJINTEGRATION' => 'TJIntegration',
+  'PLG_TJINTEGRATION_XML_DESCRIPTION' => 'Plugin used to integrate various Techjoomla extensions integration forms',
+);

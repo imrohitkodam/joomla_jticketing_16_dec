@@ -16,10 +16,10 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+HTMLHelper::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/html');
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 $user       = Factory::getUser();
 $userId     = $user->get('id');
@@ -80,7 +80,7 @@ if ($saveOrder)
 						onclick="document.getElementById('filter_search').value='';document.getElementById('venue_type').value='';
 						document.getElementById('venue_privacy').value='';this.form.submit();"
 						class="btn btn-primary"
-						title="<?php echo JTEXT::_('COM_JTICKETING_CLEAR_SEARCH')?>">
+						title="<?php echo Text::_('COM_JTICKETING_CLEAR_SEARCH')?>">
 						<i class="fa fa-remove"></i>
 					</button>
 				</span>
@@ -173,7 +173,7 @@ if ($saveOrder)
 
 						<td class="center" data-title="<?php echo Text::_('JSTATUS');?>">
 							<div>
-								<a class="btn btn-micro hasTooltip" href="<?php if ($canEdit):?>javascript:void(0);<?php else: ?><?php echo JURI::root();?>index.php?option=com_users<?php endif;?>" title="<?php echo ($item->state) ? Text::_('TJTOOLBAR_UNPUBLISH') : Text::_('TJTOOLBAR_PUBLISH');?>"
+								<a class="btn btn-micro hasTooltip" href="<?php if ($canEdit):?>javascript:void(0);<?php else: ?><?php echo Uri::root();?>index.php?option=com_users<?php endif;?>" title="<?php echo ($item->state) ? Text::_('TJTOOLBAR_UNPUBLISH') : Text::_('TJTOOLBAR_PUBLISH');?>"
 								onclick="document.adminForm.cb<?php echo $i; ?>.checked=1; document.adminForm.boxchecked.value=1; Joomla.submitbutton('<?php echo ($item->state) ? 'venues.unpublish' : 'venues.publish';?>');">
 								<?php if ($item->state == 1)
 								{?>

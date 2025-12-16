@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Helper\ModuleHelper;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Form\Form;
@@ -85,7 +85,7 @@ class Jticketingfrontendhelper
 		$integration           = $com_params->get('integration');
 		$singleTicketPerUser   = $com_params->get('single_ticket_per_user');
 
-		JLoader::import('enrollment', JPATH_SITE . '/components/com_jticketing/models');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/enrollment.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/enrollment.php'; }
 		$enrollmentModel = new JticketingModelEnrollment;
 
 		if (!empty($userid))
@@ -151,7 +151,7 @@ class Jticketingfrontendhelper
 
 				if (empty($isEnrolled) && $displayEnrollButton != 1)
 				{
-					$itemid = Factory::getApplication()->input->get('Itemid');
+					$itemid = Factory::getApplication()->getInput()->get('Itemid');
 					$enrollTicketLink = Route::_('index.php?option=com_jticketing&task=enrollment.save&selected_events=' . $eventid .
 						'&cid=' . $userid .
 						'&Itemid=' . $itemid . '&notify_user_enroll=1', false
@@ -219,7 +219,7 @@ class Jticketingfrontendhelper
 				{
 					if (!empty($userid))
 					{
-						JLoader::import('attendees', JPATH_SITE . '/components/com_jticketing/models');
+						if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendees.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendees.php'; }
 						$attendeesModel = new JticketingModelAttendees;
 
 						$attendees      = $attendeesModel->getAttendees($eventdata->id, $userid);
@@ -235,7 +235,8 @@ class Jticketingfrontendhelper
 						$return['viewTicket_button_link'] = $viewTicketLink;
 						$return['viewTicket_button'] = $jtEventViewTicketBtnHTML;
 
-						if (JVERSION < '4.0.0')
+						// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 						{
 							$return['viewTicket_button'] .= '<a data-target="#jtEventViewTicketBtn' . $attendees->id . '" data-toggle="modal" class="af-relative af-d-block btn btn-primary btn-info com_jt_book com_jticketing_button w-100 booking-btn">';
 						}
@@ -260,7 +261,7 @@ class Jticketingfrontendhelper
 			{
 				if (!empty($userid))
 				{
-					JLoader::import('attendees', JPATH_SITE . '/components/com_jticketing/models');
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendees.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendees.php'; }
 					$attendeesModel = new JticketingModelAttendees;
 
 					$attendees = $attendeesModel->getAttendees(
@@ -279,7 +280,8 @@ class Jticketingfrontendhelper
 					$return['viewTicket_button_link'] = $viewTicketLink;
 					$return['viewTicket_button'] = $jtEventViewTicketBtnHTML;
 
-					if (JVERSION < '4.0.0')
+					// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 					{
 						$return['viewTicket_button'] .= '<a data-target="#jtEventViewTicketBtn' . $attendees->id . '" data-toggle="modal" class="af-relative af-d-block btn btn-default btn-info com_jt_book com_jticketing_button w-100 booking-btn">';
 					}
@@ -294,7 +296,7 @@ class Jticketingfrontendhelper
 		}
 		elseif ($showbook == 2 && $enableWaitingList != 'none' && (empty($isEnrolled)))
 		{
-			JLoader::import('waitlistform', JPATH_SITE . '/components/com_jticketing/models');
+			if (file_exists(JPATH_SITE . '/components/com_jticketing/models/waitlistform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/waitlistform.php'; }
 				$waitlistFormModel = new JTicketingModelWaitlistForm;
 				$isAdded = $waitlistFormModel->isAlreadyAddedToWaitlist($eventid, $userid);
 
@@ -333,7 +335,7 @@ class Jticketingfrontendhelper
 		{
 			if (!empty($userid))
 			{
-				JLoader::import('attendees', JPATH_SITE . '/components/com_jticketing/models');
+				if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendees.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendees.php'; }
 				$attendeesModel = new JticketingModelAttendees;
 
 				$attendees      = $attendeesModel->getAttendees($eventdata->id, $userid);
@@ -349,7 +351,8 @@ class Jticketingfrontendhelper
 				$return['viewTicket_button_link'] = $viewTicketLink;
 				$return['viewTicket_button'] = $jtEventViewTicketBtnHTML;
 
-				if (JVERSION < '4.0.0')
+				// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 				{
 					$return['viewTicket_button'] .= '<a data-target="#jtEventViewTicketBtn' . $attendees->id . '" data-toggle="modal" class="af-relative af-d-block btn btn-primary btn-info com_jt_book com_jticketing_button w-100 booking-btn">';
 				}
@@ -792,7 +795,7 @@ class Jticketingfrontendhelper
 	public function getEvent($eventid)
 	{
 		$db = Factory::getDbo();
-		JLoader::import('event', JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/models/event.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/models/event.php'; }
 		$model  = new jticketingModelEvent;
 		$result = $model->getEvent($eventid);
 
@@ -811,7 +814,7 @@ class Jticketingfrontendhelper
 	public function getEventcat()
 	{
 		$db = Factory::getDbo();
-		JLoader::import('event', JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/models/event.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/models/event.php'; }
 		$model  = new jticketingModelEvent;
 		$result = $model->getEventsCats();
 
@@ -2052,7 +2055,7 @@ class Jticketingfrontendhelper
 	public function getJticketingJsFiles(&$jsFilesArray)
 	{
 		$db       = Factory::getDbo();
-		$input    = Factory::getApplication()->input;
+		$input    = Factory::getApplication()->getInput();
 		$option   = $input->get('option', '');
 		$view     = $input->get('view', '');
 		$app      = Factory::getApplication();

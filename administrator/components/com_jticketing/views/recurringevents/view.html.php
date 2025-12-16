@@ -4,6 +4,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Language\Text;
 
 class JticketingViewRecurringEvents extends HtmlView
 {
@@ -19,16 +20,21 @@ class JticketingViewRecurringEvents extends HtmlView
     public function display($tpl = null)
     {
         $app = Factory::getApplication();
-        $jinput = $app->input;
+        $jinput = $app->getInput();
 		$this->tmpl  = $jinput->get('tmpl', '');
     
         $this->attendeeId = $jinput->get('attendee_id', 0, 'INT');
 
         if (empty($this->attendeeId)) {
-            $app->enqueueMessage(JText::_('COM_JTICKETING_ERROR_NO_ATTENDEE_ID'), 'error');
+            $app->enqueueMessage(Text::_('COM_JTICKETING_ERROR_NO_ATTENDEE_ID'), 'error');
             return false;
         }
-		JLoader::register('JticketingModelRecurringEvents', JPATH_ADMINISTRATOR . '/components/com_jticketing/models/recurringevent.php');
+		// Joomla 6: JLoader removed - use require_once
+		$modelPath = JPATH_ADMINISTRATOR . '/components/com_jticketing/models/recurringevent.php';
+		if (file_exists($modelPath))
+		{
+			require_once $modelPath;
+		}
 		$recurringModel = new JticketingModelRecurringEvents();
 
         $this->recurringEvents = $recurringModel->getRecurringEvents($this->attendeeId);

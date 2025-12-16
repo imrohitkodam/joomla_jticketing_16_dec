@@ -170,7 +170,7 @@ use Joomla\CMS\Language\Text;
 								<?php foreach ($validCoupons as $coupon)
 								{
 									$finalValue = $coupon->val_type == 1 ? $coupon->value . ' %' : $this->utilities->getFormattedPrice($coupon->value, false);
-									$couponNameWithNote = $coupon->name . ' [' . JText::sprintf('COM_JTICKETING_COUPON_USE_NOTE', (int) $coupon->group_discount_tickets) . ']';
+									$couponNameWithNote = $coupon->name . ' [' . Text::sprintf('COM_JTICKETING_COUPON_USE_NOTE', (int) $coupon->group_discount_tickets) . ']';
 								?>
 									<tr>
 										<td><?php echo htmlspecialchars($couponNameWithNote, ENT_QUOTES, 'UTF-8'); ?></td>

@@ -19,7 +19,7 @@ use Joomla\CMS\MVC\Model\BaseDatabaseModel;
  *
  * @since  3.3.0
  */
-class JFormFieldGroupcategories extends JFormField
+class JFormFieldGroupcategories extends FormField
 {
 	protected $type = 'groupcategories';
 

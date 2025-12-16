@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
@@ -45,7 +46,7 @@ class JticketingViewCatimpexp extends HtmlView
 		// Native Event Manager.
 		if($integration<1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 			ToolbarHelper::preferences('com_jticketing');
 		?>
 			<div class="alert alert-info alert-help-inline">
@@ -71,7 +72,7 @@ class JticketingViewCatimpexp extends HtmlView
 
 		$this->addToolbar();
 
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 		parent::display($tpl);
 	}
@@ -85,12 +86,13 @@ class JticketingViewCatimpexp extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		require_once JPATH_COMPONENT . '/helpers/jticketing.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/jticketing.php';
 
 		$state = $this->get('State');
 		$canDo = JticketingHelper::getActions($state->get('filter.category_id'));
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
 			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_CATIMPORTEXPORT'), 'list');
 		}
@@ -99,8 +101,8 @@ class JticketingViewCatimpexp extends HtmlView
 			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_CATIMPORTEXPORT'), 'hierarchys.png');
 		}
 
-		$bar = JToolBar::getInstance('toolbar');
-		$layout = Factory::getApplication()->input->get('layout', 'default');
+		$bar = Toolbar::getInstance('toolbar');
+		$layout = Factory::getApplication()->getInput()->get('layout', 'default');
 		ToolbarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
 
 		if ($layout == 'default')
@@ -111,7 +113,8 @@ class JticketingViewCatimpexp extends HtmlView
 			$bar->appendButton('Custom', $button);
 		}
 
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
 			$bar->appendButton('Custom', '&nbsp;<a class="modal btn" href="#import_categorywrap" data-toggle="modal" >
 				<span class="icon-upload icon-white"></span>' . '&nbsp;' . htmlspecialchars(Text::_('COMJTICKETING_EVENT_IMPORT_CSV')) . '</a>'
@@ -130,13 +133,13 @@ class JticketingViewCatimpexp extends HtmlView
 		// Check if the form exists before showing the add/edit buttons
 		$formPath = JPATH_COMPONENT_ADMINISTRATOR . '/views/catimpexp';
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
 			ToolbarHelper::preferences('com_jticketing');
 		}
 
 		// Set sidebar action - New in 3.0
-		JHtmlSidebar::setAction('index.php?option=com_jticketing&view=catimpexp');
+		// Joomla 6: HTMLHelperSidebar::setAction() removed
 
 		$this->extra_sidebar = '';
 	}

@@ -38,8 +38,8 @@ class JTicketingControllerVenue extends FormController
 	{
 		Session::checkToken() or die('Invalid Token');
 		$app        = Factory::getApplication();
-		$uploadFile = $app->input->post->get('upload_type', '', 'string');
-		$isGallary  = $app->input->post->get('isGallary', '', 'INT');
+		$uploadFile = $app->getInput()->post->get('upload_type', '', 'string');
+		$isGallary  = $app->getInput()->post->get('isGallary', '', 'INT');
 		$model      = $this->getModel('Media', 'JTicketingModel');
 		$jtParams   = ComponentHelper::getParams('com_jticketing');
 
@@ -48,8 +48,8 @@ class JTicketingControllerVenue extends FormController
 		if ($uploadFile == "link")
 		{
 			$data = array();
-			$data['name']        = $app->input->post->get('name', '', 'string');
-			$data['type']        = $app->input->post->get('type', '', 'string');
+			$data['name']        = $app->getInput()->post->get('name', '', 'string');
+			$data['type']        = $app->getInput()->post->get('type', '', 'string');
 			$data['upload_type'] = $uploadFile;
 			$returnData[0]       = $model->uploadLink($data);
 
@@ -62,7 +62,7 @@ class JTicketingControllerVenue extends FormController
 		}
 		else
 		{
-			$files    = $app->input->files->get('file', '', 'array');
+			$files    = $app->getInput()->files->get('file', '', 'array');
 			$fileType = explode("/", $files[0]['type']);
 
 			// Image and video specific validation

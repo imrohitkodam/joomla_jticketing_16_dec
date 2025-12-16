@@ -12,10 +12,15 @@
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\Folder;
-require_once JPATH_COMPONENT . '/controller.php';
+use Joomla\Filesystem\Folder;
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
-JLoader::register('TjControllerHouseKeeping', JPATH_SITE . "/libraries/techjoomla/controller/houseKeeping.php");
+// Joomla 6: JLoader removed - use require_once
+$houseKeepingPath = JPATH_SITE . "/libraries/techjoomla/controller/houseKeeping.php";
+if (file_exists($houseKeepingPath))
+{
+	require_once $houseKeepingPath;
+}
 
 /**
  * Dashboard form controller class.
@@ -57,7 +62,7 @@ class JticketingControllercp extends jticketingController
 	 */
 	public function save()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		switch ($input->get('task'))
 		{
@@ -65,7 +70,7 @@ class JticketingControllercp extends jticketingController
 				$this->setRedirect('index.php?option=com_broadcast');
 			break;
 			case 'save':
-				if ($this->getModel('cp')->store(Factory::getApplication()->input->get('post')))
+				if ($this->getModel('cp')->store(Factory::getApplication()->getInput()->get('post')))
 				{
 					$msg = Text::_('QUEUE_SAVED');
 				}
@@ -100,7 +105,7 @@ class JticketingControllercp extends jticketingController
 	 */
 	public function SetsessionForGraph()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$periodicorderscount = '';
 		$fromDate = $input->get('fromDate');
 		$toDate = $input->get('toDate');
@@ -246,7 +251,7 @@ class JticketingControllercp extends jticketingController
 	 */
 	public function setup()
 	{
-		$jinput = Factory::getApplication()->input;
+		$jinput = Factory::getApplication()->getInput();
 		$takeBackUp = $jinput->get("takeBackUp", 1);
 
 		$defTemplate = JT::utilities()->getSiteDefaultTemplate(0);
@@ -319,7 +324,7 @@ class JticketingControllercp extends jticketingController
 
 		foreach ($statusMsg as $key => $extStatus)
 		{
-			echo "<br/> <br/><br/>*****************  " . JText::_("COM_JTICKETING_BS2_OVERRIDING_FOR") .
+			echo "<br/> <br/><br/>*****************  " . Text::_("COM_JTICKETING_BS2_OVERRIDING_FOR") .
 			" <strong>" . $key . "</strong> ****************<br/>";
 
 			foreach ($extStatus as $k => $status)

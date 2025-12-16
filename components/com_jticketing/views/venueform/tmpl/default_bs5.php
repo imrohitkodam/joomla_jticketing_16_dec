@@ -20,7 +20,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.formvalidator');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 // Load admin language file
 $lang = Factory::getLanguage();

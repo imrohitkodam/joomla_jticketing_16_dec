@@ -19,7 +19,7 @@ use Joomla\CMS\Language\Text;
  * @subpackage  site
  * @since       1.0
  */
-class JFormFieldAupfilesjticketing extends JFormField
+class JFormFieldAupfilesjticketing extends FormField
 {
 	/**
 	 * The form field type.
@@ -42,8 +42,8 @@ class JFormFieldAupfilesjticketing extends JFormField
 	{
 		if ($this->id == 'jform_params_aupfilesjticketing')
 		{
-			$html = '<div style="float:left"><a href="' . JURI::root() . 'plugins/payment/alphauserpoints/alphauserpoints/jticketing_aup.zip"> '
-			. Text::_('AUP_CLK') . '</a><span> ' . Text::_('AUP_INST') . ' </span><a href="' . JURI::base()
+			$html = '<div style="float:left"><a href="' . Uri::root() . 'plugins/payment/alphauserpoints/alphauserpoints/jticketing_aup.zip"> '
+			. Text::_('AUP_CLK') . '</a><span> ' . Text::_('AUP_INST') . ' </span><a href="' . Uri::base()
 			. 'index.php?option=com_alphauserpoints&task=plugins" target="_blank">' . Text::_('HERE')
 			. '</a>. <a href="http://techjoomla.com/documentation-for-jticketing/configuring-payment-plugins-for-jticketing.html" target="_blank">'
 			. Text::_('CLK_DOC') . '</a></div>';

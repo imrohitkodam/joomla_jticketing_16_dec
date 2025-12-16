@@ -12,7 +12,7 @@ require_once JPATH_SITE . '/plugins/payment/razorpay/razorpay/src/Razorpay.php';
 use Razorpay\Api\Api;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 

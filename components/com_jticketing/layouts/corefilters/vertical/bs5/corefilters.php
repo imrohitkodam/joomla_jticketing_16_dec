@@ -45,11 +45,11 @@ $url               = 'index.php?option=com_jticketing&view=events&layout=default
 $singleEventItemid = JT::utilities()->getItemId($url);
 
 if (empty($singleEventItemid)) {
-	$singleEventItemid = Factory::getApplication()->input->get('Itemid');
+	$singleEventItemid = Factory::getApplication()->getInput()->get('Itemid');
 }
 
 // Get filter value and set list
-$defualtCatid               = $app->input->get('catid');
+$defualtCatid               = $app->getInput()->get('catid');
 $filter_event_cat           = $app->getUserStateFromRequest('com_jticketing.filter_events_cat', 'filter_events_cat', $defualtCatid, 'INT');
 $lists['filter_events_cat'] = $filter_event_cat;
 
@@ -112,7 +112,7 @@ $lists['events_to_show'] = $filter_events_to_show;
 			}
 			else
 			{
-				$input          = Factory::getApplication()->input;
+				$input          = Factory::getApplication()->getInput();
 				$filter_creator = $input->get('filter_creator','','INT');
 			}
 

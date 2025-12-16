@@ -12,6 +12,7 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;	
@@ -25,7 +26,7 @@ FormHelper::loadFieldClass('list');
  *
  * @since    2.1
  */
-class JFormFieldCreateSilentVendor extends JFormFieldList
+class JFormFieldCreateSilentVendor extends ListField
 {
 	protected $id;
 
@@ -57,7 +58,7 @@ class JFormFieldCreateSilentVendor extends JFormFieldList
 						<br>
 						<div class="pull-left alert alert-info control-label">'
 							. Text::_("COM_JTICKETING_VENDOR_APPROVAL_ENABLED") .
-							' <a href="' . JURI::root() . 'administrator/index.php?option=com_config&view=component&component=com_tjvendors" target="_blank">' .
+							' <a href="' . Uri::root() . 'administrator/index.php?option=com_config&view=component&component=com_tjvendors" target="_blank">' .
 							Text::_("COM_JTICKETING_VENDOR_APPROVAL_ENABLED_HERE") . '</a> ' . Text::_("COM_JTICKETING_VENDOR_APPROVAL_ENABLED_2") . '
 						</div>
 					</div>

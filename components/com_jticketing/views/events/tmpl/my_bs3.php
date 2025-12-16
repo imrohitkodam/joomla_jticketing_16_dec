@@ -15,7 +15,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 HTMLHelper::_('behavior.keepalive');
 
-if (JVERSION >= '3.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 {
 	HTMLHelper::_('bootstrap.tooltip');
 	HTMLHelper::_('bootstrap.renderModal', 'a.modal');
@@ -105,7 +106,7 @@ $utilities = JT::utilities();
 							href="javascript:void(0)"
 							onclick="document.getElementById('search').value='';this.form.submit();"
 							class="clear-search af-p-0"
-							title="<?php echo JTEXT::_('COM_JTICKETING_CLEAR_SEARCH')?>">
+							title="<?php echo Text::_('COM_JTICKETING_CLEAR_SEARCH')?>">
 							<i class="fa fa-remove"></i>
 							</button>
 							</li>

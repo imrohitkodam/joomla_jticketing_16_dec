@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 
 /**
@@ -60,7 +60,7 @@ class JticketingControllerbuy extends jticketingController
 	public function loadState()
 	{
 		$db      = Factory::getDbo();
-		$jinput  = Factory::getApplication()->input;
+		$jinput  = Factory::getApplication()->getInput();
 		$country = $jinput->get('country', '', 'STRING');
 		$model   = $this->getModel('buy');
 		$state   = $model->getuserState($country);
@@ -110,7 +110,7 @@ class JticketingControllerbuy extends jticketingController
 		$jticketingmainhelper = new jticketingmainhelper;
 		$jticketingModelbuy   = new jticketingModelbuy;
 		$order                = $jticketingmainhelper->getOrderInfo($order_id);
-		JLoader::import('buy', JPATH_SITE . '/components/com_jticketing/models');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/buy.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/buy.php'; }
 
 		$this->billinfo = $jticketingModelbuy->getuserdata($order_id);
 
@@ -177,7 +177,7 @@ class JticketingControllerbuy extends jticketingController
 	 */
 	public function applytax()
 	{
-		$input          = Factory::getApplication()->input;
+		$input          = Factory::getApplication()->getInput();
 
 		// Set Required Sessions
 		$post           = $input->post;
@@ -201,7 +201,7 @@ class JticketingControllerbuy extends jticketingController
 	 */
 	public function buytickets()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		// Set Required Sessions
 		$session = Factory::getSession();
@@ -230,7 +230,7 @@ class JticketingControllerbuy extends jticketingController
 		$session              = Factory::getSession();
 		$jticketingmainhelper = new jticketingmainhelper;
 		$user                 = Factory::getUser();
-		$input                = Factory::getApplication()->input;
+		$input                = Factory::getApplication()->getInput();
 		$post                 = $input->post;
 		$order_id             = $post->get('order_id');
 		$isorderauthorised    = $jticketingmainhelper->getorderAuthorization($user->id);
@@ -295,7 +295,7 @@ class JticketingControllerbuy extends jticketingController
 	public function save()
 	{
 		$redirect_url = Route::_('index.php?option=com_jticketing&view=buy');
-		$input        = Factory::getApplication()->input;
+		$input        = Factory::getApplication()->getInput();
 		$post         = $input->post;
 		$id           = $input->get('cid');
 		$session      = Factory::getSession();
@@ -343,7 +343,7 @@ class JticketingControllerbuy extends jticketingController
 	{
 		$user   = Factory::getUser();
 		$db     = Factory::getDbo();
-		$input  = Factory::getApplication()->input;
+		$input  = Factory::getApplication()->getInput();
 		$c_code = $input->get('coupon_code');
 		$count  = '';
 		$model  = $this->getModel('buy');
@@ -374,7 +374,7 @@ class JticketingControllerbuy extends jticketingController
 	 */
 	public function chkmail()
 	{
-		$jinput = Factory::getApplication()->input;
+		$jinput = Factory::getApplication()->getInput();
 		$email  = $jinput->get('email', '', 'STRING');
 		$model  = $this->getModel('buy');
 		$status = $model->checkuserExistJoomla($email);
@@ -398,7 +398,7 @@ class JticketingControllerbuy extends jticketingController
 	 */
 	public function login_validate()
 	{
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$eventid = $input->get('eventid', '', 'STRING');
 		$app     = Factory::getApplication();
 		$user    = Factory::getUser();
@@ -425,7 +425,7 @@ class JticketingControllerbuy extends jticketingController
 			$userHelper = new JticketingHelperUser;
 
 			// Now login the user
-			if (!$userHelper->login(array('username' => $app->input->getString('email'), 'password' => $app->input->getString('password'))))
+			if (!$userHelper->login(array('username' => $app->getInput()->getString('email'), 'password' => $app->getInput()->getString('password'))))
 			{
 				$json['error']['warning'] = Text::_('JTICKETING_CHECKOUT_ERROR_LOGIN');
 			}
@@ -446,7 +446,7 @@ class JticketingControllerbuy extends jticketingController
 	public function CreateOrder_step_selectTicket()
 	{
 		$session = Factory::getSession();
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$data    = $input->post;
 		$model   = $this->getModel('buy');
 		$res     = $model->createOrder('step_selectTicket');
@@ -504,7 +504,7 @@ class JticketingControllerbuy extends jticketingController
 	public function selectAttendee()
 	{
 		$jticketingfrontendhelper = new jticketingfrontendhelper;
-		$input                    = Factory::getApplication()->input;
+		$input                    = Factory::getApplication()->getInput();
 		$attendee_id              = $input->get('attendee_id', '', 'INT');
 		$app                      = Factory::getApplication();
 		$user                     = Factory::getUser();
@@ -577,7 +577,7 @@ class JticketingControllerbuy extends jticketingController
 	 */
 	public function verifyBookingID()
 	{
-		$post                 = Factory::getApplication()->input;
+		$post                 = Factory::getApplication()->getInput();
 		$book_id              = $post->get('book_id', '', 'STRING');
 		$jticketingmainhelper = new jticketingmainhelper;
 		$order                = $jticketingmainhelper->verifyBookingID($book_id);

@@ -30,7 +30,7 @@ class ReportsApiResourceReport extends ApiResource
 		$app        = Factory::getApplication();
 		$jinput     = $app->input;
 		$formData   = $jinput->post;
-		$reportName = $app->input->getString('id');
+		$reportName = $app->getInput()->getString('id');
 
 		if (empty($reportName))
 		{
@@ -65,7 +65,7 @@ class ReportsApiResourceReport extends ApiResource
 		$reportCols    = ($formData->get('colToshow')) ? $formData->get('colToshow') : [];
 
 		// Set reportId in input
-		$app->input->set('reportId', $reportId);
+		$app->getInput()->set('reportId', $reportId);
 
 		$reportPlugin->setState('filters', $reportFilters);
 		$reportPlugin->setState('colToshow', $reportCols);

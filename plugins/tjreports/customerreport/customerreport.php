@@ -53,7 +53,7 @@ class TjreportsModelCustomerreport extends TjreportsModelReports
 			$this->customFieldsTableExists = $this->tableExists();
 		}
 
-		JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php'; }
 
 		$path = JPATH_SITE . '/components/com_jticketing/helpers/main.php';
 
@@ -122,7 +122,7 @@ class TjreportsModelCustomerreport extends TjreportsModelReports
 
 		$reportOptions  = JticketingHelper::getReportFilterValues($this, $selected, $created_by, $myTeam);
 
-		JLoader::import('components.com_jticketing.models.user', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/user.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/user.php'; }
 		$userModel  = BaseDatabaseModel::getInstance('User', 'JticketingModel');
 		$userFilter = $userModel->getUserFilterOptions($myTeam);
 		$nameFilter = $userModel->getNameFilterOptions($myTeam);

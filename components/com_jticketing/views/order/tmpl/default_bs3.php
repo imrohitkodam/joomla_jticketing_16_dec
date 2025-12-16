@@ -18,7 +18,7 @@ HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 HTMLHelper::_('behavior.calendar');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('jquery.token');
 
 /** @var $this JticketingViewOrder */

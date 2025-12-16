@@ -17,8 +17,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
-JLoader::import('components.com_jticketing.events.order', JPATH_SITE);
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/order.php'; }
 
 /**
  * controller for showing order

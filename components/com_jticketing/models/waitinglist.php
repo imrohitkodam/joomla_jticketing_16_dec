@@ -14,7 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 /**
  * Methods supporting a list of Jticketing records.
@@ -278,7 +278,7 @@ class JTicketingModelWaitinglist extends ListModel
 	 */
 	public function getWaitlistUserEmails($waitlistIds)
 	{
-		JLoader::import('components.com_jticketing.models.waitlistform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/waitlistform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/waitlistform.php'; }
 		$model = BaseDatabaseModel::getInstance('WaitlistForm', 'JTicketingModel');
 		$emailArray = array();
 

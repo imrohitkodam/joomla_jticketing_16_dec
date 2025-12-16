@@ -12,6 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
@@ -49,8 +50,8 @@ class JticketingViewmypayouts extends HtmlView
 		// Native Event Manager.
 		if ($integration < 1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
-			ToolBarHelper::preferences('com_jticketing');
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
+			ToolbarHelper::preferences('com_jticketing');
 		?>
 			<div class="alert alert-info alert-help-inline">
 			<?php echo Text::_('COMJTICKETING_INTEGRATION_NOTICE'); ?>
@@ -59,20 +60,22 @@ class JticketingViewmypayouts extends HtmlView
 			return false;
 		}
 
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		global $mainframe, $option;
 
-		if (JVERSION >= '3.0' && JVERSION < '4.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0' && JVERSION < '4.0')
 		{
 			JHtmlBehavior::framework();
 		}
-		else if (JVERSION < '3.0')
+		else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '3.0')
 		{
 			HTMLHelper::_('behavior.mootools');
 		}
 
-		$layout = Factory::getApplication()->input->get('layout', 'default');
+		$layout = Factory::getApplication()->getInput()->get('layout', 'default');
 		$this->setLayout($layout);
 		$JticketingHelper = new JticketingHelper;
 		$JticketingHelper->addSubmenu('mypayouts');
@@ -108,7 +111,7 @@ class JticketingViewmypayouts extends HtmlView
 
 		if ($layout == 'edit_payout')
 		{
-			$task        = Factory::getApplication()->input->get('task');
+			$task        = Factory::getApplication()->getInput()->get('task');
 			$this->task  = $task;
 			$payout_data = array();
 
@@ -134,9 +137,10 @@ class JticketingViewmypayouts extends HtmlView
 		$this->user_amount_map = $user_amount_map;
 		$this->_setToolBar();
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		}
 
 		$this->utilities = JT::utilities();
@@ -155,8 +159,8 @@ class JticketingViewmypayouts extends HtmlView
 	{
 		$document = Factory::getDocument();
 		HTMLHelper::_('stylesheet', 'components/com_jticketing/assets/css/jticketing.css');
-		$bar = JToolBar::getInstance('toolbar');
-		$input = Factory::getApplication()->input;
+		$bar = Toolbar::getInstance('toolbar');
+		$input = Factory::getApplication()->getInput();
 		$isNew = $input->get('payout_id', '', 'STRING');
 
 		if (empty($isNew))
@@ -168,39 +172,41 @@ class JticketingViewmypayouts extends HtmlView
 			$viewTitle = Text::_('COM_JTICKETING_EDIT_PAYOUT');
 		}
 
-		$layout = Factory::getApplication()->input->get('layout');
+		$layout = Factory::getApplication()->getInput()->get('layout');
 
 		if ($layout == 'edit_payout')
 		{
-			if (JVERSION >= '3.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 			{
-				ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'pencil-2');
+				ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'pencil-2');
 			}
 			else
 			{
-				ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'icon-48-jticketing.png');
+				ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'icon-48-jticketing.png');
 			}
 
-			ToolBarHelper::back('COM_JTICKETING_BACK', 'index.php?option=com_jticketing&view=mypayouts&layout=default');
-			ToolBarHelper::save($task = 'mypayouts.save', $alt = 'COM_JTICKETING_SAVE');
-			ToolBarHelper::cancel($task = 'mypayouts.cancel', $alt = 'COM_JTICKETING_CLOSE');
+			ToolbarHelper::back('COM_JTICKETING_BACK', 'index.php?option=com_jticketing&view=mypayouts&layout=default');
+			ToolbarHelper::save($task = 'mypayouts.save', $alt = 'COM_JTICKETING_SAVE');
+			ToolbarHelper::cancel($task = 'mypayouts.cancel', $alt = 'COM_JTICKETING_CLOSE');
 		}
 		else
 		{
-			ToolBarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
+			ToolbarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
 			ToolbarHelper::addNew($task = 'mypayouts.add', $alt = 'COM_JTICKETING_NEW');
 			ToolbarHelper::deleteList('JT_JTOOLBAR_DELETE', 'mypayouts.remove', 'JTOOLBAR_DELETE');
 
-			if (JVERSION >= '3.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 			{
-				ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('JT_PAYOUT_REPORT'), 'folder');
+				ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('JT_PAYOUT_REPORT'), 'folder');
 			}
 			else
 			{
-				ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('JT_PAYOUT_REPORT'), 'icon-48-jticketing.png');
+				ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('JT_PAYOUT_REPORT'), 'icon-48-jticketing.png');
 			}
 		}
 
-		ToolBarHelper::preferences('com_jticketing');
+		ToolbarHelper::preferences('com_jticketing');
 	}
 }

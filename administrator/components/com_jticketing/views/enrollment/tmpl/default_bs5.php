@@ -19,7 +19,7 @@ HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('behavior.multiselect');
 
-$input          = Factory::getApplication()->input;
+$input          = Factory::getApplication()->getInput();
 $user	        = Factory::getUser();
 $userId	        = $user->get('id');
 $listOrder	    = $this->state->get('list.ordering');
@@ -39,7 +39,7 @@ $selectedEvents = $this->state->get('filter.selected_events');
 					<div class="control-group">
 						<div class="control-label">
 							<label id="jform_title-lbl" for="jform_title" class="hasTooltip required" title="<?php echo Text::_('COM_JTICKETING_SELECT_EVENT_TO_ENROLLMENT_DESCRIPTION') ?>">
-								<?php echo JText::_('COM_JTICKETING_SELECT_EVENT_TO_ENROLLMENT'); ?><span class="star">&nbsp;*</span>
+								<?php echo Text::_('COM_JTICKETING_SELECT_EVENT_TO_ENROLLMENT'); ?><span class="star">&nbsp;*</span>
 							</label>
 							<?php
 								echo HTMLHelper::_('select.genericlist', $this->eventoptions, 'selected_events[]', 'class="input-medium form-select" multiple="multiple" name="groupfilter"', "value", "text", $selectedEvents);

@@ -62,8 +62,8 @@ class JticketingControllerPDFTemplate extends FormController
 			$model = $this->getModel('pdftemplate', 'JticketingModel');
 
 			// Get the user data.
-			$id = $app->input->getInt('id');
-			$state = $app->input->getInt('state');
+			$id = $app->getInput()->getInt('id');
+			$state = $app->getInput()->getInt('state');
 
 			// Attempt to save the data.
 			$return = $model->publish($id, $state);
@@ -118,7 +118,7 @@ class JticketingControllerPDFTemplate extends FormController
 		$model = $this->getModel('pdftemplate', 'JticketingModel');
 
 		// Get the user data.
-		$data = Factory::getApplication()->input->get('jform', array(), 'array');
+		$data = Factory::getApplication()->getInput()->get('jform', array(), 'array');
 
 		$form = $model->getForm();
 
@@ -181,7 +181,7 @@ class JticketingControllerPDFTemplate extends FormController
 		}
 
 		$msg      = Text::_('COM_JTICKETING_MSG_SUCCESS_SAVE_PDF_TEMPLATE');
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$id = $input->get('id');
 		$return = $model->save($data);
 

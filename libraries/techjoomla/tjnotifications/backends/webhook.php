@@ -70,7 +70,7 @@ class TjnotificationsBackendWebhook extends TjnotificationsBackendBase
 		// Is webhook enabled for this template?
 		if (is_object($template) && (int) $template->state !== 1)
 		{
-			// @throw new Exception(JText::_('LIB_TECHJOOMLA_TJNOTIFICATION_EMAIL_CONFIG_OFF'));
+			// @throw new Exception(Text::_('LIB_TECHJOOMLA_TJNOTIFICATION_EMAIL_CONFIG_OFF'));
 			return $return;
 		}
 

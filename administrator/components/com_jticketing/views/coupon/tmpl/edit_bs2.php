@@ -20,7 +20,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('bootstrap.tooltip');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 // Import CSS
 $document = Factory::getDocument();
@@ -28,7 +28,7 @@ HTMLHelper::_('stylesheet', 'components/com_jticketing/assets/css/jticketing.css
 
 // Call helper function
 JticketingHelper::getLanguageConstant();
-$cid = Factory::getApplication()->input->get('id', 0, 'INT');
+$cid = Factory::getApplication()->getInput()->get('id', 0, 'INT');
 
 Factory::getDocument()->addScriptDeclaration("
 	var cid = '" . $cid . "';

@@ -21,8 +21,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
-JLoader::import('fronthelper', JPATH_SITE . '/components/com_tjvendors/helpers');
-JLoader::import('vendorclientxref', JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables');
+if (file_exists(JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php')) { require_once JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php'; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables/vendorclientxref.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables/vendorclientxref.php'; }
 
 /**
  * View to edit
@@ -247,7 +247,7 @@ class JticketingViewVenueform extends HtmlView
 	{
 		$this->toolbar = Toolbar::getInstance('toolbar');
 
-		Factory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->getInput()->set('hidemainmenu', true);
 		$user    = Factory::getUser();
 		$isNew   = ($this->item->id == 0);
 
@@ -277,7 +277,7 @@ class JticketingViewVenueform extends HtmlView
 		ToolbarHelper::apply('venueform.apply', 'COM_JTICKETING_VENUE_SAVE');
 		ToolbarHelper::save('venueform.save', 'COM_JTICKETING_VENUE_SAVE_AND_CLOSE');
 
-		if (!$checkedOut && ($canDo->get('core.create')))
+		if (!$checkedOut && ($canDo->{'core.create'}))
 		{
 			ToolbarHelper::custom('venueform.save2new', 'save-new.png', 'save-new_f2.png', 'COM_JTICKETING_VENUE_SAVE_AND_NEW', false);
 		}

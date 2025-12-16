@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * @version    SVN: <svn_id>
  * @package    JTicketing_Activities
@@ -14,7 +14,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
-jimport('techjoomla.jsocial.jsocial');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
+// JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_activitystream/models', 'ActivityStreamModel');
 
 /**
  * Plugin for JTicketing_activities

@@ -18,7 +18,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_jticketing/models/');
-JTable::addIncludePath(JPATH_ROOT . '/administrator/components/com_jticketing/tables');
+Table::addIncludePath(JPATH_ROOT . '/administrator/components/com_jticketing/tables');
 
 JLoader::register('PrivacyPlugin', JPATH_ADMINISTRATOR . '/components/com_privacy/helpers/plugin.php');
 JLoader::register('PrivacyRemovalStatus', JPATH_ADMINISTRATOR . '/components/com_privacy/helpers/removal/status.php');

@@ -89,7 +89,7 @@ endif;
 
 		<div class="control-group">
 			<label class="control-label" for="payee_name">
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_PAYEE_NAME_TOOLTIP'), JText::_('COM_JTICKETING_PAYEE_NAME'), '', '* ' . JText::_('COM_JTICKETING_PAYEE_NAME'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_PAYEE_NAME_TOOLTIP'), Text::_('COM_JTICKETING_PAYEE_NAME'), '', '* ' . Text::_('COM_JTICKETING_PAYEE_NAME'));?>
 			</label>
 			<div class="controls">
 				<input type="text" id="payee_name" name="payee_name" class="required" required="true" maxlength="250" placeholder="<?php echo Text::_('COM_JTICKETING_PAYEE_NAME');?>"
@@ -107,7 +107,7 @@ endif;
 		<div class="control-group">
 
 			<label class="control-label" for="user_id">
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_USER_ID_TOOLTIP'), JText::_('COM_JTICKETING_USER_ID'), '', '* ' . JText::_('COM_JTICKETING_USER_ID'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_USER_ID_TOOLTIP'), Text::_('COM_JTICKETING_USER_ID'), '', '* ' . Text::_('COM_JTICKETING_USER_ID'));?>
 			</label>
 			<div class="controls">
 				<input type="text" id="user_id" name="user_id" class="required email" maxlength="250" required="true" placeholder="<?php echo Text::_('COM_JTICKETING_USER_ID');?>"
@@ -117,7 +117,7 @@ endif;
 
 		<div class="control-group">
 			<label class="control-label" for="paypal_email">
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_PAYPAL_EMAIL_TOOLTIP'), JText::_('COM_JTICKETING_PAYPAL_EMAIL'), '', '* ' . JText::_('COM_JTICKETING_PAYPAL_EMAIL'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_PAYPAL_EMAIL_TOOLTIP'), Text::_('COM_JTICKETING_PAYPAL_EMAIL'), '', '* ' . Text::_('COM_JTICKETING_PAYPAL_EMAIL'));?>
 			</label>
 			<div class="controls">
 				<input type="text" id="paypal_email" name="paypal_email" class="required email" required="true" maxlength="250" placeholder="<?php echo Text::_('COM_JTICKETING_PAYPAL_EMAIL');?>"
@@ -127,7 +127,7 @@ endif;
 
 		<div class="control-group">
 			<label class="control-label" for="transaction_id">
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_TRANSACTION_ID_TOOLTIP'), JText::_('COM_JTICKETING_TRANSACTION_ID'), '', '* ' . JText::_('COM_JTICKETING_TRANSACTION_ID'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_TRANSACTION_ID_TOOLTIP'), Text::_('COM_JTICKETING_TRANSACTION_ID'), '', '* ' . Text::_('COM_JTICKETING_TRANSACTION_ID'));?>
 			</label>
 			<div class="controls">
 				<input type="text" id="transaction_id" name="transaction_id"  class="required email" required="true"  maxlength="250" placeholder="<?php echo Text::_('COM_JTICKETING_TRANSACTION_ID');?>"
@@ -137,14 +137,14 @@ endif;
 
 		<div class="control-group">
 			<label class="control-label" for="payout_date">
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_PAYOUT_DATE_TOOLTIP'), JText::_('COM_JTICKETING_PAYOUT_DATE'), '', '* ' . JText::_('COM_JTICKETING_PAYOUT_DATE'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_PAYOUT_DATE_TOOLTIP'), Text::_('COM_JTICKETING_PAYOUT_DATE'), '', '* ' . Text::_('COM_JTICKETING_PAYOUT_DATE'));?>
 			</label>
 			<div class="controls">
 				<?php
 					$date=date('');//set date to blank
 					if(isset($this->payout_data->date))
 						$date=$this->payout_data->date;
-					//echo HTMLHelper::_('calendar',$date,'payout_date','payout_date',JText::_('%Y-%m-%d '));//@TODO use jtext for date format
+					//echo HTMLHelper::_('calendar',$date,'payout_date','payout_date',Text::_('%Y-%m-%d '));//@TODO use jtext for date format
 					echo HTMLHelper::_('calendar',date('Y-m-d'),'payout_date','payout_date','%Y-%m-%d');
 				?>
 			</div>
@@ -153,7 +153,7 @@ endif;
 
 		<div class="control-group">
 			<label class="control-label" for="amount">
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_PAYOUT_AMOUNT_TOOLTIP'), JText::_('COM_JTICKETING_PAYOUT_AMOUNT'), '', '* ' . JText::_('COM_JTICKETING_PAYOUT_AMOUNT'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_PAYOUT_AMOUNT_TOOLTIP'), Text::_('COM_JTICKETING_PAYOUT_AMOUNT'), '', '* ' . Text::_('COM_JTICKETING_PAYOUT_AMOUNT'));?>
 			</label>
 			<div class="controls">
 			    <div class="input-append">
@@ -181,7 +181,7 @@ endif;
 		?>
 		<div class="control-group">
 			<label class="control-label" >
-				<?php echo HTMLHelper::tooltip(JText::_('COM_JTICKETING_STATUS_TOOLTIP'), JText::_('COM_JTICKETING_STATUS'), '', '* ' . JText::_('COM_JTICKETING_STATUS'));?>
+				<?php echo HTMLHelper::tooltip(Text::_('COM_JTICKETING_STATUS_TOOLTIP'), Text::_('COM_JTICKETING_STATUS'), '', '* ' . Text::_('COM_JTICKETING_STATUS'));?>
 			</label>
 			<div class="controls">
 				<label class="radio inline">

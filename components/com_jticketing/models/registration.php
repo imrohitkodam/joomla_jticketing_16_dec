@@ -95,7 +95,7 @@ class JticketingModelRegistration extends BaseDatabaseModel
 				}
 
 				$user 	= array();
-				$options = array('remember' => Factory::getApplication()->input->getBool('remember', false));
+				$options = array('remember' => Factory::getApplication()->getInput()->getBool('remember', false));
 
 				// Tmp user details
 				$user 	= array();
@@ -139,7 +139,8 @@ class JticketingModelRegistration extends BaseDatabaseModel
 		$user->set('id', '');
 		$user->set('usertype', 'Registered');
 
-		if (JVERSION >= '1.6.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '1.6.0')
 		{
 			$userConfig = ComponentHelper::getParams('com_users');
 

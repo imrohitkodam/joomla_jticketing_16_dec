@@ -18,7 +18,7 @@ use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('jquery.token');
 
 $listOrder  = $this->escape($this->state->get('list.ordering'));

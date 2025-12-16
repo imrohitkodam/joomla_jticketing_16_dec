@@ -12,9 +12,10 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 
-jimport('techjoomla.tjmoney.tjmoney');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjmoney/tjmoney.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjmoney/tjmoney.php'; }
 
 FormHelper::loadFieldClass('list');
 
@@ -26,7 +27,7 @@ FormHelper::loadFieldClass('list');
  * @since       1.0
  */
 
-class JFormFieldCurrencyList extends JFormFieldList
+class JFormFieldCurrencyList extends ListField
 {
 	/**
 	 * The form field type.

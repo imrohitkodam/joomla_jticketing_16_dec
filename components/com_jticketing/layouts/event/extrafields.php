@@ -39,7 +39,7 @@ $fieldLayout['Ownership']    = "ownership";
 $fieldLayout['Editor']       = "editor";
 
 // Load the tj-fields helper
-JLoader::import('components.com_tjfields.helpers.tjfields', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_tjfields/helpers/tjfields.php')) { require_once JPATH_SITE . '/components/com_tjfields/helpers/tjfields.php'; }
 $TjfieldsHelper = new TjfieldsHelper;
 
 // Get JLayout data
@@ -107,7 +107,7 @@ foreach ($fieldSets as $fieldset)
 						$ucmSubFormXmlFieldSets = array();
 
 						// Call to extra fields
-						JLoader::import('components.com_tjucm.models.item', JPATH_SITE);
+						if (file_exists(JPATH_SITE . '/components/com_tjucm/models/item.php')) { require_once JPATH_SITE . '/components/com_tjucm/models/item.php'; }
 						$tjucmItemModel = BaseDatabaseModel::getInstance('Item', 'TjucmModel');
 
 						// Get Subform field data

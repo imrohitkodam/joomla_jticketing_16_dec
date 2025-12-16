@@ -18,7 +18,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
-if (JVERSION < '4.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 {
 	require_once JPATH_ADMINISTRATOR . '/components/com_installer/models/database.php';
 }

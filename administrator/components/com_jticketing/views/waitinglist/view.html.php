@@ -19,7 +19,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
 // Import Csv export button
-jimport('techjoomla.tjtoolbar.button.csvexport');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php'; }
 
 /**
  * View class for a list of Jticketing.
@@ -59,7 +59,7 @@ class JTicketingViewWaitinglist extends HtmlView
 	{
 		$this->canDo = ContentHelper::getActions('com_jticketing');
 		$com_params  = ComponentHelper::getParams('com_jticketing');
-		$layout      = Factory::getApplication()->input->get('layout', 'default');
+		$layout      = Factory::getApplication()->getInput()->get('layout', 'default');
 
 		$this->state         = $this->get('State');
 		$this->items	     = $this->get('Items');
@@ -71,7 +71,7 @@ class JTicketingViewWaitinglist extends HtmlView
 
 		if ($this->enableWaitingList == 'none')
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
 			ToolbarHelper::preferences('com_jticketing');
 		?>
 
@@ -106,7 +106,7 @@ class JTicketingViewWaitinglist extends HtmlView
 
 		if ($layout != 'contactus')
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		}
 
 		parent::display($tpl);
@@ -121,15 +121,15 @@ class JTicketingViewWaitinglist extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		require_once JPATH_COMPONENT . '/helpers/jticketing.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/jticketing.php';
 
-		$layout      = Factory::getApplication()->input->get('layout', 'default');
+		$layout      = Factory::getApplication()->getInput()->get('layout', 'default');
 		$com_params  = ComponentHelper::getParams('com_jticketing');
 		$autoAdvanceWaitingList = $com_params->get('auto_advance_waiting_list');
 
 		if ($layout == 'contactus')
 		{
-			Factory::getApplication()->input->set('hidemainmenu', true);
+			Factory::getApplication()->getInput()->set('hidemainmenu', true);
 			ToolbarHelper::title(Text::_('COM_JTICKETING_WAITING_LIST_SEND_EMAIL'), 'jticketing email');
 			ToolbarHelper::custom('waitinglist.notifyUsersByEmail', 'envelope.png', 'send_f2.png', 'COM_JTICKETING_WAITING_LIST_SEND_MAIL', false);
 			ToolbarHelper::cancel('waitinglist.cancel');
@@ -148,7 +148,7 @@ class JTicketingViewWaitinglist extends HtmlView
 
 				ToolbarHelper::custom('waitinglist.redirectForEmail', 'mail.png', '', Text::_('COM_JTICKETING_EMAIL_TO_ALL_SELECTED_WAITLISTED_USERS'));
 
-				if (($canDo->get('core.enrollall') || $canDo->get('core.enrollown')) && empty($autoAdvanceWaitingList)
+				if (($canDo->{'core.enrollall'} || $canDo->{'core.enrollown'}) && empty($autoAdvanceWaitingList)
 					&& ($this->enableWaitingList == 'both' || $this->enableWaitingList == 'classroom_training'))
 				{
 					ToolbarHelper::custom('waitinglist.enroll', 'plus.png', '', Text::_('COM_JTICKETING_WAITINGLIST_ENROLLMENTS'));
@@ -164,7 +164,7 @@ class JTicketingViewWaitinglist extends HtmlView
 		}
 
 		ToolbarHelper::preferences('com_jticketing');
-		JHtmlSidebar::setAction('index.php?option=com_jticketing&view=waitinglist');
+		// Joomla 6: HTMLHelperSidebar::setAction() removed
 		$this->extra_sidebar = '';
 	}
 }

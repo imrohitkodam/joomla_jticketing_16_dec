@@ -49,7 +49,7 @@ endif;
 		//Code to Read CSS File
 		if(!function_exists('mb_convert_encoding'))		// condition to check if mbstring is enabled
 		{
-			// echo JText::_("MB_EXT");
+			// echo Text::_("MB_EXT");
 			//$emorgdata=$emails_config['message_body'];
 		}
 		else

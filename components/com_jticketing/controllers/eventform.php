@@ -24,18 +24,22 @@ use Joomla\CMS\Date\Date;
 
 
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_SITE . '/components/com_jticketing/controller.php';
 require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/models/venue.php';
 
 $helperPath = JPATH_SITE . '/components/com_jticketing/helpers/time.php';
 
-if (!class_exists('JticketingTimeHelper'))
+// Joomla 6: JLoader removed - use require_once
+if (!class_exists('JticketingTimeHelper') && file_exists($helperPath))
 {
-	JLoader::register('JticketingTimeHelper', $helperPath);
-	JLoader::load('JticketingTimeHelper');
+	require_once $helperPath;
 }
 
-JLoader::import('fronthelper', JPATH_SITE . '/components/com_tjvendors/helpers');
+$frontHelperPath = JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php';
+if (file_exists($frontHelperPath))
+{
+	require_once $frontHelperPath;
+}
 
 /**
  * JTicketing EventForm controller
@@ -231,7 +235,7 @@ class JticketingControllerEventForm extends FormController
 		}
 
 		$extraJformData = array_diff_key($data, $validData);
-		$filesData      = $app->input->files->get('jform', array(), 'ARRAY');
+		$filesData      = $app->getInput()->files->get('jform', array(), 'ARRAY');
 		unset($filesData['image']);
 		unset($filesData['gallery_file']);
 		unset($extraJformData['vendor_id']);
@@ -420,7 +424,7 @@ class JticketingControllerEventForm extends FormController
 		$model = $this->getModel('EventForm', 'JticketingModel');
 
 		// Get the user data.
-		$data = Factory::getApplication()->input->get('jform', array(), 'array');
+		$data = Factory::getApplication()->getInput()->get('jform', array(), 'array');
 
 		// Validate the posted data.
 		$form = $model->getForm();
@@ -511,7 +515,7 @@ class JticketingControllerEventForm extends FormController
 	 */
 	public function createSeminar()
 	{
-		$post = Factory::getApplication()->input->post;
+		$post = Factory::getApplication()->getInput()->post;
 		$formData = new Registry($post->get('jform', '', 'array'));
 		$unlimitedCount = $post->get('ticket_type_unlimited_seats', '', 'array');
 
@@ -601,7 +605,7 @@ class JticketingControllerEventForm extends FormController
 	 */
 	public function getAllMeetings()
 	{
-		$post = Factory::getApplication()->input->post;
+		$post = Factory::getApplication()->getInput()->post;
 		$venueId = $post->get('venueId');
 
 		// Load AnnotationForm Model
@@ -721,7 +725,7 @@ class JticketingControllerEventForm extends FormController
 	 */
 	public function edit($key = 'id', $urlVar = 'id')
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$cid = $input->get('cid', array(), 'post', 'array');
 
 		if (!count($cid))
@@ -753,8 +757,8 @@ class JticketingControllerEventForm extends FormController
 	{
 		JLoader::register('JticketingMailHelper', JPATH_SITE . '/components/com_jticketing/helpers/mail.php');
 		
-		$rsformEnabled       = JPluginHelper::isEnabled('jticketing', 'rsform');
-		$tjintegrationEnabled = JPluginHelper::isEnabled('content', 'tjintegration');
+		$rsformEnabled       = PluginHelper::isEnabled('jticketing', 'rsform');
+		$tjintegrationEnabled = PluginHelper::isEnabled('content', 'tjintegration');
 
 		if (!($rsformEnabled && $tjintegrationEnabled))
 		{
@@ -766,7 +770,7 @@ class JticketingControllerEventForm extends FormController
 
 		if (!empty($events))
 		{
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 
 			foreach ($events as $event)
 			{

@@ -23,10 +23,10 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 // Import Csv export button
-jimport('techjoomla.tjtoolbar.button.csvexport');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php'; }
 
 /**
  * View class for a list of Jticketing.
@@ -82,7 +82,7 @@ class JticketingViewAttendees extends HtmlView
 		$jinput      = $app->input;
 		$this->canDo = ContentHelper::getActions('com_jticketing');
 		$comParams   = ComponentHelper::getParams('com_jticketing');
-		$layout      = Factory::getApplication()->input->get('layout', 'default');
+		$layout      = Factory::getApplication()->getInput()->get('layout', 'default');
 		$this->user  = Factory::getUser();
 		$isAdmin     = $this->user->authorise('core.admin');
 		$this->tmpl  = $jinput->get('tmpl', '');
@@ -131,7 +131,7 @@ class JticketingViewAttendees extends HtmlView
 		}
 
 		$this->state         = $this->get('State');
-		$input               = Factory::getApplication()->input;
+		$input               = Factory::getApplication()->getInput();
 
 		if ($layout == 'attendee_details')
 		{
@@ -316,7 +316,7 @@ class JticketingViewAttendees extends HtmlView
 		// Do not rendar the unnessessary fields,rows,menus from a pop up view.
 		if ($this->tmpl !== 'component')
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		}
 
 		parent::display($tpl);
@@ -331,14 +331,14 @@ class JticketingViewAttendees extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		$layout    = Factory::getApplication()->input->get('layout', 'default');
+		$layout    = Factory::getApplication()->getInput()->get('layout', 'default');
 		$comParams = JT::config();
 		$toolbar   = Toolbar::getInstance('toolbar');
 		$integration = $comParams->get('integration', '', 'INT');
 
 		if ($layout == 'contactus')
 		{
-			Factory::getApplication()->input->set('hidemainmenu', true);
+			Factory::getApplication()->getInput()->set('hidemainmenu', true);
 
 			ToolbarHelper::title(Text::_('COM_JTICKETING_SEND_EMAIL'), 'jticketing email');
 
@@ -354,7 +354,8 @@ class JticketingViewAttendees extends HtmlView
 
 			if ($integration == 2)
 			{
-				if (JVERSION < '4.0.0')
+				// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 				{
 					$toolbar->appendButton('Custom', '&nbsp;<a class="btn" href="#import_attendees" data-toggle="modal" >
 						<span class="icon-upload icon-white"></span>' . '&nbsp;' . htmlspecialchars(Text::_('COMJTICKETING_EVENT_IMPORT_CSV')) . '</a>'
@@ -377,11 +378,12 @@ class JticketingViewAttendees extends HtmlView
 			$canDo  = $this->canDo;
 
 			// Add New button manage enrollment view
-			if (($canDo->get('core.enrollall') || $canDo->get('core.enrollown')) && $comParams->get('enable_self_enrollment'))
+			if (($canDo->{'core.enrollall'} || $canDo->{'core.enrollown'}) && $comParams->get('enable_self_enrollment'))
 			{
 				if ($this->tmpl !== 'component')
 				{
-					if (JVERSION < '4.0.0')
+					// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 					{
 						$toolbar->prependButton(
 							'Custom', '<a class="btn btn-small btn-success" href="#myModalNew" data-toggle="modal" >
@@ -416,7 +418,7 @@ class JticketingViewAttendees extends HtmlView
 		if ($this->tmpl !== 'component')
 		{
 			ToolbarHelper::preferences('com_jticketing');
-			JHtmlSidebar::setAction('index.php?option=com_jticketing&view=attendees');
+			// Joomla 6: HTMLHelperSidebar::setAction() removed
 			$this->extra_sidebar = '';
 		}
 		else

@@ -20,7 +20,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('bootstrap.modal');
 HTMLHelper::_('jquery.token');
 
@@ -31,9 +31,9 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 <div id="jtwrap">
 <?php
 // Modal pop up for mass enrollment
-echo JHtmlBootstrap::renderModal('myModalNew', $this->modal_params, $this->body);
-echo JHtmlBootstrap::renderModal('import_attendees', $this->csv_params);
-echo JHtmlBootstrap::renderModal('move_attendee', $this->attendeePrams, $this->attendeeBody);
+echo HTMLHelper::_('bootstrap.renderModal', 'myModalNew', $this->modal_params, $this->body);
+echo HTMLHelper::_('bootstrap.renderModal', 'import_attendees', $this->csv_params);
+echo HTMLHelper::_('bootstrap.renderModal', 'move_attendee', $this->attendeePrams, $this->attendeeBody);
 echo $this->addToolbar();
 ?>
 <span id="ajax_loader"></span>

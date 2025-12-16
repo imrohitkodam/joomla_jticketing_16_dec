@@ -15,8 +15,8 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Router\Route;
 
-JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
 
 HTMLHelper::_('jquery.framework');
 
@@ -26,8 +26,8 @@ HTMLHelper::_('script', '/media/com_warehouse/vendors/js/jquery.magnific-popup.m
 HTMLHelper::_('script', '/libraries/techjoomla/assets/js/tjfile.js');
 $document->addScriptDeclaration("jQuery(document).ready(function() { tjFile.eventImgPopup('popup-media');});");
 
-JText::script('LIB_TECHJOOMLA_ALLOWED_FILE_SIZE');
-JText::script('LIB_TECHJOOMLA_ERR_MSG_FILE_ALLOW');
+Text::script('LIB_TECHJOOMLA_ALLOWED_FILE_SIZE');
+Text::script('LIB_TECHJOOMLA_ERR_MSG_FILE_ALLOW');
 
 /**
  * Supports an HTML select list of categories

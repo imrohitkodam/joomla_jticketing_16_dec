@@ -24,7 +24,7 @@ if (!empty($fieldParams))
 	}
 }
 ?>
-<label class="w-100"><?php echo JText::_($field->label); if ($field->required) echo "<span class='required-star'>&nbsp;*</span>"; ?></label>
+<label class="w-100"><?php echo Text::_($field->label); if ($field->required) echo "<span class='required-star'>&nbsp;*</span>"; ?></label>
 <div class="custom-radio-btn">
 <?php
 	if (!is_array($field->default_selected_option))

@@ -56,7 +56,7 @@ class JticketingTableCoupon extends Table
 	 */
 	public function bind($array, $ignore = '')
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$task = $input->getString('task', '');
 
 		if (($task == 'save' || $task == 'apply') && (!Factory::getUser()->authorise('core.edit.state', 'com_jticketing') && $array['state'] == 1))
@@ -239,7 +239,7 @@ class JticketingTableCoupon extends Table
 	 *
 	 * @return string The asset name
 	 *
-	 * @see JTable::_getAssetName
+	 * @see Table::_getAssetName
 	 */
 	protected function _getAssetName()
 	{
@@ -256,7 +256,7 @@ class JticketingTableCoupon extends Table
 	 *
 	 * @return  integer
 	 *
-	 * @see JTable::_getAssetParentId
+	 * @see Table::_getAssetParentId
 	 */
 	protected function _getAssetParentId(Table $table = null, $id = null)
 	{

@@ -30,11 +30,11 @@ class ReportsApiResourceGdsfields extends ApiResource
 	{
 		$app        = Factory::getApplication();
 		$jinput     = $app->input;
-		$reportName = $app->input->getString('id');
+		$reportName = $app->getInput()->getString('id');
 
 		if (empty($reportName))
 		{
-			$reportName = $app->input->getString('report');
+			$reportName = $app->getInput()->getString('report');
 		}
 
 		if (!isset($reportName))

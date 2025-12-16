@@ -17,7 +17,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
-JLoader::import('components.com_tjfields.helpers.geo', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_tjfields/helpers/geo.php')) { require_once JPATH_SITE . '/components/com_tjfields/helpers/geo.php'; }
 
 /**
  * Orders view class.
@@ -139,7 +139,7 @@ class JticketingVieworders extends HtmlView
 		$this->ordersListingFields = $this->jticketingparams->get('orders_listing_fields', ['COUPON_CODE_DIS','COM_JTICKETING_FEE','PAY_METHOD'], 'ARRAY');
 
 		JticketingHelper::getLanguageConstant();
-		ToolBarHelper::preferences('com_jticketing');
+		ToolbarHelper::preferences('com_jticketing');
 		$this->setToolBar();
 
 		// Access check: is this user allowed to access the backend of this component
@@ -214,7 +214,7 @@ class JticketingVieworders extends HtmlView
 
 			$JticketingHelper 	= new JticketingHelper;
 			$JticketingHelper->addSubmenu('orders');
-			$this->sidebar 		= JHtmlSidebar::render();
+			// Joomla 6: HTMLHelperSidebar::render() removed - sidebar functionality removed
 			$this->setLayout($layout);
 		}
 
@@ -232,7 +232,7 @@ class JticketingVieworders extends HtmlView
 	{
 		$document = Factory::getDocument();
 		HTMLHelper::_('stylesheet', 'components/com_jticketing/assets/css/jticketing.css');
-		ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('ORDER_VIEW'), 'folder');
+		ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('ORDER_VIEW'), 'folder');
 		ToolbarHelper::deleteList('', 'orders.remove', 'JTOOLBAR_DELETE');
 	}
 }

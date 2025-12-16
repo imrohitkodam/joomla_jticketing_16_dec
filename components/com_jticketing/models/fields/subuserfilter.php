@@ -10,18 +10,16 @@
 
 defined('JPATH_BASE') or die;
 
-use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
-
-FormHelper::loadFieldClass('list');
 
 /**
  * JFormFieldSubuserfilter helper.
  *
  * @since  2.3.3
  */
-class JFormFieldSubuserfilter extends JFormFieldList
+class JFormFieldSubuserfilter extends ListField
 {
 	/**
 	 * The form field type.
@@ -67,7 +65,7 @@ class JFormFieldSubuserfilter extends JFormFieldList
 	 */
 	protected function getOptions()
 	{
-		JLoader::import('administrator.components.com_jticketing.helpers.jticketing', JPATH_SITE);
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php'; }
 		$hasUsers = JticketingHelper::getSubusers();
 
 		// If not manager, we do not need to show dropdown

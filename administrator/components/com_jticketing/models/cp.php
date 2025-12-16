@@ -225,7 +225,7 @@ class JticketingModelcp extends BaseDatabaseModel
 		}
 		else
 		{
-			$jtid = Factory::getApplication()->input->get('jtid');
+			$jtid = Factory::getApplication()->getInput()->get('jtid');
 			$session->set('jticketing_jtid', $jtid);
 			$statistics = array();
 		}
@@ -593,7 +593,7 @@ class JticketingModelcp extends BaseDatabaseModel
 	public function getDashboardData()
 	{
 		$dashboardData = array();
-		JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 		$dashboardData['totalEvents'] = $this->totalEvents();
 		$dashboardData['integrationSource'] = $this->source;

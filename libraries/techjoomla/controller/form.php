@@ -8,7 +8,7 @@
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Factory;
@@ -34,7 +34,7 @@ class TjControllerForm extends FormController
 	{
 		$app = Factory::getApplication();
 
-		return strtolower($app->input->server->get('HTTP_X_REQUESTED_WITH', '')) == 'xmlhttprequest';
+		return strtolower($app->getInput()->server->get('HTTP_X_REQUESTED_WITH', '')) == 'xmlhttprequest';
 	}
 
 	/**
@@ -62,7 +62,7 @@ class TjControllerForm extends FormController
 		// @TODO - needs change
 
 		// Check for request forgeries.
-		// JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		// Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		$app   = Factory::getApplication();
 		$lang  = Factory::getLanguage();
@@ -365,7 +365,7 @@ class TjControllerForm extends FormController
 		$langKey = $this->text_prefix . ($recordId == 0 && $app->isClient('site') ? '_SUBMIT' : '') . '_SAVE_SUCCESS';
 		$prefix  = Factory::getLanguage()->hasKey($langKey) ? $this->text_prefix : 'JLIB_APPLICATION';
 
-		// $this->setMessage(JText::_($prefix . ($recordId == 0 && $app->isClient('site') ? '_SUBMIT' : '') . '_SAVE_SUCCESS'));
+		// $this->setMessage(Text::_($prefix . ($recordId == 0 && $app->isClient('site') ? '_SUBMIT' : '') . '_SAVE_SUCCESS'));
 		$returnMsg = Text::_($prefix . ($recordId == 0 && $app->isClient('site') ? '_SUBMIT' : '') . '_SAVE_SUCCESS');
 
 		if ($isAjaxRequest)

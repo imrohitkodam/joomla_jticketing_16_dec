@@ -18,7 +18,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\Component\ComponentHelper;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/models/venue.php';
 
 $helperPath = JPATH_SITE . '/components/com_jticketing/helpers/time.php';
@@ -45,7 +45,7 @@ class JticketingControllerEventForm extends JticketingController
 	 */
 	public function getVenueList()
 	{
-		$input  = Factory::getApplication()->input->post;
+		$input  = Factory::getApplication()->getInput()->post;
 		$eventData["radioValue"] = $input->get('radioValue', '', 'STRING');
 		$eventData["silentVendor"] = $input->get('silentVendor', '', 'STRING');
 		$eventData["eventId"] = $input->get('eventId', '', 'INT');
@@ -97,7 +97,7 @@ class JticketingControllerEventForm extends JticketingController
 			$app->close();
 		}
 
-		$venueId = $app->input->getInt('venueId');
+		$venueId = $app->getInput()->getInt('venueId');
 		$venue = JT::venue($venueId);
 
 		if (!$venue->id)
@@ -119,7 +119,7 @@ class JticketingControllerEventForm extends JticketingController
 	 */
 	public function getScoID()
 	{
-		$post     = Factory::getApplication()->input->post;
+		$post     = Factory::getApplication()->getInput()->post;
 		$venueId  = $post->get('venueId');
 		$venueurl = $post->get('venueurl');
 
@@ -159,8 +159,8 @@ class JticketingControllerEventForm extends JticketingController
 		if ($uploadFile == "link")
 		{
 			$data = array();
-			$data['name']        = $app->input->post->get('name', '', 'string');
-			$data['type']        = $app->input->post->get('type', '', 'string');
+			$data['name']        = $app->getInput()->post->get('name', '', 'string');
+			$data['type']        = $app->getInput()->post->get('type', '', 'string');
 			$data['upload_type'] = $uploadFile;
 			$returnData[0]       = $model->uploadLink($data);
 
@@ -173,11 +173,12 @@ class JticketingControllerEventForm extends JticketingController
 		}
 		else
 		{
-			$files    = $app->input->files->get('file', '', 'array');
+			$files    = $app->getInput()->files->get('file', '', 'array');
 			$fileType = explode("/", $files[0]['type']);
 			$comMediaParam  = ComponentHelper::getParams('com_media');
 
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				$allowedExtension = explode(',', $comMediaParam->get('upload_extensions'));
 			}

@@ -45,7 +45,7 @@ class JticketingViewVenues extends HtmlView
 	public function display($tpl = null)
 	{
 		global $mainframe, $option;
-		$input      = Factory::getApplication()->input;
+		$input      = Factory::getApplication()->getInput();
 		$mainframe  = Factory::getApplication();
 		$this->params = $mainframe->getParams('com_jticketing');
 		$user       = Factory::getUser();
@@ -117,20 +117,20 @@ class JticketingViewVenues extends HtmlView
 		$canDo = JticketingHelper::getActions($state->get('filter.category_id'));
 
 		// Add toolbar buttons
-		jimport('techjoomla.tjtoolbar.toolbar');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php'; }
 		$tjbar = TJToolbar::getInstance('tjtoolbar', 'pull-right float-end');
 
-		if ($canDo->get('core.create'))
+		if ($canDo->{'core.create'})
 		{
 			$tjbar->appendButton('venueform.add', 'TJTOOLBAR_NEW', '', 'class="btn btn-sm btn-success"');
 		}
 
-		if ($canDo->get('core.edit.own') && isset($this->items[0]))
+		if ($canDo->{'core.edit.own'} && isset($this->items[0]))
 		{
 			$tjbar->appendButton('venueform.edit', 'TJTOOLBAR_EDIT', '', 'class="btn btn-sm btn-success"');
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]))
 			{
@@ -139,7 +139,7 @@ class JticketingViewVenues extends HtmlView
 			}
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]))
 			{

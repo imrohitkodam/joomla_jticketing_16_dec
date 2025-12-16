@@ -24,7 +24,7 @@ use Joomla\CMS\Router\Route;
  * @package  JTIcketing
  * @since    2.7.0
  */
-class JFormFieldModal_Single extends JFormField
+class JFormFieldModal_Single extends FormField
 {
 	/**
 	 * field type
@@ -52,7 +52,8 @@ class JFormFieldModal_Single extends JFormField
 		$script[] = '    function jSelectBook_' . $this->id . '(id, title, object) {';
 		$script[] = '        document.getElementById("' . $this->id . '_id").value = id;';
 		$script[] = '        document.getElementById("' . $this->id . '_name").value = title;';
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
 			$closeModaljs = 'document.querySelector("#jtSingle' . $this->id . ' .close").click()';
 		}
@@ -111,7 +112,8 @@ class JFormFieldModal_Single extends JFormField
 		$html[] = '<div class="button2-left">';
 		$html[] = '  <div class="blank">';
 
-		if (JVERSION < '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 		{
 			$html[] = '<a data-target="#jtSingle' . $this->id . '" data-toggle="modal" title="' .
 			Text::_('COM_JTICKETING_SELECT_EVENT') . '">' . Text::_('COM_JTICKETING_SELECT_EVENT') . '</a>';

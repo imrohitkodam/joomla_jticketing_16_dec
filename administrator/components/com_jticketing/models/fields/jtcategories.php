@@ -13,15 +13,14 @@ defined('JPATH_BASE') or die;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Language\Text;
-
-FormHelper::loadFieldClass('list');
+use Joomla\CMS\Form\Field\ListField;
 
 /**
  * Supports an HTML select list of categories
  *
  * @since  1.6
  */
-class JFormFieldJtcategories extends JFormFieldList
+class JFormFieldJtcategories extends ListField
 {
 	/**
 	 * The form field type.

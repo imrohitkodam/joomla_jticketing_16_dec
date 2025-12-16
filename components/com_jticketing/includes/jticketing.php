@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Table\Table;
 use Joomla\String\StringHelper;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 require_once JPATH_SITE . '/components/com_jticketing/includes/defines.php';
 
@@ -275,7 +275,8 @@ class JT
 			HTMLHelper::stylesheet('media/com_jticketing/css/artificiers.min.css', $options);
 			HTMLHelper::stylesheet('media/com_jticketing/css/jt-tables.min.css', $options);
 
-			if (JVERSION < '5.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '5.0.0')
 			{
 				HTMLHelper::stylesheet('media/techjoomla_strapper/vendors/font-awesome/css/font-awesome.min.css', $options);
 			}
@@ -302,7 +303,8 @@ class JT
 			}
 
 			// @TODO do we really need this? Confirm and refactor it
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				HTMLHelper::_('behavior.tabstate');
 			}

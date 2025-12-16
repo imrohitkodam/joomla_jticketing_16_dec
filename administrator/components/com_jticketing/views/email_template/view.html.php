@@ -44,8 +44,8 @@ class JticketingViewemail_Template extends HtmlView
 		// Native Event Manager.
 		if($integration<1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
-			ToolBarHelper::preferences('com_jticketing');
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
+			ToolbarHelper::preferences('com_jticketing');
 		?>
 			<div class="alert alert-info alert-help-inline">
 		<?php echo Text::_('COMJTICKETING_INTEGRATION_NOTICE');
@@ -59,14 +59,15 @@ class JticketingViewemail_Template extends HtmlView
 		$JticketingHelper->addSubmenu('email_template');
 		$this->_setToolBar();
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		}
 
 		// Get the model
 		$model  = $this->getModel();
-		$input  = Factory::getApplication()->input;
+		$input  = Factory::getApplication()->getInput();
 		$option = $input->set('layout', 'email_template');
 		$this->setLayout('email_template');
 
@@ -87,25 +88,27 @@ class JticketingViewemail_Template extends HtmlView
 		HTMLHelper::_('stylesheet', 'components/com_jticketing/assets/css/jticketing.css');
 		$bar = ToolBar::getInstance('toolbar');
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_EMAIL_TEMPLATE'), 'folder');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_EMAIL_TEMPLATE'), 'folder');
 		}
 		else
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_EMAIL_TEMPLATE'), 'icon-48-jticketing.png');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_EMAIL_TEMPLATE'), 'icon-48-jticketing.png');
 		}
-		ToolBarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
+		ToolbarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
 
-		if (JVERSION >= '1.6.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '1.6.0')
 		{
-			ToolBarHelper::save('email_template.save', 'COM_JTICKETING_SAVE');
+			ToolbarHelper::save('email_template.save', 'COM_JTICKETING_SAVE');
 		}
 		else
 		{
-			ToolBarHelper::save();
+			ToolbarHelper::save();
 		}
 
-		ToolBarHelper::preferences('com_jticketing');
+		ToolbarHelper::preferences('com_jticketing');
 	}
 }

@@ -47,7 +47,7 @@ class JTicketingIntegration
 
 		if ($socialIntegrationOption == "joomla")
 		{
-			jimport('techjoomla.jsocial.joomla');
+			if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 
 			if ($gravatar)
 			{
@@ -76,17 +76,17 @@ class JTicketingIntegration
 		{
 			if ($socialIntegrationOption == "cb")
 			{
-				jimport('techjoomla.jsocial.cb');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/cb.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/cb.php'; }
 				$sociallibraryclass = new JSocialCB;
 			}
 			elseif ($socialIntegrationOption == "jomsocial")
 			{
-				jimport('techjoomla.jsocial.jomsocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 				$sociallibraryclass = new JSocialJomsocial;
 			}
 			elseif ($socialIntegrationOption == "EasySocial")
 			{
-				jimport('techjoomla.jsocial.easysocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php'; }
 				$sociallibraryclass = new JSocialEasysocial;
 			}
 
@@ -558,7 +558,8 @@ class JTicketingIntegration
 			{
 				if (str_contains($returnHtml, 'updateFormGroupToOFormGroup'))
 				{
-					if (JVERSION < '4.0.0')
+					// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 					{
 						$returnHtml = str_replace('input-prepend', 'o-input-group', $returnHtml);
 						$returnHtml = str_replace('input-append', 'o-input-group', $returnHtml);
@@ -574,7 +575,8 @@ class JTicketingIntegration
 			}
 			else 
 			{
-				if (JVERSION < '4.0.0')
+				// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 				{
 					$returnHtml = str_replace('icon-calendar', 'far fa-calendar-alt', $returnHtml);
 				}
@@ -587,7 +589,8 @@ class JTicketingIntegration
 		}
 		else if ($source == "com_community") 
 		{
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				$returnHtml = str_replace('icon-calendar', 'fa fa-calendar', $returnHtml);
 				$returnHtml = str_replace('removeWidthAndDisplayinline', 'removeWidthAndDisplayinline displayinline', $returnHtml);

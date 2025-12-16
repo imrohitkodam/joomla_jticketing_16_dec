@@ -148,7 +148,7 @@ class JTicketingControllerWaitinglist extends AdminController
 			$waitlistIds = (array) $wIds;
 		}
 
-		JLoader::import('components.com_jticketing.models.waitlistform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/waitlistform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/waitlistform.php'; }
 		$model = BaseDatabaseModel::getInstance('WaitlistForm', 'JTicketingModel');
 
 		BaseDatabaseModel::addIncludePath(JPATH_SITE . '/components/com_jticketing/models');

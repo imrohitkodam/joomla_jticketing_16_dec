@@ -21,9 +21,10 @@ extract($displayData);
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.keepalive');
 
-if (JVERSION < '4.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 {
-	HTMLHelper::_('formbehavior.chosen', 'select');
+	// Joomla 6: formbehavior.chosen removed - using native select
 }
 ?>
 <div class="contentpane component min-height-400">
@@ -38,7 +39,7 @@ if (JVERSION < '4.0.0')
 			</div>
 			<div class="controls selected-event">
 				<?php
-				echo JHtmlSelect::genericlist($eventOptions, 'selected_event', 'class="btn input-medium form-select" size="5" required="required" name="groupfilter"', "value", "text", '');
+				echo HTMLHelper::_('select.genericlist', $eventOptions, 'selected_event', 'class="btn input-medium form-select" size="5" required="required" name="groupfilter"', "value", "text", '');
 				?>
 				<button class="btn btn-primary moveAttendeeBtn mt-2 float-end mb-2" type="submit" value="Submit"/><?php echo Text::_('COM_JTICKETING_MOVE_ATTENDEE_BUTTON'); ?></button>
 			</div>

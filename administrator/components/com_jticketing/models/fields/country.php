@@ -19,7 +19,7 @@ use Joomla\CMS\HTML\HTMLHelper;
  *
  * @since  1.0
  */
-class JFormFieldCountry extends JFormField
+class JFormFieldCountry extends FormField
 {
 	protected $type = 'Country';
 
@@ -98,7 +98,7 @@ class JFormFieldCountry extends JFormField
 				select.find('option').remove().end();
 
 				selected='selected=\"selected\"';
-				var op='<option '+selected+' value="">'  +default_opt+   '</option>'     ;
+				var op='<option '+selected+' value=\">'  +default_opt+   '</option>'     ;
 				techjoomla.jQuery('#state_id').append(op);
 
 				if(data)
@@ -107,9 +107,9 @@ class JFormFieldCountry extends JFormField
 					for (index = 0; index < data.length; ++index)
 					{
 						var name=data[index]['id'];
-						selected="";
+						selected=\"\";
 						";
-
+						
 						if ($this->form->getValue('state_id'))
 						{ 
 							$script .= "

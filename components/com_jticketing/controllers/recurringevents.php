@@ -8,4 +8,4 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
-JLoader::import('com_jticketing.controllers.recurringevents', JPATH_ADMINISTRATOR . '/components');
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/controllers/recurringevents.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/controllers/recurringevents.php'; }

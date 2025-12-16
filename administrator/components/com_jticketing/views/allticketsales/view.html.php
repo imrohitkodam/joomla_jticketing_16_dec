@@ -15,8 +15,9 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-Use Joomla\String\StringHelper;
+use Joomla\String\StringHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
 /**
@@ -41,7 +42,7 @@ class JticketingViewallticketsales extends HtmlView
 		HTMLHelper::_('behavior.multiselect');
 
 		$mainframe                  = Factory::getApplication();
-		$input                      = Factory::getApplication()->input;
+		$input                      = Factory::getApplication()->getInput();
 		$this->jticketingmainhelper = new jticketingmainhelper;
 		$params                     = ComponentHelper::getParams('com_jticketing');
 		$integration                = $params->get('integration');
@@ -52,7 +53,7 @@ class JticketingViewallticketsales extends HtmlView
 		// Native Event Manager.
 		if ($integration < 1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 			ToolbarHelper::preferences('com_jticketing');
 		?>
@@ -67,7 +68,7 @@ class JticketingViewallticketsales extends HtmlView
 		$search_event = $mainframe->getUserStateFromRequest($option . 'search_event', 'search_event', '', 'string');
 		$search_event = StringHelper::strtolower($search_event);
 		$user         = Factory::getUser();
-		$layout       = Factory::getApplication()->input->get('layout', 'default');
+		$layout       = Factory::getApplication()->getInput()->get('layout', 'default');
 		$status_event = array();
 		$eventsModel  = JT::model('events');
 		$eventlist    = $eventsModel->getItems();
@@ -88,7 +89,7 @@ class JticketingViewallticketsales extends HtmlView
 			}
 		}
 
-		$eventid = Factory::getApplication()->input->get('event');
+		$eventid = Factory::getApplication()->getInput()->get('event');
 
 		$this->status_event = $status_event;
 
@@ -161,14 +162,15 @@ class JticketingViewallticketsales extends HtmlView
 		$lists['user_filter'] = $user_filter;
 		$this->lists          = $lists;
 
-		if (JVERSION >= '3.0' && JVERSION < '4.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0' && JVERSION < '4.0')
 		{
 			JHtmlBehavior::framework();
 		}
 
 		$this->setToolBar();
 
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 		$this->setLayout($layout);
 		$this->utilities = JT::utilities();
@@ -185,20 +187,20 @@ class JticketingViewallticketsales extends HtmlView
 	 */
 	public function setToolBar()
 	{
-		// JToolbarHelper::title(JText::_('COM_USERS_VIEW_USERS_TITLE'), 'user');
+		// JToolbarHelper::title(Text::_('COM_USERS_VIEW_USERS_TITLE'), 'user');
 		$document = Factory::getDocument();
 		HTMLHelper::_('stylesheet', 'components/com_jticketing/css/jticketing.css');
-		$bar      = JToolBar::getInstance('toolbar');
+		$bar      = Toolbar::getInstance('toolbar');
 
 		ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_SALES_VIEW'), 'dashboard');
 
 		ToolbarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
 
-		$layout = Factory::getApplication()->input->get('layout', 'default');
+		$layout = Factory::getApplication()->getInput()->get('layout', 'default');
 
 		if ($layout == 'default')
 		{
-			JHtmlSidebar::setAction('index.php?option=com_jticketing');
+			// Joomla 6: HTMLHelperSidebar::setAction() removed
 		}
 
 		ToolbarHelper::preferences('com_jticketing');

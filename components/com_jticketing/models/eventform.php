@@ -26,15 +26,15 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Form\Form;
 
-JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
-JLoader::import('components.com_jticketing.events.event', JPATH_SITE);
-JLoader::import('filterFields', JPATH_SITE . '/components/com_tjfields');
-JLoader::import('attendeefields', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('tickettype', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('integrationxref', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('components.com_jticketing.helpers.route', JPATH_SITE);
-JLoader::import('components.com_jticketing.helpers.frontendhelper', JPATH_SITE);
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/event.php'; }
+if (file_exists(JPATH_SITE . '/components/com_tjfields/filterFields.php')) { require_once JPATH_SITE . '/components/com_tjfields/filterFields.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeefields.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeefields.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/tickettype.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/tickettype.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/integrationxref.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/integrationxref.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/route.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/route.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/frontendhelper.php'; }
 JLoader::register('JticketingMailHelper', JPATH_SITE . '/components/com_jticketing/helpers/mail.php');
 
 /**
@@ -321,7 +321,7 @@ class JticketingModelEventForm extends AdminModel
 					$jtParams       = ComponentHelper::getParams('com_jticketing');
 					$eventImagePath = $jtParams->get('jticketing_media_upload_path', 'media/com_jticketing/events');
 
-					JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+					if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 
 					$mediaXrefLib  = TJMediaXref::getInstance();
 					$xrefMediaData = array('clientId' => $item->id, 'client' => 'com_jticketing.event','isGallery' => 1);
@@ -634,7 +634,7 @@ class JticketingModelEventForm extends AdminModel
 
 					if ($userPrivacyData == false)
 					{
-						$input		= Factory::getApplication()->input;
+						$input		= Factory::getApplication()->getInput();
 						$task 		= $input->post->get('task', '');
 
 						if ($data['privacy_consent'] == 'on' || $task == 'events.duplicate')
@@ -651,7 +651,7 @@ class JticketingModelEventForm extends AdminModel
 							$userPrivacyData['date'] = $date->toSql(true);
 							$userPrivacyData['client_id'] = $id;
 
-							JLoader::import('components.com_tjprivacy.models.tjprivacy', JPATH_SITE);
+							if (file_exists(JPATH_SITE . '/components/com_tjprivacy/models/tjprivacy.php')) { require_once JPATH_SITE . '/components/com_tjprivacy/models/tjprivacy.php'; }
 							$tjprivacyModel = BaseDatabaseModel::getInstance('Tjprivacy', 'TjprivacyModel');
 
 							$tjprivacyModel->save($userPrivacyData);
@@ -987,7 +987,7 @@ class JticketingModelEventForm extends AdminModel
 
 					$eventImagePath = $config->get('jticketing_media_upload_path', 'media/com_jticketing/events');
 
-					JLoader::import("/techjoomla/media/tables/xref", JPATH_LIBRARIES);
+					if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/xref.php"; }
 					$tableXref = Table::getInstance('Xref', 'TJMediaTable');
 
 					if (!empty($data['image']['new_image']))
@@ -1222,7 +1222,7 @@ class JticketingModelEventForm extends AdminModel
 	public function getAvailableVenue($array_venue)
 	{
 		$db = Factory::getDbo();
-		$jinput = Factory::getApplication()->input;
+		$jinput = Factory::getApplication()->getInput();
 		$eventid = $jinput->get('id', '', 'STRING');
 
 		$venue = $array_venue['venue'];
@@ -1821,7 +1821,7 @@ class JticketingModelEventForm extends AdminModel
 
 		if (parent::publish($pks, $value))
 		{
-			$extension  = Factory::getApplication()->input->get('option');
+			$extension  = Factory::getApplication()->getInput()->get('option');
 
 			// Include the content plugins for the change of category state event.
 			PluginHelper::importPlugin('jticketing');
@@ -1955,7 +1955,7 @@ class JticketingModelEventForm extends AdminModel
 
 		$params = ComponentHelper::getParams('com_jticketing');
 
-		$input		= Factory::getApplication()->input;
+		$input		= Factory::getApplication()->getInput();
 		$task 		= $input->post->get('task', '');
 
 		if ($task == 'events.duplicate')
@@ -2239,7 +2239,7 @@ class JticketingModelEventForm extends AdminModel
 	 */
 	public function saveTodo($eventData)
 	{
-		JLoader::import('components.com_jlike.models.contentform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jlike/models/contentform.php')) { require_once JPATH_SITE . '/components/com_jlike/models/contentform.php'; }
 		$contentFormModel = BaseDatabaseModel::getInstance('contentForm', 'JlikeModel');
 
 		extract($eventData);
@@ -2351,7 +2351,7 @@ class JticketingModelEventForm extends AdminModel
 				$todoData['notify'] = 0;
 			}
 
-			JLoader::import('components.com_jlike.models.recommendationform', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jlike/models/recommendationform.php')) { require_once JPATH_SITE . '/components/com_jlike/models/recommendationform.php'; }
 			$recommendationFormModel = BaseDatabaseModel::getInstance('RecommendationForm', 'JlikeModel');
 
 			$todos_id = $recommendationFormModel->save($todoData);
@@ -2397,7 +2397,7 @@ class JticketingModelEventForm extends AdminModel
 			'element_id' => $eventId
 		);
 
-		JLoader::import('components.com_jlike.models.contentform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jlike/models/contentform.php')) { require_once JPATH_SITE . '/components/com_jlike/models/contentform.php'; }
 		$contentFormModel = BaseDatabaseModel::getInstance('contentForm', 'JlikeModel');
 
 		if ($contentId = $contentFormModel->getConentId($contentData))
@@ -2418,7 +2418,7 @@ class JticketingModelEventForm extends AdminModel
 
 			$todos = $this->checkDuplicateTodo($data);
 
-			JLoader::import('components.com_jlike.models.recommendationform', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jlike/models/recommendationform.php')) { require_once JPATH_SITE . '/components/com_jlike/models/recommendationform.php'; }
 			$recommendationFormModel = BaseDatabaseModel::getInstance('RecommendationForm', 'JlikeModel');
 
 			if ($todos['0']->id)
@@ -2458,8 +2458,8 @@ class JticketingModelEventForm extends AdminModel
 			return false;
 		}
 
-		JLoader::import('components.com_jlike.models.recommendation', JPATH_SITE);
-		JLoader::import('components.com_jlike.models.recommendations', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jlike/models/recommendation.php')) { require_once JPATH_SITE . '/components/com_jlike/models/recommendation.php'; }
+		if (file_exists(JPATH_SITE . '/components/com_jlike/models/recommendations.php')) { require_once JPATH_SITE . '/components/com_jlike/models/recommendations.php'; }
 		$recommendationsModel = BaseDatabaseModel::getInstance('Recommendations', 'JlikeModel');
 		$recommendationModel = BaseDatabaseModel::getInstance('Recommendation', 'JlikeModel');
 
@@ -2510,7 +2510,7 @@ class JticketingModelEventForm extends AdminModel
 	 */
 	public function createContent($contentData)
 	{
-		JLoader::import('components.com_jlike.models.contentform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jlike/models/contentform.php')) { require_once JPATH_SITE . '/components/com_jlike/models/contentform.php'; }
 		$contentFormModel = BaseDatabaseModel::getInstance('contentForm', 'JlikeModel');
 
 		return $contentFormModel->getContentID($contentData);
@@ -2527,7 +2527,7 @@ class JticketingModelEventForm extends AdminModel
 	 */
 	public function updateContent($contentData)
 	{
-		JLoader::import('components.com_jlike.models.contentform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jlike/models/contentform.php')) { require_once JPATH_SITE . '/components/com_jlike/models/contentform.php'; }
 		$contentFormModel = BaseDatabaseModel::getInstance('contentForm', 'JlikeModel');
 
 		$contentId =  $contentFormModel->getContentID($contentData);

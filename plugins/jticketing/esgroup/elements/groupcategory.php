@@ -20,7 +20,7 @@ use Joomla\CMS\HTML\HTMLHelper;
  *
  * @since  3.3.0
  */
-class JFormFieldGroupcategory extends JFormField
+class JFormFieldGroupcategory extends FormField
 {
 	protected $type = 'groupcategory';
 

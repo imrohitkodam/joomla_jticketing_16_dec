@@ -10,7 +10,7 @@
 
 // No direct access
 defined('_JEXEC') or die();
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
@@ -21,9 +21,9 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\Registry\Registry;
 
-jimport('techjoomla.tjnotifications.tjnotifications');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjnotifications/tjnotifications.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjnotifications/tjnotifications.php'; }
 require_once JPATH_ADMINISTRATOR . '/components/com_tjvendors/helpers/tjvendors.php';
-JLoader::import('components.com_jticketing.events.order', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/order.php'; }
 
 /**
  * Model for post processing payment
@@ -111,7 +111,7 @@ class JticketingModelpayment extends BaseDatabaseModel
 	 */
 	public function confirmpayment($pg_plugin, $oid)
 	{
-		$post = Factory::getApplication()->input->get('post');
+		$post = Factory::getApplication()->getInput()->get('post');
 		$vars = $this->getPaymentVars($pg_plugin, $oid);
 
 		if (!empty($post) && !empty($vars))
@@ -222,10 +222,10 @@ class JticketingModelpayment extends BaseDatabaseModel
 			$ecTrackId           = base64_encode($order->order_id);
 			$return_url          = "index.php?option=com_jticketing&view=orders&layout=order";
 			$return_url .= $guest_email . "&orderid=" . $order->order_id . "&processor={$pg_plugin}&Itemid=" . $orderItemid . "&ecTrackId=" . $ecTrackId;
-			$vars->return        = JURI::root() . substr(Route::_($return_url, false), strlen(JURI::base(true)) + 1);
+			$vars->return        = Uri::root() . substr(Route::_($return_url, false), strlen(Uri::base(true)) + 1);
 			$cancel_return       = "index.php?option=com_jticketing&view=order&layout=cancel&processor={$pg_plugin}&Itemid=" . $chkoutItemid;
-			$vars->cancel_return = JURI::root() . substr(Route::_($cancel_return, false), strlen(JURI::base(true)) + 1);
-			$url                 = JURI::root() . "index.php?option=com_jticketing&task=payment.processpayment" . $guest_email;
+			$vars->cancel_return = Uri::root() . substr(Route::_($cancel_return, false), strlen(Uri::base(true)) + 1);
+			$url                 = Uri::root() . "index.php?option=com_jticketing&task=payment.processpayment" . $guest_email;
 			$url .= "&order_id=" . $order->order_id . "&processor=" . $pg_plugin;
 			$vars->notify_url = $url;
 			$vars->url           = Route::_($url, false);
@@ -251,10 +251,10 @@ class JticketingModelpayment extends BaseDatabaseModel
 
 			$vars->userInfo      = (array) $user;
 			$cancel_return             = "index.php?option=com_jticketing&view=order&layout=cancel&processor={$pg_plugin}&Itemid=" . $chkoutItemid;
-			$vars->cancel_return       = JURI::root() . substr(Route::_($cancel_return, false), strlen(JURI::base(true)) + 1);
+			$vars->cancel_return       = Uri::root() . substr(Route::_($cancel_return, false), strlen(Uri::base(true)) + 1);
 			$return_url                = "index.php?option=com_jticketing&view=orders&layout=order" . $guest_email . "&orderid=" . $order->order_id;
 			$return_url               .= "&processor={$pg_plugin}&Itemid=" . $orderItemid . "&ecTrackId=" . $ecTrackId;
-			$vars->return              = JURI::root() . substr(Route::_($return_url, false), strlen(JURI::base(true)) + 1);
+			$vars->return              = Uri::root() . substr(Route::_($return_url, false), strlen(Uri::base(true)) + 1);
 			$submiturl                 = "index.php?option=com_jticketing&task=payment.confirmpayment&orderid=" .
 			($order->id) . "&processor ={$pg_plugin}";
 			$vars->submiturl           = Route::_($submiturl, false);
@@ -344,9 +344,9 @@ class JticketingModelpayment extends BaseDatabaseModel
 	 */
 	public function changegateway()
 	{
-		JLoader::import('payment', JPATH_SITE . '/components/com_jticketing/models');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/payment.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/payment.php'; }
 
-		$jinput          = Factory::getApplication()->input;
+		$jinput          = Factory::getApplication()->getInput();
 		$model           = new jticketingModelpayment;
 		$selectedGateway = $jinput->get('gateways', '');
 		$order_id        = $jinput->getInt('order_id');

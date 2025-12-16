@@ -11,13 +11,13 @@
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\User\User;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Table\Table;
 
-jimport('techjoomla.common');
-jimport('techjoomla.jsocial.jsocial');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/common.php')) { require_once JPATH_LIBRARIES . '/techjoomla/common.php'; }
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
 
 /**
  * Interface to handle Social Extensions
@@ -412,7 +412,7 @@ class JSocialJomsocial implements JSocial
 		$my=CFactory::getUser();
 		CNotificationLibrary::add(
 		* 							'etype_inbox_create_message', $my->id , $data[ 'to' ],
-		* 								JText::sprintf('COM_COMMUNITY_SENT_YOU_MESSAGE', $my->getDisplayName()) , '' , 'inbox.sent' , $params
+		* 								Text::sprintf('COM_COMMUNITY_SENT_YOU_MESSAGE', $my->getDisplayName()) , '' , 'inbox.sent' , $params
 		* 							);*/
 
 		$model = CFactory::getModel('Notification');

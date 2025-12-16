@@ -31,7 +31,8 @@ use Joomla\CMS\Event\AbstractEvent;
  * @since  0.0.1
  */
 
-if (JVERSION >= '4.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '4.0.0')
 {
 	class JTicketingTableEvent extends Table implements VersionableTableInterface, TaggableTableInterface
 	{
@@ -176,7 +177,7 @@ if (JVERSION >= '4.0.0')
 		 *
 		 * @return string The asset name
 		 *
-		 * @see JTable::_getAssetName
+		 * @see Table::_getAssetName
 		 */
 		protected function _getAssetName()
 		{
@@ -228,7 +229,7 @@ if (JVERSION >= '4.0.0')
 		public function bind($array, $ignore = '')
 		{
 
-			$input = Factory::getApplication()->input;
+			$input = Factory::getApplication()->getInput();
 			$task  = $input->getString('task', '');
 			$user = Factory::getUser();
 
@@ -348,17 +349,15 @@ else
 		 *
 		 * @param   JDatabaseDriver  &$db  A database connector object
 		 */
-		public function __construct(&$db)
-		{
-			$this->setColumnAlias('published', 'state');
+	public function __construct(&$db)
+	{
+		$this->setColumnAlias('published', 'state');
 
-			$this->_observers = new JObserverUpdater($this);
-			JObserverMapper::attachAllObservers($this);
+		// Joomla 6: JObserverUpdater and JObserverMapper removed - observer pattern no longer used
+		// Tags are now handled via TaggableTableInterface or manually
 
-			JObserverMapper::addObserverClassToClass('JTableObserverTags', 'JTicketingTableEvent', array('typeAlias' => 'com_jticketing.event'));
-
-			parent::__construct('#__jticketing_events', 'id', $db);
-		}
+		parent::__construct('#__jticketing_events', 'id', $db);
+	}
 
 		/**
 		 * Overloaded check function
@@ -488,7 +487,7 @@ else
 		 *
 		 * @return string The asset name
 		 *
-		 * @see JTable::_getAssetName
+		 * @see Table::_getAssetName
 		 */
 		protected function _getAssetName()
 		{
@@ -539,7 +538,7 @@ else
 		 */
 		public function bind($array, $ignore = '')
 		{
-			$input = Factory::getApplication()->input;
+			$input = Factory::getApplication()->getInput();
 			$task  = $input->getString('task', '');
 			$user = Factory::getUser();
 

@@ -24,7 +24,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
  *
  * @since  1.0.0
  */
-class JFormFieldEasysocialGroupList extends JFormFieldList
+class JFormFieldEasysocialGroupList extends FormFieldList
 {
 	/**
 	 * The form field type.

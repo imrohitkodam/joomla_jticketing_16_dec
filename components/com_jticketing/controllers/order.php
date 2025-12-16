@@ -16,7 +16,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * JTicketing
@@ -169,7 +169,7 @@ class JticketingControllerOrder extends JticketingController
 	 */
 	public function createOrder()
 	{
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$eventId = $input->get('event_id');
 		$ticketId = $input->get('ticket_id');
 		$user    = Factory::getUser();
@@ -190,7 +190,7 @@ class JticketingControllerOrder extends JticketingController
 				$model  = $this->getModel('order');
 				$result = $model->createOrder($data);
 
-				$input  = Factory::getApplication()->input;
+				$input  = Factory::getApplication()->getInput();
 				$option = $input->get('option');
 
 				$mainframe  = Factory::getApplication();

@@ -18,12 +18,12 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Image\Image;
 use Joomla\CMS\Language\Text;
 
-JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
 
 /**
  * Methods supporting a jticketing media.
@@ -536,8 +536,8 @@ class JticketingModelMedia extends AdminModel
 		PluginHelper::importPlugin('system');
 		Factory::getApplication()->triggerEvent('onBeforeJtMediaDelete', array($mediaId));
 
-		JLoader::import("/techjoomla/media/tables/xref", JPATH_LIBRARIES);
-		JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+		if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/xref.php"; }
+		if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 		$tableXref = Table::getInstance('Xref', 'TJMediaTable');
 
 		$checkMediaDataExist = 0;

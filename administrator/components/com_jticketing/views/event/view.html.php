@@ -120,7 +120,7 @@ class JTicketingViewEvent extends HtmlView
 
 		if (!empty($item))
 		{
-			$input  = Factory::getApplication()->input;
+			$input  = Factory::getApplication()->getInput();
 			$input->set("content_id", $item->id);
 			$this->form_extra = array();
 			$this->formExtraFields = array();
@@ -182,7 +182,7 @@ class JTicketingViewEvent extends HtmlView
 	 */
 	protected function addToolBar()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		// Hide Joomla Administrator Main menu
 		$input->set('hidemainmenu', true);
@@ -198,11 +198,11 @@ class JTicketingViewEvent extends HtmlView
 			$title = Text::_('COM_JTICKETING_MANAGER_JTICKETING_EDIT');
 		}
 
-		ToolBarHelper::title($title, 'event');
-		ToolBarHelper::apply('event.apply');
-		ToolBarHelper::save('event.save');
-		ToolBarHelper::save2new('event.save2new');
-		ToolBarHelper::cancel(
+		ToolbarHelper::title($title, 'event');
+		ToolbarHelper::apply('event.apply');
+		ToolbarHelper::save('event.save');
+		ToolbarHelper::save2new('event.save2new');
+		ToolbarHelper::cancel(
 			'event.cancel',
 			$isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE'
 		);

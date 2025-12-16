@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 require_once dirname(__FILE__) . '/payu/helper.php';
 $lang = Factory::getLanguage();

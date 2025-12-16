@@ -15,14 +15,14 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\HTML\HTMLHelper;
 
-HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+HTMLHelper::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/html');
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.formvalidator');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('behavior.keepalive');
 $sms_template = 0;
 $rem_content = $this->form->getInput('sms_template');
-$input=Factory::getApplication()->input;
+$input=Factory::getApplication()->getInput();
 $rid = $input->get( 'id','','INT' );
 
 if (!empty($rem_content))
@@ -46,7 +46,7 @@ $document->addScriptDeclaration("
 			var display_chars = edit_chars;
 		}
 
-		js('#counter').append('You have <strong>'+  display_chars+'</strong> characters remaining. " . Text::_('COM_JTICKETING_CHARS_REM_CONSIDER_TAGS');. "');
+		js('#counter').append('You have <strong>'+  display_chars+'</strong> characters remaining. <?php echo Text::_('COM_JTICKETING_CHARS_REM_CONSIDER_TAGS'); ?>');
 		js('#jform_sms_template').keypress(function(){
 		if(js(this).val().length > characters)
 		{
@@ -110,7 +110,7 @@ $document->addScriptDeclaration("
                 Joomla.submitform(task, document.getElementById('reminder-form'));
             }
             else {
-                alert('" . $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED')); . "');
+                alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
             }
         }
     }
@@ -118,7 +118,7 @@ $document->addScriptDeclaration("
     function reminderDuplicateCheck()
 	{
 		var reminderDays=document.getElementById('jform_days').value;
-		var rid=" . if($rid) echo $rid;else echo '0'; . ";
+		var rid=" . ($rid ? $rid : '0') . ";
 		var duplicateDays = 0;
 
 		if(parseInt(rid)==0)
@@ -137,7 +137,7 @@ $document->addScriptDeclaration("
 		success: function(response) {
 				if(parseInt(response)==1)
 				{
-					alert('" . Text::_('COM_JTICKETING_DUPLICATE_ERMINDER');. "');
+					alert('" . Text::_('COM_JTICKETING_DUPLICATE_ERMINDER') . "');
 					duplicateDays = 1;
 				}
 				else
@@ -165,7 +165,7 @@ $document->addScriptDeclaration("
 	<div class="form-horizontal">
         <?php //echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-        <?php	// echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_JTICKETING_TITLE_REMINDER', true)); ?>
+        <?php	// echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'general', Text::_('COM_JTICKETING_TITLE_REMINDER', true)); ?>
         <div class="row-fluid">
             <div class="span10 form-horizontal">
                 <fieldset class="adminform">

@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Language\Text;
@@ -21,10 +21,10 @@ use Joomla\CMS\Http\Http;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 
-JLoader::import("/techjoomla/media/storage/local", JPATH_LIBRARIES);
-JLoader::import("/techjoomla/media/xref", JPATH_LIBRARIES);
-JLoader::import('tjvendors', JPATH_ADMINISTRATOR . '/components/com_tjvendors/helpers');
-JLoader::import('fronthelper', JPATH_SITE . '/components/com_tjvendors/helpers');
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/storage/local.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/storage/local.php"; }
+if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/xref.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/xref.php"; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_tjvendors/helpers/tjvendors.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_tjvendors/helpers/tjvendors.php'; }
+if (file_exists(JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php')) { require_once JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php'; }
 
 /**
  * Jticketing model.
@@ -62,7 +62,7 @@ class JticketingModelPDFTemplate extends AdminModel
 					{
 						$config['id'] = $mediaXref->media_id;
 
-						JLoader::import("/techjoomla/media/tables/files", JPATH_LIBRARIES);
+						if (file_exists(JPATH_LIBRARIES . "/techjoomla/media/tables/files.php")) { require_once JPATH_LIBRARIES . "/techjoomla/media/tables/files.php"; }
 						$filetable = Table::getInstance('Files', 'TJMediaTable');
 
 						// Load the object based on the id or throw a warning.
@@ -313,7 +313,7 @@ class JticketingModelPDFTemplate extends AdminModel
 			return false;
 		}
 
-		$app->input->set('id', $table->id);
+		$app->getInput()->set('id', $table->id);
 
 		return $table->id;
 		

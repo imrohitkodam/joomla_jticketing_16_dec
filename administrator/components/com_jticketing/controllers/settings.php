@@ -35,7 +35,7 @@ class JticketingControllerSettings extends jticketingController
 		$msg = '';
 		Session::checkToken() or jexit('Invalid Token');
 		$model = $this->getModel('settings');
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$post  = $input->post;
 		$task  = $input->get('task');
 		$model->setState('request', $post);

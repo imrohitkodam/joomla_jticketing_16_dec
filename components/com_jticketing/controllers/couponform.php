@@ -62,7 +62,7 @@ class JticketingControllerCouponForm extends FormController
 		$recordId = $this->input->getInt('id');
 
 		// Get the coupon data.
-		$data = $app->input->get('jform', array(), 'array');
+		$data = $app->getInput()->get('jform', array(), 'array');
 
 		// Validate the posted data.
 		$form = $model->getForm($data, false);
@@ -161,7 +161,7 @@ class JticketingControllerCouponForm extends FormController
 	 */
 	public function edit($key = 'id', $urlVar = 'id')
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$cid = $input->get('cid', array(), 'post', 'array');
 
 		if (!count($cid))

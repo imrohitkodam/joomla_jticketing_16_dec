@@ -1,0 +1,6 @@
+<?php
+defined('_JEXEC') or die;
+return array (
+  'PLG_JTICKETING_ESGROUP_XML_DESCRIPTION' => 'Integration between EasySocial group and Jticketing',
+  'PLG_JTICKETING_ESGROUP' => 'Jticketing - EasySocial group integration',
+);

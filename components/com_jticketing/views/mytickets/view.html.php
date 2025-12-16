@@ -65,11 +65,11 @@ class JticketingViewmytickets extends HtmlView
 		$com_params   = ComponentHelper::getParams('com_jticketing');
 		$integration  = $com_params->get('integration');
 		$this->currency = $com_params->get('currency');
-		$this->Itemid = $app->input->get('Itemid');
-		$layout       = Factory::getApplication()->input->get('layout', 'default');
+		$this->Itemid = $app->getInput()->get('Itemid');
+		$layout       = Factory::getApplication()->getInput()->get('layout', 'default');
 
 		$this->state         = $this->get('State');
-		$input               = Factory::getApplication()->input;
+		$input               = Factory::getApplication()->getInput();
 		$this->items	     = $this->get('Items');
 		$this->pagination	 = $this->get('Pagination');
 		$this->filterForm    = $this->get('FilterForm');
@@ -111,7 +111,7 @@ class JticketingViewmytickets extends HtmlView
 			$this->attendeeId 	= $input->get('attendee_id', '', 'INT');
 			$isAdmin  = $app->isClient("administrator");
 
-			JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 			$model = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 			$orderData = $model->getItem($this->attendeeId);
 

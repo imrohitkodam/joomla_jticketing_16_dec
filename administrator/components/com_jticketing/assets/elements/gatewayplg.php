@@ -14,6 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 
 FormHelper::loadFieldClass('list');
 
@@ -24,7 +25,7 @@ FormHelper::loadFieldClass('list');
  * @subpackage  component
  * @since       1.0
  */
-class JFormFieldGatewayplg extends JFormFieldList
+class JFormFieldGatewayplg extends ListField
 {
 	public $layout = "joomla.form.field.list-fancy-select";
 
@@ -74,7 +75,8 @@ class JFormFieldGatewayplg extends JFormFieldList
 			$options[] = HTMLHelper::_('select.option', $gateway->element, $gatewayname);
 		}
 
-		if (JVERSION >= '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '4.0.0')
 		{
 			$this->class = 'class="form-select required"  multiple="multiple" size="5"';
 		}

@@ -11,14 +11,11 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\Field\TextareaField;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Form\FormHelper;
 
-FormHelper::loadFieldClass('textarea');
 HTMLHelper::_('behavior.formvalidator');
 $document = Factory::getDocument();
 
@@ -29,7 +26,7 @@ $document = Factory::getDocument();
  * @subpackage  component
  * @since       1.0
  */
-class JFormFieldcbfieldmapping extends JFormFieldTextarea
+class JFormFieldcbfieldmapping extends TextareaField
 {
 	protected $type = 'cbfieldmapping';
 
@@ -93,7 +90,8 @@ class JFormFieldcbfieldmapping extends JFormFieldTextarea
 	$html = '<textarea name="' . $control_name . $name . '" cols="' . $cols
 			. '" rows="' . $rows . '" ' . $class . ' id="' . $control_name . $name . '" >' . $fieldvalue . '</textarea>';
 
-	if (JVERSION < '3.0.0')
+	// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '3.0.0')
 	{
 		$html .= '<span style="float:left;">  ' . Text::_('COM_JTICKETING_FIELDS_CB') . ':</span>';
 	}

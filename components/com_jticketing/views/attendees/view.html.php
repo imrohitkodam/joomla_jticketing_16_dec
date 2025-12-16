@@ -23,10 +23,10 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 // Import Csv export button
-jimport('techjoomla.tjtoolbar.button.csvexport');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/button/csvexport.php'; }
 
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 
@@ -81,7 +81,7 @@ class JticketingViewAttendees extends HtmlView
 		$isAdmin     = $this->user->authorise('core.admin');
 		$this->canDo = ContentHelper::getActions('com_jticketing');
 		$comParams   = ComponentHelper::getParams('com_jticketing');
-		$layout      = Factory::getApplication()->input->get('layout', 'default');
+		$layout      = Factory::getApplication()->getInput()->get('layout', 'default');
 		$app         = Factory::getApplication();
 		$utilities   = JT::utilities();
 
@@ -120,7 +120,7 @@ class JticketingViewAttendees extends HtmlView
 		}
 
 		$this->state         = $this->get('State');
-		$input               = Factory::getApplication()->input;
+		$input               = Factory::getApplication()->getInput();
 		$this->items	     = $this->get('Items');
 		$this->pagination	 = $this->get('Pagination');
 		$this->filterForm    = $this->get('FilterForm');
@@ -336,7 +336,7 @@ class JticketingViewAttendees extends HtmlView
 		$integration = $comParams->get('integration', '', 'INT');
 
 		// Add New button manage enrollment view
-		if (($canDo->get('core.enrollall') || $canDo->get('core.enrollown')) && $comParams->get('enable_self_enrollment'))
+		if (($canDo->{'core.enrollall'} || $canDo->{'core.enrollown'}) && $comParams->get('enable_self_enrollment'))
 		{
 			$link = Route::_(URI::base(true) . '/index.php?option=com_jticketing&view=enrollment&tmpl=component');
 
@@ -352,7 +352,8 @@ class JticketingViewAttendees extends HtmlView
 					)
 				);
 
-	        if (JVERSION < '4.0.0')
+	        // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 	        {
 				$toolbar->appendButton('Custom', '<a class="modal af-d-block af-relative btn btn-sm
 					btn-primary" href="' . $link . '" data-target="#enrollmentpreviewModal" data-toggle="modal" >
@@ -372,7 +373,7 @@ class JticketingViewAttendees extends HtmlView
 
 		if ($integration == 2)
 		{
-			if (($canDo->get('core.enrollall') || $canDo->get('core.enrollown')) && $comParams->get('enable_self_enrollment'))
+			if (($canDo->{'core.enrollall'} || $canDo->{'core.enrollown'}) && $comParams->get('enable_self_enrollment'))
 			{
 				if ($this->tmpl !== 'component')
 				{
@@ -387,7 +388,8 @@ class JticketingViewAttendees extends HtmlView
 							)
 						);
 
-					if (JVERSION < '4.0.0')
+					// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 					{
 						$toolbar->appendButton('Custom', '<a class="modal af-d-block af-relative btn btn-sm
 							btn-primary" href="' . $link . '" data-target="#importCsvModal" data-toggle="modal" >
@@ -409,7 +411,7 @@ class JticketingViewAttendees extends HtmlView
 
 		if (!empty($this->items))
 		{
-			if ($canDo->get('core.edit.state'))
+			if ($canDo->{'core.edit.state'})
 			{
 				if ($this->tmpl !== 'component')
 				{

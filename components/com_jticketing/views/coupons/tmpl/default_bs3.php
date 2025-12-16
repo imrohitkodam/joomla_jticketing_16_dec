@@ -16,9 +16,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
-HTMLHelper::_('behavior.tooltip');
+HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 /** @var $this JticketingViewCoupons */
 
@@ -95,7 +95,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_JTICKETING_COUPONS_USED', 'a.used', $listDirn, $listOrder);?>
 							</th>
 							<th class="center">
-								<?php echo JText::_('COM_JTICKETING_COUPONS_EVENT_IDS'); ?>
+								<?php echo Text::_('COM_JTICKETING_COUPONS_EVENT_IDS'); ?>
 							</th>
 
 							<th class="center">

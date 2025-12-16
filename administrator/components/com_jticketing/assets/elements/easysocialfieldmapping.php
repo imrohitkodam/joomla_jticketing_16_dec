@@ -10,14 +10,11 @@
 
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Factory;
-use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\Field\TextareaField;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Form\FormHelper;
 
-FormHelper::loadFieldClass('textarea');
 HTMLHelper::_('behavior.formvalidator');
 $document = Factory::getDocument();
 
@@ -28,7 +25,7 @@ $document = Factory::getDocument();
  * @subpackage  component
  * @since       1.0
  */
-class JFormFieldeasysocialfieldmapping extends JFormFieldTextarea
+class JFormFieldeasysocialfieldmapping extends TextareaField
 {
 	/**
 	 * mapping fields for joomla,cb,jomsocial to fill in billing form

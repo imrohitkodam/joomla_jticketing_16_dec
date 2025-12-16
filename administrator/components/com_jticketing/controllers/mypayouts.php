@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * Controller for mypayout to show payout
@@ -54,7 +54,7 @@ class JticketingControllermypayouts extends BaseController
 
 		// Get model
 		$model = $this->getModel('mypayouts');
-		$post = Factory::getApplication()->input->get('post');
+		$post = Factory::getApplication()->getInput()->get('post');
 		$obj  = new stdClass;
 
 		if (!empty($post['edit_id']))
@@ -101,7 +101,7 @@ class JticketingControllermypayouts extends BaseController
 	 */
 	public function publish()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$post  = $input->post;
 
 		// Get some variables from the request
@@ -130,7 +130,7 @@ class JticketingControllermypayouts extends BaseController
 	 */
 	public function unpublish()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		// Get some variables from the request
 		$cid = $input->get('cid', '', 'array');
@@ -158,7 +158,7 @@ class JticketingControllermypayouts extends BaseController
 	 */
 	public function remove()
 	{
-		$post    = Factory::getApplication()->input->get('post');
+		$post    = Factory::getApplication()->getInput()->get('post');
 		$payeeid = $post['cid'];
 		$model   = $this->getModel('mypayouts');
 		$confrim = $model->delete_payout($payeeid);
@@ -172,13 +172,14 @@ class JticketingControllermypayouts extends BaseController
 			$msg = Text::_('PAOUT_DELETED_ERROR');
 		}
 
-		if (JVERSION >= '1.6.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '1.6.0')
 		{
-			$this->setRedirect(JURI::base() . "index.php?option=com_jticketing&view=mypayouts", $msg);
+			$this->setRedirect(Uri::base() . "index.php?option=com_jticketing&view=mypayouts", $msg);
 		}
 		else
 		{
-			$this->setRedirect(JURI::base() . "index.php?option=com_jticketing&view=mypayouts", $msg);
+			$this->setRedirect(Uri::base() . "index.php?option=com_jticketing&view=mypayouts", $msg);
 		}
 	}
 }

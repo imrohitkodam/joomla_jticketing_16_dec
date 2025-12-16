@@ -13,4 +13,4 @@ defined('_JEXEC') or die;
 
 
 // Load frontend venues model
-JLoader::import('com_jticketing.controllers.pdftemplates', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/controllers/pdftemplates.php')) { require_once JPATH_SITE . '/components/com_jticketing/controllers/pdftemplates.php'; }

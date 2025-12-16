@@ -92,11 +92,11 @@ class JticketApiResourceLogin extends ApiResource
 	{
 		$umodel = new User;
 		$user   = $umodel->getInstance();
-		$group  = Factory::getApplication()->input->get('group');
+		$group  = Factory::getApplication()->getInput()->get('group');
 
 		if (!$user->id)
 		{
-			$user = Factory::getUser($this->getUserId(Factory::getApplication()->input->get("username")));
+			$user = Factory::getUser($this->getUserId(Factory::getApplication()->getInput()->get("username")));
 		}
 
 		$kmodel    = new ApiModelKey;
@@ -138,7 +138,7 @@ class JticketApiResourceLogin extends ApiResource
 			$obj->success = 1;
 			$obj->userid  = $user->id;
 			$obj->key     = $key;
-			$obj->url     = JURI::base() . 'index.php';
+			$obj->url     = Uri::base() . 'index.php';
 		}
 		else
 		{

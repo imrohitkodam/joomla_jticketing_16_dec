@@ -11,19 +11,17 @@
 // No direct access.
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
-
-FormHelper::loadFieldClass('list');
 
 /**
  * Supports an HTML select list of courses
  *
  * @since  2.1.0
  */
-class JFormFieldTicketsList extends JFormFieldList
+class JFormFieldTicketsList extends ListField
 {
 	/**
 	 * The form field type.

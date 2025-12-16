@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 $document = Factory::getDocument();
 $root_url = Uri::root();

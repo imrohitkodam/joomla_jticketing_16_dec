@@ -10,7 +10,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Layout\LayoutHelper;
 
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 $bootstrapclass="";
 $tableclass="table table-striped  table-hover";
@@ -23,7 +23,7 @@ $show_js_toolbar = $com_params->get('show_js_toolbar');
 $currency = $com_params->get('currency');
 $jticketingmainhelper = new jticketingmainhelper();
 $user =Factory::getUser();
-$input=Factory::getApplication()->input;
+$input=Factory::getApplication()->getInput();
 
 if(empty($user->id))
 {
@@ -87,7 +87,7 @@ $linkbackbutton = '';
 				<div class="pull-left">
 					<?php
 					$search_event = $mainframe->getUserStateFromRequest( 'com_jticketingsearch_event', 'search_event','', 'string' );
-					echo JHtml::_('select.genericlist', $this->status_event, "search_event", 'class="ad-status" size="1" onchange="document.adminForm.submit();" name="search_event"',"value", "text", $search_event);
+					echo HTMLHelper::_('select.genericlist', $this->status_event, "search_event", 'class="ad-status" size="1" onchange="document.adminForm.submit();" name="search_event"',"value", "text", $search_event);
 					?>
 				</div>
 				<div class="pull-right">

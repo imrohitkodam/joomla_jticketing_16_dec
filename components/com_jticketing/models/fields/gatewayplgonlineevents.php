@@ -10,21 +10,18 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Form\FormField;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Form\FormHelper;
-
-FormHelper::loadFieldClass('list');
 
 /**
  * render plugin selection of type online event
  *
  * @since  1.0
  */
-class JFormFieldGatewayplgonlineevents extends JFormFieldList
+class JFormFieldGatewayplgonlineevents extends ListField
 {
 	protected $type = 'Gatewayplgonlineevents';
 
@@ -38,7 +35,7 @@ class JFormFieldGatewayplgonlineevents extends JFormFieldList
 	protected function getOptions()
 	{
 		$db  = Factory::getDbo();
-		$jinput = Factory::getApplication()->input;
+		$jinput = Factory::getApplication()->getInput();
 		$venueid = $jinput->get('id', '', 'INT');
 		PluginHelper::importPlugin('tjevents');
 		$results = Factory::getApplication()->triggerEvent('onJtGetContentInfo', array());

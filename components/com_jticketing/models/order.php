@@ -18,10 +18,10 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 
 
-JLoader::import('vendors', JPATH_SITE . '/components/com_tjvendors/models');
-JLoader::import('common', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('route', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('components.com_jticketing.helpers.order', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_tjvendors/models/vendors.php')) { require_once JPATH_SITE . '/components/com_tjvendors/models/vendors.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/route.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/route.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/order.php'; }
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Registry\Registry;
@@ -64,18 +64,18 @@ class JticketingModelOrder extends AdminModel
 		$socialintegration = $params->get('integrate_with', 'none');
 
 		// Load main file
-		jimport('techjoomla.jsocial.jsocial');
-		jimport('techjoomla.jsocial.joomla');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 
 		if ($socialintegration != 'none')
 		{
 			if ($socialintegration == 'JomSocial')
 			{
-				jimport('techjoomla.jsocial.jomsocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 			}
 			elseif ($socialintegration == 'EasySocial')
 			{
-				jimport('techjoomla.jsocial.easysocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php'; }
 			}
 		}
 	}
@@ -163,7 +163,7 @@ class JticketingModelOrder extends AdminModel
 			$ticketTypeArr[] = $value->id;
 		}
 
-		JLoader::import('components.com_jticketing.models.eventform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/eventform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/eventform.php'; }
 		$eventModel = BaseDatabaseModel::getInstance('EventForm', 'JticketingModel');
 		$eventdata = $eventModel->getItem($data['eventid']);
 
@@ -394,7 +394,7 @@ class JticketingModelOrder extends AdminModel
 
 				if (!empty($orderId))
 				{
-					JLoader::import('components.com_jticketing.models.orderitem', JPATH_SITE);
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orderitem.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orderitem.php'; }
 					$ordrItemModel = BaseDatabaseModel::getInstance('Orderitem', 'JticketingModel');
 					$ticketdata['order_id'] = $orderId;
 					$ticketdata['eventid'] = $orderdata['integraton_id'];
@@ -478,7 +478,7 @@ class JticketingModelOrder extends AdminModel
 			$db->setQuery($query);
 			$orderitems = $db->loadObjectlist();
 
-			JLoader::import('components.com_jticketing.models.event', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jticketing/models/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/event.php'; }
 			$ticketTypeModel = BaseDatabaseModel::getInstance('Tickettype', 'JticketingModel');
 
 			// Firstly Delete ticket types in order items that are removed
@@ -594,7 +594,7 @@ class JticketingModelOrder extends AdminModel
 		$typeTicketCounts  = $amountData['type_ticketcount'];
 		$typeids           = $amountData['type_id'];
 
-		JLoader::import('components.com_jticketing.models.event', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/event.php'; }
 		$ticketTypesModel = BaseDatabaseModel::getInstance('Tickettype', 'JticketingModel');
 
 		// Calculate original Amt to pay Based on ticket Types And Price.
@@ -768,7 +768,7 @@ class JticketingModelOrder extends AdminModel
 			$com_params   = ComponentHelper::getParams('com_jticketing');
 			$integration  = $com_params->get('integration');
 			$session      = Factory::getSession();
-			$input        = Factory::getApplication()->input;
+			$input        = Factory::getApplication()->getInput();
 			$post         = $input->post;
 
 			$eventId = $post->get('eventid');
@@ -1051,7 +1051,7 @@ class JticketingModelOrder extends AdminModel
 					$attendeeId                            = $paramstopass['attendee_id'] = $orderitem->attendee_id;
 					$paramstopass_ticket['order_items_id'] = $orderitemsId;
 
-					JLoader::import('components.com_jticketing.models.attendeefields', JPATH_SITE);
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeefields.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeefields.php'; }
 					$attendeeFieldsModel = BaseDatabaseModel::getInstance('Attendeefields', 'JticketingModel');
 
 					// Get core and event specific field values  for this Attendee.
@@ -1291,7 +1291,7 @@ class JticketingModelOrder extends AdminModel
 			if ($orderID = $this->save($data))
 			{
 				// To get orderitems data
-				JLoader::import('components.com_jticketing.models.orderitem', JPATH_SITE);
+				if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orderitem.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orderitem.php'; }
 				$orderItemsModel = BaseDatabaseModel::getInstance('Orderitem', 'JticketingModel');
 				$attendeeData = array();
 
@@ -1310,7 +1310,7 @@ class JticketingModelOrder extends AdminModel
 						}
 
 						// To save attendees data.
-						JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+						if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 						$attendeesModel = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 						$attendeeId = $attendeesModel->save($attendeeData);
 
@@ -1331,11 +1331,11 @@ class JticketingModelOrder extends AdminModel
 						{
 							$attendees['attendee_id'] = (int) $attendeeId;
 
-							JLoader::import('components.com_jticketing.models.orderitem', JPATH_SITE);
+							if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orderitem.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orderitem.php'; }
 							$ordrItemModel = BaseDatabaseModel::getInstance('Orderitem', 'JticketingModel');
 							$ordrItemModel->updateorderItems($attendees);
 
-							JLoader::import('components.com_jticketing.models.attendeefieldvalues', JPATH_SITE);
+							if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeefieldvalues.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeefieldvalues.php'; }
 							$attendeeFieldValuesModel = BaseDatabaseModel::getInstance('Attendeefieldvalues', 'JticketingModel');
 							$attendeeFieldValuesModel->save($attendees);
 						}
@@ -1394,7 +1394,7 @@ class JticketingModelOrder extends AdminModel
 
 			if (($orderData->amount == '0' && !empty($user->id)) || $flag == 1)
 			{
-				JLoader::import('components.com_jticketing.helpers.common', JPATH_SITE);
+				if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
 				$JticketingCommonHelper = new JticketingCommonHelper;
 				$result = $JticketingCommonHelper->createFreeTicket($user->id, $orderId, $flag);
 
@@ -1406,7 +1406,7 @@ class JticketingModelOrder extends AdminModel
 			isset($data['comment']) ? $data['comment'] : $data['comment'] = '';
 
 			// To save user data.
-			JLoader::import('components.com_jticketing.models.user', JPATH_SITE);
+			if (file_exists(JPATH_SITE . '/components/com_jticketing/models/user.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/user.php'; }
 			$userModel = BaseDatabaseModel::getInstance('User', 'JticketingModel');
 
 			if (!$userModel->save($data))
@@ -1817,7 +1817,7 @@ class JticketingModelOrder extends AdminModel
 		$userPrivacyData['date'] 		= Factory::getDate()->toSql();
 		$userPrivacyData['client_id'] 	= $order->id;
 
-		JLoader::import('components.com_tjprivacy.models.tjprivacy', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_tjprivacy/models/tjprivacy.php')) { require_once JPATH_SITE . '/components/com_tjprivacy/models/tjprivacy.php'; }
 		$tjprivacyModel = BaseDatabaseModel::getInstance('Tjprivacy', 'TjprivacyModel', array('ignore_request' => true));
 
 		if (!$tjprivacyModel->save($userPrivacyData))

@@ -17,7 +17,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
 HTMLHelper::_('bootstrap.tooltip');
-if (JVERSION < '4.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 {
 HTMLHelper::_('behavior.framework');
 }
@@ -31,7 +32,8 @@ HTMLHelper::_('script', 'media/com_jticketing/vendors/js/morris.min.js');
 HTMLHelper::_('script', 'media/com_jticketing/vendors/js/raphael.min.js');
 HTMLHelper::_('script','libraries/techjoomla/assets/js/houseKeeping.js');
 
-if (JVERSION < '5.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '5.0.0')
 {
 	HTMLHelper::stylesheet('media/techjoomla_strapper/vendors/font-awesome/css/font-awesome.min.css');
 }
@@ -396,7 +398,8 @@ else
 							<div class="row">
 								<div class="col-lg-7">
 									<?php
-									if (JVERSION < '4.0.0')
+									// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 									{
 										echo $this->loadTemplate("periodicgraph_bs2");
 									}

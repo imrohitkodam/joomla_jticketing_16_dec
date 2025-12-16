@@ -63,8 +63,13 @@ class JticketingControllerRecurringEvents extends AdminController
     public function checkIn()
     {
         // Load the frontend model
-        JLoader::import('components.com_jticketing.models.checkin', JPATH_SITE);
-        $input = Factory::getApplication()->input;
+        // Joomla 6: JLoader removed - use require_once
+        $checkinModelPath = JPATH_SITE . '/components/com_jticketing/models/checkin.php';
+        if (file_exists($checkinModelPath))
+        {
+            require_once $checkinModelPath;
+        }
+        $input = Factory::getApplication()->getInput();
     
         // Retrieve single recurring event ID and attendee ID
         $rId = $input->getInt('cid', 0);
@@ -103,7 +108,7 @@ class JticketingControllerRecurringEvents extends AdminController
      */
     public function undoCheckIn()
     {
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
 
         // Get variables from the request
         $rId = $input->getInt('cid', 0); // Get a single recurring event ID
@@ -117,7 +122,12 @@ class JticketingControllerRecurringEvents extends AdminController
             return;
         }
 
-        JLoader::import('components.com_jticketing.models.checkin', JPATH_SITE);
+        // Joomla 6: JLoader removed - use require_once
+        $checkinModelPath = JPATH_SITE . '/components/com_jticketing/models/checkin.php';
+        if (file_exists($checkinModelPath))
+        {
+            require_once $checkinModelPath;
+        }
         $checkinModel = new JticketingModelCheckin();
 
         // Prepare data for undoing check-in

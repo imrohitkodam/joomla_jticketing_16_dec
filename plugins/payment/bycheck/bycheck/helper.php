@@ -76,7 +76,7 @@ class PlgPaymentBycheckHelper
 
 		Log::add($logEntry);
 
-// $logs = &JLog::getInstance($logdata['JT_CLIENT'].'_'.$name.'.log',$options,$path);
+// $logs = &Log::getInstance($logdata['JT_CLIENT'].'_'.$name.'.log',$options,$path);
 // $logs->addEntry(array('user' => $my->name.'('.$my->id.')','desc'=>json_encode($logdata['raw_data'])));
 	}
 }

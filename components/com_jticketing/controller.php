@@ -78,7 +78,7 @@ class JticketingController extends BaseController
 		$lang->load('plg_app_user_jticketMyEvents', JPATH_ADMINISTRATOR);
 
 		// Get storeid,useris and total from ajax responce.
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$category_id = $input->get('category_id', '', 'INT');
 		$userid = $input->get('uid', '', 'INT');
 		$limit = $input->get('total', '', 'INT');
@@ -87,8 +87,8 @@ class JticketingController extends BaseController
 		require_once JPATH_SITE . '/components/com_jticketing/helpers/event.php';
 		require_once JPATH_SITE . '/components/com_jticketing/models/events.php';
 		$app    = Factory::getApplication();
-		$app->input->set('filter_creator', $userid);
-		$app->input->set('filter_events_cat', $category_id);
+		$app->getInput()->set('filter_creator', $userid);
+		$app->getInput()->set('filter_events_cat', $category_id);
 		$JticketingModelEvents = new JticketingModelEvents;
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
@@ -101,7 +101,7 @@ class JticketingController extends BaseController
 
 		$db->setQuery($query);
 		$events = $db->LoadObjectList();
-		$app->input->set('filter_events_cat', '');
+		$app->getInput()->set('filter_events_cat', '');
 		$query_total = $db->getQuery(true);
 		$query_total = $JticketingModelEvents->getListQuery();
 		$db->setQuery($query_total);

@@ -17,8 +17,8 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Component\ComponentHelper;
-JLoader::import('components.com_jticketing.helpers.common', JPATH_SITE);
-JLoader::import('components.com_jticketing.events.order', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/order.php'; }
 
 /**
  * controller for order
@@ -39,12 +39,12 @@ class JticketingControllerorders extends BaseController
 	public function __construct()
 	{
 		parent::__construct();
-		JLoader::import('components.com_jticketing.helpers.route', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/route.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/route.php'; }
 		$this->JTRouteHelper = new JTRouteHelper;
 		$this->jticketingmainhelper = new jticketingmainhelper;
 		$this->jtTriggerOrder = new JticketingTriggerOrder;
 
-		JLoader::import('components.com_jticketing.helpers.order', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/order.php'; }
 		$this->jTOrderHelper = new JticketingOrdersHelper;
 	}
 
@@ -120,7 +120,7 @@ class JticketingControllerorders extends BaseController
 	 */
 	public function retryPayment()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$getdata = $input->get;
 		$pg_plugin = $getdata->get('gateway_name', '', 'STRING');
 		$order = $getdata->get('order', '', 'STRING');
@@ -313,12 +313,12 @@ class JticketingControllerorders extends BaseController
 	{
 		$db = Factory::getDbo();
 
-		$input                  = Factory::getApplication()->input;
+		$input                  = Factory::getApplication()->getInput();
 		$Jticketingmainhelper   = new Jticketingmainhelper;
 		$com_params             = ComponentHelper::getParams('com_jticketing');
 		$integration            = $com_params->get('integration');
 		$pkey_for_pending_email = $com_params->get("pkey_for_pending_email");
-		$input                  = Factory::getApplication()->input;
+		$input                  = Factory::getApplication()->getInput();
 		$private_keyinurl       = $input->get('pkey', '', 'STRING');
 		$passed_start           = $input->get('start_date', '', 'STRING');
 		$passed_end             = $input->get('end_date', '', 'STRING');
@@ -489,7 +489,7 @@ class JticketingControllerorders extends BaseController
 	public function addPendingEntriesToQueue()
 	{
 		$db    = Factory::getDbo();
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 
 		$query = "SELECT orderd.*,xref.eventid AS eventid
 		FROM  #__jticketing_order AS orderd,  #__jticketing_integration_xref AS xref

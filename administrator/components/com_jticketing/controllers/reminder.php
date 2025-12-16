@@ -48,7 +48,7 @@ class JticketingControllerReminder extends FormController
 	 */
 	public function getDays()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$selectedDays = $input->get('selecteddays', '', 'INT');
 		$model = $this->getModel('reminder');
 		$reminderDays = $model->getDays(trim($selectedDays));
@@ -65,7 +65,7 @@ class JticketingControllerReminder extends FormController
 	 */
 	public function getselectDays()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$selectedDays = $input->get('selecteddays', '', 'INT');
 		$rid = $input->get('id', 0, 'INT');
 		$model = $this->getModel('reminder');

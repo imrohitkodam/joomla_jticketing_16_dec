@@ -24,10 +24,10 @@ use Joomla\CMS\Table\Table;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\User\UserHelper;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
-jimport('techjoomla.tjnotifications.tjnotifications');
-JLoader::import('filterFields', JPATH_SITE . '/components/com_tjfields');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjnotifications/tjnotifications.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjnotifications/tjnotifications.php'; }
+if (file_exists(JPATH_SITE . '/components/com_tjfields/filterFields.php')) { require_once JPATH_SITE . '/components/com_tjfields/filterFields.php'; }
 JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
 
 BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
@@ -146,11 +146,13 @@ class JticketingMailHelper
 				// Get Event fields
 				$customFieldValues = FieldsHelper::getFields('com_jticketing.event', $replacements->event, true);
 				
-				if (JVERSION < '4.0.0')
+				// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 				{
 					$customFieldmodel  = BaseDatabaseModel::getInstance('Field', 'FieldsModel', array('ignore_request' => true));
 				}
-				else if (JVERSION < '5.0.0')
+				else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '5.0.0')
 				{
 					
 					JLoader::register('FieldModel', JPATH_ADMINISTRATOR . '/components/com_fields/src/Model/FieldModel.php');
@@ -541,7 +543,7 @@ class JticketingMailHelper
 		$TjGeoHelper = new TjGeoHelper;
 		$db          = Factory::getDbo();
 		$comParams   = JT::config();
-		$jinput      = Factory::getApplication()->input;
+		$jinput      = Factory::getApplication()->getInput();
 		$client      = "com_jticketing";
 
 		/** @var $order JTicketingOrder */
@@ -868,11 +870,13 @@ class JticketingMailHelper
 		{
 			// Get Event fields
 			$customFieldValues = FieldsHelper::getFields('com_jticketing.event', $replacements->event, true);
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				$customFieldmodel  = BaseDatabaseModel::getInstance('Field', 'FieldsModel', array('ignore_request' => true));
 			}
-			else if (JVERSION < '5.0.0')
+			else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '5.0.0')
 			{
 				
 				JLoader::register('FieldModel', JPATH_ADMINISTRATOR . '/components/com_fields/src/Model/FieldModel.php');
@@ -1295,11 +1299,13 @@ class JticketingMailHelper
 			// Get Event fields
 			$customFieldValues = FieldsHelper::getFields('com_jticketing.event', $eventDetails, true);
 
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				$customFieldmodel  = BaseDatabaseModel::getInstance('Field', 'FieldsModel', array('ignore_request' => true));
 			}
-			else if (JVERSION < '5.0.0')
+			else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '5.0.0')
 			{
 				
 				JLoader::register('FieldModel', JPATH_ADMINISTRATOR . '/components/com_fields/src/Model/FieldModel.php');
@@ -1719,7 +1725,7 @@ class JticketingMailHelper
 
 		$attendeeDetails->attendee_name = Factory::getUser($attendeeDetails->owner_id)->name;
 
-		JLoader::import('components.com_hierarchy.models.hierarchy', JPATH_ADMINISTRATOR);
+		if (file_exists(JPATH_ADMINISTRATOR . '/components/com_hierarchy/models/hierarchy.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_hierarchy/models/hierarchy.php'; }
 		$hierarchyModel = BaseDatabaseModel::getInstance('hierarchy', 'HierarchyModel', array('ignore_request' => true));
 
 		// Get manager of attendee

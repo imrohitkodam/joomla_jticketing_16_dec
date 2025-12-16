@@ -18,4 +18,4 @@ require_once JPATH_SITE . '/components/com_jticketing/models/integrationxref.php
  * @since  1.6
  */
 
-JLoader::import('com_jticketing.models.Integrationxref', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/Integrationxref.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/Integrationxref.php'; }

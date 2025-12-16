@@ -14,6 +14,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 
 FormHelper::loadFieldClass('list');
 
@@ -22,7 +23,7 @@ FormHelper::loadFieldClass('list');
  *
  * @since  1.0.0
  */
-class JFormFieldVenue extends JFormFieldList
+class JFormFieldVenue extends ListField
 {
 	/**
 	 * The form field type.
@@ -51,7 +52,7 @@ class JFormFieldVenue extends JFormFieldList
 	{
 		$db = Factory::getDbo();
 		$eventId = "";
-		$post = Factory::getApplication()->input;
+		$post = Factory::getApplication()->getInput();
 		$eventId		= $post->get('id', '', 'INT');
 		$query = $db->getQuery(true);
 
@@ -72,7 +73,7 @@ class JFormFieldVenue extends JFormFieldList
 		$array_venue['event_online'] = $allUsers->online_events;
 		$array_venue['created_by'] = $allUsers->created_by;
 
-		require_once JPATH_COMPONENT . '/models/event.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/models/event.php';
 		$JticketingModelEvent = new JticketingModelEvent;
 		$result = $JticketingModelEvent->getAvailableVenue($array_venue);
 

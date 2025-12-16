@@ -15,14 +15,14 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
 
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('bootstrap.tooltip');
 
 require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/jticketing.php';
 $canDo = JticketingHelper::getActions();
 
 // Import helper for declaring language constant
-JLoader::import('Jticketingmainhelper', Uri::root() . 'components/com_jticketing/helpers/main.php');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/main.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/main.php'; }
 
 // Call helper function
 JticketingCommonHelper::getLanguageConstant();
@@ -83,7 +83,7 @@ $launch_event_url = Route::_('index.php?option=com_jticketing&view=eventform&Ite
 												href="javascript:void(0)"
 												onclick="document.getElementById('search').value='';this.form.submit();"
 												class="btn btn-info"
-												title="<?php echo JTEXT::_('COM_JTICKETING_CLEAR_SEARCH')?>">
+												title="<?php echo Text::_('COM_JTICKETING_CLEAR_SEARCH')?>">
 												<i class="fa fa-remove"></i>
 												</button>
 											</span>
@@ -104,7 +104,7 @@ $launch_event_url = Route::_('index.php?option=com_jticketing&view=eventform&Ite
 					<div class="col-12 col-sm-12 col-md-8">
 					<ul class="pull-right list-unstyled events af-d-flex align-items-center events__options">
 					<?php
-						if ($canDo->get("core.create") && count($this->items)): ?>
+						if ($canDo->{'core.create'} && count($this->items)): ?>
 							<li class="events__create event__separation ">
 								<a href="<?php echo $launch_event_url;?>" title="<?php echo Text::_('COM_JTICKETING_EVENTS_CREATE_NEW_EVENT')?>" class="btn btn-info">
 									<div class="input-group mb-1 d-flex align-items-center">

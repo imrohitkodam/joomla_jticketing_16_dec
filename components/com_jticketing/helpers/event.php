@@ -20,11 +20,11 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
 
 // Component Helper
-JLoader::import('components.com_jticketing.events.order', JPATH_SITE);
-JLoader::import('attendeefields', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('tickettype', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('attendeecorefields', JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
-JLoader::import('fronthelper', JPATH_SITE . '/components/com_tjvendors/helpers');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/order.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/order.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeefields.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeefields.php'; }
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/tickettype.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/tickettype.php'; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_jticketing/models/attendeecorefields.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/models/attendeecorefields.php'; }
+if (file_exists(JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php')) { require_once JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php'; }
 
 /**
  * JteventHelper
@@ -49,18 +49,18 @@ class JteventHelper
 		$socialintegration = $Params->get('integrate_with', 'none');
 
 		// Load main file
-		jimport('techjoomla.jsocial.jsocial');
-		jimport('techjoomla.jsocial.joomla');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 
 		if ($socialintegration != 'none')
 		{
 			if ($socialintegration == 'JomSocial')
 			{
-				jimport('techjoomla.jsocial.jomsocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 			}
 			elseif ($socialintegration == 'EasySocial')
 			{
-				jimport('techjoomla.jsocial.easysocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php'; }
 			}
 		}
 

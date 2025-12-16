@@ -45,9 +45,9 @@ class JTicketingControllerWaitlistForm extends AdminController
 		{
 			$msg = Text::_('COM_JTICKETING_MESSAGE_LOGIN_FIRST');
 
-			$redirectUrl = $app->input->get('redirectUrl', '', 'STRING');
+			$redirectUrl = $app->getInput()->get('redirectUrl', '', 'STRING');
 
-			$eventId     = $app->input->get('eventid', '0', 'INT');
+			$eventId     = $app->getInput()->get('eventid', '0', 'INT');
 			$waitinglistLink = Uri::root() . 'index.php?option=com_jticketing&task=waitlistform.refreshSaveToken&eventid=' .
 						$eventId . '&redirectUrl=' . $redirectUrl;
 
@@ -58,11 +58,11 @@ class JTicketingControllerWaitlistForm extends AdminController
 
 		Session::checkToken() or Session::checkToken('get') or jexit('Invalid Token');
 
-		$eventId     = $app->input->get('eventid', '0', 'INT');
-		$redirectUrl = $app->input->get('redirectUrl', '', 'STRING');
-		$id          = $app->input->get('id', '', 'INT');
-		$status      = $app->input->get('status', '', 'STRING');
-		$userId      = $app->input->get('userid', '', 'INT');
+		$eventId     = $app->getInput()->get('eventid', '0', 'INT');
+		$redirectUrl = $app->getInput()->get('redirectUrl', '', 'STRING');
+		$id          = $app->getInput()->get('id', '', 'INT');
+		$status      = $app->getInput()->get('status', '', 'STRING');
+		$userId      = $app->getInput()->get('userid', '', 'INT');
 
 		// Check permissions here
 		$canEnrollAll = $user->authorise('core.enrollall', 'com_jticketing');
@@ -177,8 +177,8 @@ class JTicketingControllerWaitlistForm extends AdminController
 	public function refreshSaveToken()
 	{
 		$app   = Factory::getApplication();
-		$redirectUrl = $app->input->get('redirectUrl', '', 'STRING');
-		$eventId     = $app->input->get('eventid', '0', 'INT');
+		$redirectUrl = $app->getInput()->get('redirectUrl', '', 'STRING');
+		$eventId     = $app->getInput()->get('eventid', '0', 'INT');
 
 		$waitinglistLink = Route::_('index.php?option=com_jticketing&task=waitlistform.save&id=0&eventid=' .
 						$eventId . '&redirectUrl=' . $redirectUrl, false

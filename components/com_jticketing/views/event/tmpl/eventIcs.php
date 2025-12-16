@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Factory;
 
-JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/models', 'venue');
+BaseDatabaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_jticketing/models');
 $tjvendorsModelVendors = BaseDatabaseModel::getInstance('Venue', 'JticketingModel');
 $venueDetails = $tjvendorsModelVendors->getItem($data['venue']);
 $location = $venueDetails->name . '' . $venueDetails->address;

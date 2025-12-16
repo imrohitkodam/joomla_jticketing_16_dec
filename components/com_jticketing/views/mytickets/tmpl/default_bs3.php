@@ -16,7 +16,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 $listOrder  = $this->escape($this->state->get('list.ordering'));
 $listDirn   = $this->escape($this->state->get('list.direction'));

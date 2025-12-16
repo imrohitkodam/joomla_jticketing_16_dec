@@ -83,7 +83,7 @@ class JticketingViewCoupon extends BaseHtmlView
 
 		$this->addToolbar();
 
-		ToolBarHelper::preferences('com_jticketing');
+		ToolbarHelper::preferences('com_jticketing');
 
 		parent::display($tpl);
 	}
@@ -97,7 +97,7 @@ class JticketingViewCoupon extends BaseHtmlView
 	 */
 	protected function addToolbar()
 	{
-		Factory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->getInput()->set('hidemainmenu', true);
 		$viewTitle = ($this->item->id == 0) ? Text::_('COM_JTICKETING_ADD_COUPON') : Text::_('COM_JTICKETING_EDIT_COUPON');
 
 		if (isset($this->item->checked_out))
@@ -109,30 +109,30 @@ class JticketingViewCoupon extends BaseHtmlView
 			$checkedOut = false;
 		}
 
-		JLoader::register('JticketingHelper', JPATH_COMPONENT . '/components/com_jticketing/helpers/jticketing.php');
+		JLoader::register('JticketingHelper', JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/components/com_jticketing/helpers/jticketing.php');
 		$canDo = ContentHelper::getActions('com_jticketing');
 
 		ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'pencil-2');
 
 		// If not checked out, can save the item.
-		if (!$checkedOut && ($canDo->get('core.edit') || ($canDo->get('core.create'))))
+		if (!$checkedOut && ($canDo->{'core.edit'} || ($canDo->{'core.create'})))
 		{
-			ToolBarHelper::apply('coupon.apply', 'JTOOLBAR_APPLY');
-			ToolBarHelper::save('coupon.save', 'JTOOLBAR_SAVE');
+			ToolbarHelper::apply('coupon.apply', 'JTOOLBAR_APPLY');
+			ToolbarHelper::save('coupon.save', 'JTOOLBAR_SAVE');
 		}
 
-		if (!$checkedOut && ($canDo->get('core.create')))
+		if (!$checkedOut && ($canDo->{'core.create'}))
 		{
-			ToolBarHelper::custom('coupon.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
+			ToolbarHelper::custom('coupon.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
 		}
 
 		if (empty($this->item->id))
 		{
-			ToolBarHelper::cancel('coupon.cancel', 'JTOOLBAR_CANCEL');
+			ToolbarHelper::cancel('coupon.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else
 		{
-			ToolBarHelper::cancel('coupon.cancel', 'JTOOLBAR_CLOSE');
+			ToolbarHelper::cancel('coupon.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}
 }

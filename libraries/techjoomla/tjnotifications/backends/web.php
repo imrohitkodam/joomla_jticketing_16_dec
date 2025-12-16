@@ -110,8 +110,8 @@ class TjnotificationsBackendWeb extends TjnotificationsBackendBase
 	public function getSocialLibraryObject($integrationOption = '')
 	{
 		// Load main file
-		jimport('techjoomla.jsocial.jsocial');
-		jimport('techjoomla.jsocial.joomla');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 
 		if (!$integrationOption)
 		{
@@ -121,12 +121,12 @@ class TjnotificationsBackendWeb extends TjnotificationsBackendBase
 
 		if ($integrationOption == 'easysocial')
 		{
-			jimport('techjoomla.jsocial.easysocial');
+			if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php'; }
 			$socialLibraryObject = new JSocialEasySocial;
 		}
 		elseif ($integrationOption == 'jomsocial')
 		{
-			jimport('techjoomla.jsocial.jomsocial');
+			if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 			$socialLibraryObject = new JSocialJomSocial;
 		}
 

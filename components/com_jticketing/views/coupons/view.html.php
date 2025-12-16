@@ -188,23 +188,23 @@ class JticketingViewCoupons extends BaseHtmlView
 		$canDo = ContentHelper::getActions('com_jticketing');
 
 		// Add toolbar buttons
-		jimport('techjoomla.tjtoolbar.toolbar');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php'; }
 		$tjbar = TJToolbar::getInstance('tjtoolbar', 'pull-right float-end');
 
 		// Create New coupon
-		if ($canDo->get('coupon.create'))
+		if ($canDo->{'coupon.create'})
 		{
 			$tjbar->appendButton('couponform.add', 'TJTOOLBAR_NEW', '', 'class="btn btn-sm btn-success"');
 		}
 
 		// Edit coupon
-		if ($canDo->get('coupon.edit.own') && isset($this->items[0]))
+		if ($canDo->{'coupon.edit.own'} && isset($this->items[0]))
 		{
 			$tjbar->appendButton('couponform.edit', 'TJTOOLBAR_EDIT', '', 'class="btn btn-sm btn-success"');
 		}
 
 		// Edit coupon state and delete coupon
-		if ($canDo->get('coupon.edit.state') && isset($this->items[0]))
+		if ($canDo->{'coupon.edit.state'} && isset($this->items[0]))
 		{
 			$tjbar->appendButton('coupons.publish', 'TJTOOLBAR_PUBLISH', '', 'class="btn btn-sm btn-success"');
 			$tjbar->appendButton('coupons.unpublish', 'TJTOOLBAR_UNPUBLISH', '', 'class="btn btn-sm btn-warning"');

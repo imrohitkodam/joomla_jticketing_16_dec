@@ -100,7 +100,8 @@ class JTicketingRouter extends RouterBase
 
 				if ($catId)
 				{
-					if (JVERSION < '4.0.0')
+					// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 					{
 						Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_categories/tables');
 						$category = Table::getInstance('Category', 'CategoriesTable', array('dbo', $db));
@@ -322,7 +323,8 @@ class JTicketingRouter extends RouterBase
 
 		if ($count == 1)
 		{
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_categories/tables');
 				$categoryTable = Table::getInstance('Category', 'CategoriesTable', array('dbo', $db));

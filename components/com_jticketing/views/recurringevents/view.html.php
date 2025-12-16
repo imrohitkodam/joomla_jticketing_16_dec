@@ -22,7 +22,7 @@ class JticketingViewRecurringEvents extends HtmlView
         $this->attendeeId = $jinput->get('attendee_id', 0, 'INT');
 
         if (empty($this->attendeeId)) {
-            $app->enqueueMessage(JText::_('COM_JTICKETING_ERROR_NO_ATTENDEE_ID'), 'error');
+            $app->enqueueMessage(Text::_('COM_JTICKETING_ERROR_NO_ATTENDEE_ID'), 'error');
             return false;
         }
     

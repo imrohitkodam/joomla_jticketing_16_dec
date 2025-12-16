@@ -22,9 +22,8 @@ if (!defined('DS'))
 }
 
 // Require the base controller
-require_once JPATH_COMPONENT . '/controller.php';
-require_once JPATH_COMPONENT . '/helpers/main.php';
-require_once JPATH_COMPONENT . '/helpers/common.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
+// Note: main.php and common.php are loaded later via JLoader from site component (lines 49-52, 57-58)
 
 $document   = Factory::getDocument();
 $root_url   = Uri::root();
@@ -132,5 +131,5 @@ if (!defined('JTICKETING_LOAD_BOOTSTRAP_VERSION'))
 
 // Execute the task.
 $controller = BaseController::getInstance('Jticketing');
-$controller->execute(Factory::getApplication()->input->get('task'));
+$controller->execute(Factory::getApplication()->getInput()->get('task'));
 $controller->redirect();

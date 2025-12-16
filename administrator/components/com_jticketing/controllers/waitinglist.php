@@ -11,4 +11,4 @@
 defined('_JEXEC') or die;
 
 
-JLoader::import('com_jticketing.controllers.waitinglist', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/controllers/waitinglist.php')) { require_once JPATH_SITE . '/components/com_jticketing/controllers/waitinglist.php'; }

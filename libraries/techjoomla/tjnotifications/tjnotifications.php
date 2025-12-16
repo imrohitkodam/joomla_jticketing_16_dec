@@ -8,7 +8,7 @@
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -99,8 +99,8 @@ class Tjnotifications
 	 *
 	 *  // Sample input
 	 * 	$recipients = array (
-	 * 		JFactory::getUser(488),
-	 * 		JFactory::getUser(500),
+	 * 		Factory::getUser(488),
+	 * 		Factory::getUser(500),
 	 * 		"email" => array (
 	 * 			"to" => array ('email1@domain1.com', 'email2@domain2.com'),
 	 * 			"cc" => array ('cc.email1@domain1.com', 'cc.email2@domain2.com'),

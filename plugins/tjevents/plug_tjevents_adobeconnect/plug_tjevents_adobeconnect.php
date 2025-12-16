@@ -12,8 +12,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Language\Text;
 
-jimport('techjoomla.jsocial.jsocial');
-jimport('techjoomla.jsocial.joomla');
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jsocial.php'; }
+if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 $lang = Factory::getLanguage();
 $lang->load('plg_tjevents_plug_tjevents_adobeconnect', JPATH_ADMINISTRATOR);
 require_once JPATH_SITE . '/plugins/tjevents/plug_tjevents_adobeconnect/plug_tjevents_adobeconnect/libraries/AdobeConnectClient.class.php';

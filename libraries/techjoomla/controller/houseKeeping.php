@@ -35,7 +35,7 @@ trait TjControllerHouseKeeping
 	{
 		Session::checkToken('get') or jexit(Text::_('JINVALID_TOKEN'));
 
-		$clientExtension = Factory::getApplication()->input->get('option', '', 'STRING');
+		$clientExtension = Factory::getApplication()->getInput()->get('option', '', 'STRING');
 
 		$tjHouseKeeping = new TjModelHouseKeeping;
 		$data = $tjHouseKeeping->getHouseKeepingScripts($clientExtension);

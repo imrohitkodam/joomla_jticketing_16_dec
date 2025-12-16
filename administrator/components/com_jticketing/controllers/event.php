@@ -56,8 +56,8 @@ class JTicketingControllerEvent extends FormController
 		$recordId = $this->input->getInt('id');
 
 		// Get the user data.
-		$data = Factory::getApplication()->input->get('jform', array(), 'array');
-		$data['privacy_consent'] = $app->input->get('accept_privacy_term', '');
+		$data = Factory::getApplication()->getInput()->get('jform', array(), 'array');
+		$data['privacy_consent'] = $app->getInput()->get('accept_privacy_term', '');
 
 		if (empty($data['created_by']))
 		{
@@ -71,7 +71,7 @@ class JTicketingControllerEvent extends FormController
 
 			if ($data['venuechoice'] == 'existing' && $data['id'] == 0)
 			{
-				$onlineScoId = $app->input->get('event_sco_id', 0);
+				$onlineScoId = $app->getInput()->get('event_sco_id', 0);
 			}
 		}
 
@@ -207,7 +207,7 @@ class JTicketingControllerEvent extends FormController
 		$validData['userName'] = Factory::getUser($validData['created_by'])->name;
 		$validData['privacy_consent'] = $data['privacy_consent'];
 		$extraJformData = array_diff_key($data, $validData);
-		$filesData      = $app->input->files->get('jform', array(), 'ARRAY');
+		$filesData      = $app->getInput()->files->get('jform', array(), 'ARRAY');
 		unset($filesData['image']);
 		unset($filesData['gallery_file']);
 		unset($extraJformData['vendor_id']);

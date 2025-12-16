@@ -11,4 +11,4 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Load frontend venues model
-JLoader::import('com_jticketing.models.orders', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/orders.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/orders.php'; }

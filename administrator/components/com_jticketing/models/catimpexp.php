@@ -235,7 +235,8 @@ class JticketingModelCatimpexp extends ListModel
 
 		foreach ($insert_obj as $cat)
 		{
-			if (JVERSION < '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 			{
 				require_once JPATH_ADMINISTRATOR . '/components/com_categories/tables/category.php';
 				require_once JPATH_ADMINISTRATOR . '/components/com_categories/models/category.php';

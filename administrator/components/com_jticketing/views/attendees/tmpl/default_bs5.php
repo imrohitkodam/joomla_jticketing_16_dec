@@ -31,9 +31,9 @@ $integration = JT::getIntegration(true);
 <div id="jtwrap" class="tjBs5">
 <?php
 // Modal pop up for mass enrollment
-echo JHtmlBootstrap::renderModal('myModalNew', $this->modal_params, $this->body);
-echo JHtmlBootstrap::renderModal('import_attendees', $this->csv_params);
-echo JHtmlBootstrap::renderModal('move_attendee', $this->attendeePrams, $this->attendeeBody);
+echo HTMLHelper::_('bootstrap.renderModal', 'myModalNew', $this->modal_params, $this->body);
+echo HTMLHelper::_('bootstrap.renderModal', 'import_attendees', $this->csv_params);
+echo HTMLHelper::_('bootstrap.renderModal', 'move_attendee', $this->attendeePrams, $this->attendeeBody);
 echo $this->addToolbar();
 ?>
 <span id="ajax_loader"></span>

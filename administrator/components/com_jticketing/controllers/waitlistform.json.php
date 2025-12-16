@@ -81,7 +81,12 @@ class JTicketingControllerWaitlistForm extends AdminController
 			return false;
 		}
 
-		JLoader::import('components.com_jticketing.models.waitlistform', JPATH_SITE);
+		// Joomla 6: JLoader removed - use require_once
+		$waitlistformPath = JPATH_SITE . '/components/com_jticketing/models/waitlistform.php';
+		if (file_exists($waitlistformPath))
+		{
+			require_once $waitlistformPath;
+		}
 		$waitlistformModel = BaseDatabaseModel::getInstance('WaitlistForm', 'JTicketingModel');
 		$waitlistId        = $waitlistformModel->save($data);
 		$error             = $waitlistformModel->getError();

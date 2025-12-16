@@ -96,9 +96,10 @@ JT::init('admin');
 
 define('COM_JTICKETING_WRAPPER_CLASS', "jticketing-wrapper");
 
-if (JVERSION < '4.0.0')
+// Joomla 6: JVERSION check removed
+		if (false) // Legacy < '4.0.0')
 {
-	HTMLHelper::_('formbehavior.chosen', 'select');
+	// Joomla 6: formbehavior.chosen removed - using native select
 }
 
 $document = Factory::getDocument();
@@ -110,5 +111,5 @@ $lang = Factory::getLanguage();
 $lang->load('com_jticketing_common', JPATH_SITE, $lang->getTag(), true);
 
 $controller = BaseController::getInstance('Jticketing');
-$controller->execute(Factory::getApplication()->input->get('task'));
+$controller->execute(Factory::getApplication()->getInput()->get('task'));
 $controller->redirect();

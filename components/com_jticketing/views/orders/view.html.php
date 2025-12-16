@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 
 require_once JPATH_SITE . '/components/com_tjvendors/includes/tjvendors.php';
 /**
@@ -232,8 +232,8 @@ class JticketingVieworders extends BaseHtmlView
 		}
 
 		$this->user = Factory::getUser();
-		$layout = $app->input->getString("layout", 'default');
-		$this->tmpl = $app->input->getString("tmpl", '');
+		$layout = $app->getInput()->getString("layout", 'default');
+		$this->tmpl = $app->getInput()->getString("tmpl", '');
 
 		/* @var $orderModel JTicketingModelOrder */
 		$orderModel                  = JT::model('order');
@@ -310,7 +310,7 @@ class JticketingVieworders extends BaseHtmlView
 
 		if ($layout == 'order')
 		{
-			$orderId                = $app->input->get('orderid', '', 'STRING');
+			$orderId                = $app->getInput()->get('orderid', '', 'STRING');
 			$order			        = JT::order()->loadByOrderId($orderId);
 			$eventObj               = JT::event();
 			$eventDetails           = $eventObj->loadByIntegration($order->event_details_id);
@@ -340,7 +340,7 @@ class JticketingVieworders extends BaseHtmlView
 				}
 				else
 				{
-					$email = $app->input->get('email', '', 'STRING');
+					$email = $app->getInput()->get('email', '', 'STRING');
 
 					if (md5($userInfo->user_email) != $email)
 					{
@@ -370,7 +370,7 @@ class JticketingVieworders extends BaseHtmlView
 			$this->company_vat_no  = $this->jticketingparams->get('company_vat_no', '');
 
 			// Send google analytics data
-			$ecTrackId = Factory::getApplication()->input->get('ecTrackId', '', 'STRING');
+			$ecTrackId = Factory::getApplication()->getInput()->get('ecTrackId', '', 'STRING');
 			$googleAnalyticsOrderId = base64_decode($ecTrackId);
 
 			// Send order data for google analytics in 'order incomplete state'

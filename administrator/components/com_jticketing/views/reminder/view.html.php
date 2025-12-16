@@ -79,7 +79,7 @@ class JticketingViewReminder extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		Factory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->getInput()->set('hidemainmenu', true);
 
 		$user = Factory::getUser();
 		$isNew = ($this->item->id == 0);
@@ -103,41 +103,42 @@ class JticketingViewReminder extends HtmlView
 			$viewTitle = Text::_('COM_JTICKETING_EDIT_REMINDER');
 		}
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			ToolBarHelper::title( Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'pencil-2' );
+			ToolbarHelper::title( Text::_('COM_JTICKETING_COMPONENT') . $viewTitle, 'pencil-2' );
 		}
 		else
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') .$viewTitle, 'reminder.png');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') .$viewTitle, 'reminder.png');
 		}
 
 		// If not checked out, can save the item.
 
-		if (!$checkedOut && ($canDo->get('core.edit') || ($canDo->get('core.create'))))
+		if (!$checkedOut && ($canDo->{'core.edit'} || ($canDo->{'core.create'})))
 		{
-			ToolBarHelper::apply('reminder.apply', 'JTOOLBAR_APPLY');
-			ToolBarHelper::save('reminder.save', 'JTOOLBAR_SAVE');
+			ToolbarHelper::apply('reminder.apply', 'JTOOLBAR_APPLY');
+			ToolbarHelper::save('reminder.save', 'JTOOLBAR_SAVE');
 		}
 
-		if (!$checkedOut && ($canDo->get('core.create')))
+		if (!$checkedOut && ($canDo->{'core.create'}))
 		{
-			ToolBarHelper::custom('reminder.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
+			ToolbarHelper::custom('reminder.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
 		}
 		// If an existing item, can save to a copy.
 
-		if (!$isNew && $canDo->get('core.create'))
+		if (!$isNew && $canDo->{'core.create'})
 		{
-			//ToolBarHelper::custom('reminder.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
+			//ToolbarHelper::custom('reminder.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
 		}
 
 		if (empty($this->item->id))
 		{
-			ToolBarHelper::cancel('reminder.cancel', 'JTOOLBAR_CANCEL');
+			ToolbarHelper::cancel('reminder.cancel', 'JTOOLBAR_CANCEL');
 		}
 		else
 		{
-			ToolBarHelper::cancel('reminder.cancel', 'JTOOLBAR_CLOSE');
+			ToolbarHelper::cancel('reminder.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}
 }

@@ -9,4 +9,9 @@
  */
 
 defined('_JEXEC') or die;
-JLoader::import('com_jticketing.controllers.attendees', JPATH_SITE . '/components');
+// Joomla 6: JLoader removed - use require_once
+$attendeesControllerPath = JPATH_SITE . '/components/com_jticketing/controllers/attendees.php';
+if (file_exists($attendeesControllerPath))
+{
+	require_once $attendeesControllerPath;
+}

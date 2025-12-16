@@ -18,7 +18,7 @@ use Joomla\CMS\Session\Session;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\CMS\Component\ComponentHelper;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 require_once JPATH_ADMINISTRATOR . '/components/com_jticketing/models/venue.php';
 
 $helperPath = JPATH_SITE . '/components/com_jticketing/helpers/time.php';
@@ -57,8 +57,8 @@ class JticketingControllerVenueForm extends JticketingController
 		if ($uploadFile == "link")
 		{
 			$data = array();
-			$data['name']        = $app->input->post->get('name', '', 'string');
-			$data['type']        = $app->input->post->get('type', '', 'string');
+			$data['name']        = $app->getInput()->post->get('name', '', 'string');
+			$data['type']        = $app->getInput()->post->get('type', '', 'string');
 			$data['upload_type'] = $uploadFile;
 			$returnData[0]       = $model->uploadLink($data);
 
@@ -71,7 +71,7 @@ class JticketingControllerVenueForm extends JticketingController
 		}
 		else
 		{
-			$files    = $app->input->files->get('file', '', 'array');
+			$files    = $app->getInput()->files->get('file', '', 'array');
 			$fileType = explode("/", $files[0]['type']);
 
 			// Image and video specific validation

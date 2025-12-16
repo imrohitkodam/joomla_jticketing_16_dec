@@ -8,7 +8,7 @@
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Log\LogEntry;
@@ -71,7 +71,7 @@ class TjnotificationsBackendEmail extends TjnotificationsBackendBase
 			// Is email enabled for this template?
 			if ((int) $template->state !== 1)
 			{
-				// @throw new Exception(JText::_('LIB_TECHJOOMLA_TJNOTIFICATION_EMAIL_CONFIG_OFF'));
+				// @throw new Exception(Text::_('LIB_TECHJOOMLA_TJNOTIFICATION_EMAIL_CONFIG_OFF'));
 				return $return;
 			}
 

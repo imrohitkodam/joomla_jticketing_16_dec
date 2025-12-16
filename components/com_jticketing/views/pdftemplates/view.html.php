@@ -190,7 +190,7 @@ class JticketingViewPDFTemplates extends BaseHtmlView
 		$this->jticketingmainhelper = new Jticketingmainhelper;
 
 		$this->addTJtoolbar();
-		$this->sidebar = \JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 		parent::display($tpl);
 	}
@@ -210,20 +210,20 @@ class JticketingViewPDFTemplates extends BaseHtmlView
 		$canDo = JticketingHelper::getActions($state->get('filter.category_id'));
 
 		// Add toolbar buttons
-		jimport('techjoomla.tjtoolbar.toolbar');
+		if (file_exists(JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php')) { require_once JPATH_LIBRARIES . '/techjoomla/tjtoolbar/toolbar.php'; }
 		$tjbar = TJToolbar::getInstance('tjtoolbar', 'pull-right float-end');
 
-		if ($canDo->get('core.create'))
+		if ($canDo->{'core.create'})
 		{
 			$tjbar->appendButton('pdftemplate.add', 'TJTOOLBAR_NEW', '', 'class="btn btn-sm btn-success"');
 		}
 
-		if ($canDo->get('core.edit.own') && isset($this->items[0]))
+		if ($canDo->{'core.edit.own'} && isset($this->items[0]))
 		{
 			$tjbar->appendButton('pdftemplate.edit', 'TJTOOLBAR_EDIT', '', 'class="btn btn-sm btn-success"');
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]))
 			{

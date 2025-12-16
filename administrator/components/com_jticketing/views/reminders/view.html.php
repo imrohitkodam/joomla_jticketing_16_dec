@@ -46,8 +46,8 @@ class JticketingViewReminders extends HtmlView
 		// Native Event Manager.
 		if($integration<1)
 		{
-			$this->sidebar = JHtmlSidebar::render();
-			ToolBarHelper::preferences('com_jticketing');
+			$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
+			ToolbarHelper::preferences('com_jticketing');
 		?>
 			<div class="alert alert-info alert-help-inline">
 		<?php echo Text::_('COMJTICKETING_INTEGRATION_NOTICE');
@@ -71,7 +71,7 @@ class JticketingViewReminders extends HtmlView
 
 		$this->addToolbar();
 
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 		parent::display($tpl);
 	}
 
@@ -84,20 +84,21 @@ class JticketingViewReminders extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		require_once JPATH_COMPONENT . '/helpers/jticketing.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/helpers/jticketing.php';
 
 		$state = $this->get('State');
 		$canDo = JticketingHelper::getActions($state->get('filter.category_id'));
-		ToolBarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
+		ToolbarHelper::back('COM_JTICKETING_HOME', 'index.php?option=com_jticketing&view=cp');
 
 
-		if (JVERSION >= '3.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0')
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_REMINDERS'), 'folder');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_REMINDERS'), 'folder');
 		}
 		else
 		{
-			ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_REMINDERS'), 'reminders.png');
+			ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_REMINDERS'), 'reminders.png');
 		}
 
 		// Check if the form exists before showing the add/edit buttons
@@ -105,69 +106,69 @@ class JticketingViewReminders extends HtmlView
 
 		if (file_exists($formPath))
 		{
-			if ($canDo->get('core.create'))
+			if ($canDo->{'core.create'})
 			{
-				ToolBarHelper::addNew('reminder.add', 'JTOOLBAR_NEW');
+				ToolbarHelper::addNew('reminder.add', 'JTOOLBAR_NEW');
 			}
 
-			if ($canDo->get('core.edit') && isset($this->items[0]))
+			if ($canDo->{'core.edit'} && isset($this->items[0]))
 			{
-				ToolBarHelper::editList('reminder.edit', 'JTOOLBAR_EDIT');
+				ToolbarHelper::editList('reminder.edit', 'JTOOLBAR_EDIT');
 			}
 		}
 
-		if ($canDo->get('core.edit.state'))
+		if ($canDo->{'core.edit.state'})
 		{
 			if (isset($this->items[0]->state))
 			{
-				ToolBarHelper::divider();
-				ToolBarHelper::custom('reminders.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
-				ToolBarHelper::custom('reminders.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+				ToolbarHelper::divider();
+				ToolbarHelper::custom('reminders.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
+				ToolbarHelper::custom('reminders.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
 			}
 			elseif (isset($this->items[0]))
 			{
 				// If this component does not use state then show a direct delete button as we can not trash
-				ToolBarHelper::deleteList('', 'reminders.delete', 'JTOOLBAR_DELETE');
+				ToolbarHelper::deleteList('', 'reminders.delete', 'JTOOLBAR_DELETE');
 			}
 
 			if (isset($this->items[0]->state))
 			{
-				ToolBarHelper::divider();
-				ToolBarHelper::archiveList('reminders.archive', 'JTOOLBAR_ARCHIVE');
+				ToolbarHelper::divider();
+				ToolbarHelper::archiveList('reminders.archive', 'JTOOLBAR_ARCHIVE');
 			}
 
 			if (isset($this->items[0]->checked_out))
 			{
-				ToolBarHelper::custom('reminders.checkin', 'checkin.png', 'checkin_f2.png', 'JTOOLBAR_CHECKIN', true);
+				ToolbarHelper::custom('reminders.checkin', 'checkin.png', 'checkin_f2.png', 'JTOOLBAR_CHECKIN', true);
 			}
 		}
 
 		// Show trash and delete for components that uses the state field
 		if (isset($this->items[0]->state))
 		{
-			if ($state->get('filter.state') == -2 && $canDo->get('core.delete'))
+			if ($state->get('filter.state') == -2 && $canDo->{'core.delete'})
 			{
-				ToolBarHelper::deleteList('', 'reminders.delete', 'JTOOLBAR_EMPTY_TRASH');
-				ToolBarHelper::divider();
+				ToolbarHelper::deleteList('', 'reminders.delete', 'JTOOLBAR_EMPTY_TRASH');
+				ToolbarHelper::divider();
 			}
-			elseif ($canDo->get('core.edit.state'))
+			elseif ($canDo->{'core.edit.state'})
 			{
-				ToolBarHelper::trash('reminders.trash', 'JTOOLBAR_TRASH');
-				ToolBarHelper::divider();
+				ToolbarHelper::trash('reminders.trash', 'JTOOLBAR_TRASH');
+				ToolbarHelper::divider();
 			}
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
-			ToolBarHelper::preferences('com_jticketing');
+			ToolbarHelper::preferences('com_jticketing');
 		}
 
 		// Set sidebar action - New in 3.0
-		JHtmlSidebar::setAction('index.php?option=com_jticketing&view=reminders');
+		// Joomla 6: HTMLHelperSidebar::setAction() removed
 
 		$this->extra_sidebar = '';
 
-			JHtmlSidebar::addFilter(
+			HTMLHelperSidebar::addFilter(
 
 			Text::_('JOPTION_SELECT_PUBLISHED'),
 				'filter_published',

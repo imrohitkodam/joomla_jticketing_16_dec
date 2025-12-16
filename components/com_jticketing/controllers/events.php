@@ -11,7 +11,7 @@
 // No direct access.
 defined('_JEXEC') or die;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
@@ -108,7 +108,7 @@ class JticketingControllerEvents extends JticketingController
 		$app = Factory::getApplication();
 		$params  = $app->getParams('com_jticketing');
 		$adminApproval = $params->get('event_approval');
-		$cid = $app->input->get('cid', array(), 'post', 'array');
+		$cid = $app->getInput()->get('cid', array(), 'post', 'array');
 
 		// Checking if the user can remove object
 		$user = Factory::getUser();
@@ -116,7 +116,7 @@ class JticketingControllerEvents extends JticketingController
 		if ($user->authorise('core.edit.state', 'com_jticketing') && $adminApproval == 0)
 		{
 			$model = $this->getModel('eventform');
-			$task = $app->input->get('task');
+			$task = $app->getInput()->get('task');
 			$state = ($task == 'publish') ? 1 : 0;
 
 			// Attempt to save the data.
@@ -196,7 +196,7 @@ class JticketingControllerEvents extends JticketingController
 	public function delete()
 	{
 		$app        = Factory::getApplication();
-		$input		= Factory::getApplication()->input;
+		$input		= Factory::getApplication()->getInput();
 		$cid 		= $input->post->get('cid', array(), 'array');
 		ArrayHelper::toInteger($cid);
 		$count                = array();

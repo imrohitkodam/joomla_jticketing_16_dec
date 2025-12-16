@@ -19,7 +19,7 @@ extract($displayData);
 
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.keepalive');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 ?>
 <div class="contentpane component p-1 ms-3">
 	<form action="<?php echo Route::_('index.php?option=com_jticketing&view=enrollment&layout=attendeemove&tmpl=component', false); ?>"
@@ -31,7 +31,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 						<?php echo Text::_('COM_JTICKETING_SELECT_EVENT_TO_ENROLLMENT'); ?><span class="star">&nbsp;*</span>
 					</label>
 					<?php
-						echo JHtmlSelect::genericlist($eventOptions, 'selected_event', 'class="btn input-medium" size="10" name="groupfilter"', "value", "text", '');
+						echo HTMLHelper::_('select.genericlist', $eventOptions, 'selected_event', 'class="btn input-medium" size="10" name="groupfilter"', "value", "text", '');
 					?>
 				</div>
 			</div>

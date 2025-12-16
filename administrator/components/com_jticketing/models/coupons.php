@@ -12,4 +12,4 @@
 defined('_JEXEC') or die;
 
 // Load Frontend coupons model
-JLoader::import('com_jticketing.models.coupons', JPATH_SITE . '/components');
+if (file_exists(JPATH_SITE . '/components/com_jticketing/models/coupons.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/coupons.php'; }

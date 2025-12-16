@@ -15,15 +15,14 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Form\FormHelper;
-
-FormHelper::loadFieldClass('list');
+use Joomla\CMS\Form\Field\ListField;
 
 /**
  * Supports an HTML select list of events
  *
  * @since  2.4.0
  */
-class JFormFieldVendorEventsList extends JFormFieldList
+class JFormFieldVendorEventsList extends ListField
 {
 	/**
 	 * The form field type.

@@ -18,14 +18,14 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Component\ComponentHelper;
 
 if(JVERSION>=3.0)
-	HTMLHelper::_('formbehavior.chosen', 'select');
+	// Joomla 6: formbehavior.chosen removed - using native select
 global $mainframe;
 $document =Factory::getDocument();
-$input=Factory::getApplication()->input;
+$input=Factory::getApplication()->getInput();
 $event= $input->get( 'event','' );
 $jticketingmainhelper = new jticketingmainhelper();
-ToolBarHelper::publishList('mypayouts.publish','COM_JTICKETING_PAID');
-ToolBarHelper::unpublishList('mypayouts.unpublish','COM_JTICKETING_NOT_PAID');
+ToolbarHelper::publishList('mypayouts.publish','COM_JTICKETING_PAID');
+ToolbarHelper::unpublishList('mypayouts.unpublish','COM_JTICKETING_NOT_PAID');
 
 $com_params=ComponentHelper::getParams('com_jticketing');
 $currency = $com_params->get('currency');

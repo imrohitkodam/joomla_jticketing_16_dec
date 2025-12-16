@@ -14,6 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 
 require_once JPATH_SITE . '/components/com_jticketing/includes/jticketing.php';
 
@@ -24,7 +25,7 @@ FormHelper::loadFieldClass('list');
  *
  * @since  2.7.0
  */
-class JFormFieldAttendeefields extends JFormFieldList
+class JFormFieldAttendeefields extends ListField
 {
 	/**
 	 * The form field type.
@@ -61,7 +62,8 @@ class JFormFieldAttendeefields extends JFormFieldList
 				$options[] = HTMLHelper::_('select.option', Text::_($field->label), Text::_($field->label));
 			}
 
-			if (JVERSION >= '4.0.0')
+			// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '4.0.0')
 			{
 				$this->class = 'form-select required';
 			}

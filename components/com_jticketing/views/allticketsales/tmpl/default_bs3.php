@@ -26,7 +26,7 @@ $siteadmin_comm_per = $com_params->get('siteadmin_comm_per');
 $show_js_toolbar = $com_params->get('show_js_toolbar');
 $currency = $com_params->get('currency');
 $user = Factory::getUser();
-$input = Factory::getApplication()->input;
+$input = Factory::getApplication()->getInput();
 
 if (empty($user->id)) {
 	echo '<div class="alert alert-warning">' . Text::_('USER_LOGOUT') . '</div>';
@@ -139,7 +139,8 @@ if (empty($this->Data)) {
 					<?php echo Text::_('COM_JTICKETING_SEARCH_FILTER_CLEAR'); ?>
 				</button>
 
-				<?php if (JVERSION >= '3.0') {
+				<?php // Joomla 6: JVERSION check removed
+		if (false) { // Legacy >= '3.0'
 				?>
 					<div class="btn-group pull-right af-mb-10">
 						<?php
@@ -214,7 +215,8 @@ if (empty($this->Data)) {
 			<div class="row">
 				<div class="col-xs-12">
 					<?php
-					if (JVERSION < 3.0)
+					// Joomla 6: JVERSION check removed
+		if (false) // Legacy < 3.0)
 						$class_pagination = 'pager';
 					else
 						$class_pagination = 'pagination';

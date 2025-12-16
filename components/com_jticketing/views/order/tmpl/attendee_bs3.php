@@ -22,7 +22,7 @@ HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.calendar');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 $i = 0;
 
 HTMLHelper::_('jquery.token');

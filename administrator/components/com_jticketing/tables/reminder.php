@@ -49,7 +49,7 @@ class JticketingTablereminder extends Table
 	 */
 	public function bind($array, $ignore = '')
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$task = $input->getString('task', '');
 
 		if ($task == 'save' || $task == 'apply')
@@ -239,7 +239,7 @@ class JticketingTablereminder extends Table
 	 *
 	 * @return string The asset name
 	 *
-	 * @see JTable::_getAssetName
+	 * @see Table::_getAssetName
 	 */
 	protected function _getAssetName()
 	{
@@ -256,7 +256,7 @@ class JticketingTablereminder extends Table
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @see JTable::_getAssetParentId
+	 * @see Table::_getAssetParentId
 	 */
 	protected function _getAssetParentId(Table $table = null, $id = null)
 	{

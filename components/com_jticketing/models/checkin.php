@@ -11,7 +11,7 @@
 // No direct access.
 defined('_JEXEC') or die;
 
-JLoader::import('components.com_jticketing.events.event', JPATH_SITE);
+if (file_exists(JPATH_SITE . '/components/com_jticketing/events/event.php')) { require_once JPATH_SITE . '/components/com_jticketing/events/event.php'; }
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
@@ -21,7 +21,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 
 /**
  * Methods supporting a jticketing checkin.
@@ -112,7 +112,7 @@ class JticketingModelCheckin extends AdminModel
 		$db = Factory::getDbo();
 		$currentDate = Factory::getDate()->format('Y-m-d'); // Get today's date in Y-m-d format
 
-		JLoader::import('components.com_jticketing.models.attendeeform', JPATH_SITE);
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/attendeeform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/attendeeform.php'; }
 		$model = BaseDatabaseModel::getInstance('AttendeeForm', 'JticketingModel');
 
 		$attendeeData  = $model->getItem($attendeeId);
@@ -127,7 +127,7 @@ class JticketingModelCheckin extends AdminModel
 
 			if ($integration == "com_jticketing")
 			{
-				JLoader::import('components.com_jticketing.models.eventform', JPATH_SITE);
+				if (file_exists(JPATH_SITE . '/components/com_jticketing/models/eventform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/eventform.php'; }
 				$eventModel = BaseDatabaseModel::getInstance('EventForm', 'JticketingModel');
 
 				$event = $eventModel->getItem($event_id);
@@ -191,7 +191,7 @@ class JticketingModelCheckin extends AdminModel
 					// Extract event details
 					$startDate = $eventData->start_date;
 					// Get Joomla's configured timezone
-					$config = JFactory::getConfig();
+					$config = Factory::getConfig();
 					$timezone = $config->get('offset', 'UTC');
 
 					// Get the current date and time in Joomla's timezone

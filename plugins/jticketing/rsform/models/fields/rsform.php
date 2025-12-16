@@ -25,7 +25,7 @@ if (JVERSION < '4.0.0')
  *
  * @since  2.6.1
  */
-class JFormFieldRsform extends JFormFieldList
+class JFormFieldRsform extends FormFieldList
 {
 	/**
 	 * The form field type.

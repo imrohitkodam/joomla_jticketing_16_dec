@@ -1,0 +1,6 @@
+<?php
+defined('_JEXEC') or die;
+return array (
+  'PLG_TJQUEUE_CERTIFICATE' => 'TjQueue plugin for TjCertificate',
+  'PLG_TJQUEUE_CERTIFICATE_XML_DESCRIPTION' => 'This plugin used to add bulk records using TjQueue',
+);

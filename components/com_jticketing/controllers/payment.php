@@ -16,7 +16,7 @@ use Joomla\CMS\Session\Session;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Response\JsonResponse;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * Controller for payment
@@ -38,7 +38,7 @@ class JticketingControllerpayment extends jticketingController
 	{
 		$model    = $this->getModel('payment');
 		$session  = Factory::getSession();
-		$jinput   = Factory::getApplication()->input;
+		$jinput   = Factory::getApplication()->getInput();
 		$order_id = $session->get('JT_orderid');
 
 		if (!$order_id)
@@ -61,7 +61,7 @@ class JticketingControllerpayment extends jticketingController
 	public function processpayment()
 	{
 		$mainframe = Factory::getApplication();
-		$jinput    = Factory::getApplication()->input;
+		$jinput    = Factory::getApplication()->getInput();
 		$session   = Factory::getSession();
 
 		if ($session->has('payment_submitpost'))
@@ -133,7 +133,7 @@ class JticketingControllerpayment extends jticketingController
 			$app->close();
 		}
 
-		$jinput     = Factory::getApplication()->input;
+		$jinput     = Factory::getApplication()->getInput();
 		$orderID    = $jinput->getInt('order_id');
 
 		if (!empty($orderID))
@@ -159,7 +159,7 @@ class JticketingControllerpayment extends jticketingController
 	 */
 	public function authStripeConnect()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		PluginHelper::importPlugin('payment', 'stripe');
 		$authUrl    = Factory::getApplication()->triggerEvent('onStripeConnectAuthUrl', array());
 
@@ -219,7 +219,7 @@ class JticketingControllerpayment extends jticketingController
 	 */
 	public function StoreStripeConnectParmas()
 	{
-		$input   = Factory::getApplication()->input;
+		$input   = Factory::getApplication()->getInput();
 		$ac_code = $input->get('code', '', 'STRING');
 
 		PluginHelper::importPlugin('payment', 'stripe');

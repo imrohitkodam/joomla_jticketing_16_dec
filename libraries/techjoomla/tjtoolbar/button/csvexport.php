@@ -25,8 +25,36 @@ use Joomla\CMS\HTML\HTMLHelper;
  * @subpackage  TjCsv
  * @since       1.0
  */
-class JToolbarButtonCsvExport extends ToolbarButton
+class ToolbarButtonCsvExport extends ToolbarButton
 {
+	/**
+	 * Button messages
+	 *
+	 * @var    array
+	 * @since  3.0
+	 */
+	protected $messages = null;
+
+	/**
+	 * Render button HTML
+	 *
+	 * @param   array  &$definition  Parameters to be passed
+	 *
+	 * @return  string  HTML string for the button
+	 *
+	 * @since   3.0
+	 */
+	public function render(&$definition = null)
+	{
+		// Extract messages from definition array (legacy support)
+		if (isset($definition[1]) && is_array($definition[1]))
+		{
+			$this->messages = $definition[1];
+		}
+
+		return $this->fetchButton('', $this->messages);
+	}
+
 	/**
 	 * Fetch the HTML for the button
 	 *
@@ -45,7 +73,7 @@ class JToolbarButtonCsvExport extends ToolbarButton
 		Text::script('LIB_TECHJOOMLA_CSV_EXPORT_UESR_ABORTED');
 		Text::script('LIB_TECHJOOMLA_CSV_EXPORT_CONFIRM_ABORT');
 
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$csv_url = 'index.php?option=' . $input->get('option') . '&view=' . $input->get('view') . '&format=csv';
 		$siteUrl = Uri::base();
 		$document = Factory::getDocument();
@@ -67,11 +95,9 @@ class JToolbarButtonCsvExport extends ToolbarButton
 		$options['btnClass'] = 'btn btn-small export btn-secondary';
 		$options['doTask'] = "tjexport.exportCsv(0);";
 
-		if (JVERSION >= '4.0.0')
-		{
-			$options['onclick'] = "tjexport.exportCsv(0);";
-			$options['htmlAttributes'] = '';
-		}
+		// Joomla 6: Always use onclick
+		$options['onclick'] = "tjexport.exportCsv(0);";
+		$options['htmlAttributes'] = '';
 
 		$options['class'] = 'icon-download';
 

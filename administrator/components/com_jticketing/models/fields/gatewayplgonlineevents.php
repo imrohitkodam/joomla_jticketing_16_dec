@@ -15,6 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Plugin\PluginHelper;
 
 FormHelper::loadFieldClass('list');
@@ -24,7 +25,7 @@ FormHelper::loadFieldClass('list');
  *
  * @since  1.0
  */
-class JFormFieldGatewayplgonlineevents extends JFormFieldList
+class JFormFieldGatewayplgonlineevents extends ListField
 {
 	protected $type = 'Gatewayplgonlineevents';
 

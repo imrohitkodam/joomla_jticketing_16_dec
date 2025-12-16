@@ -14,8 +14,8 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 
-require_once( JPATH_COMPONENT.'/controller.php' );
-require_once( JPATH_COMPONENT.'/helpers/main.php' );
+require_once( JPATH_ADMINISTRATOR . '/components/com_jticketing/controller.php' );
+require_once( JPATH_ADMINISTRATOR . '/components/com_jticketing/helpers/main.php' );
 
 class jticketingControllerjticketingapi extends BaseController
 {
@@ -31,7 +31,7 @@ class jticketingControllerjticketingapi extends BaseController
 		header('Content-type: application/json');
 		$document =& Factory::getDocument();
 		$document->setMimeEncoding('application/json');
-		$input  = Factory::getApplication()->input->get();
+		$input  = Factory::getApplication()->getInput()->get();
 		$eventid = $input->get('eventid','','INT');
 
 		if(empty($eventid))
@@ -69,7 +69,7 @@ class jticketingControllerjticketingapi extends BaseController
 		header('Content-type: application/json');
 		$document =& Factory::getDocument();
 		$document->setMimeEncoding('application/json');
-		$input  = Factory::getApplication()->input->get();
+		$input  = Factory::getApplication()->getInput()->get();
 		$ticketidstr = $input->get('ticketidstr','','STRING');
 
 
@@ -146,7 +146,7 @@ class jticketingControllerjticketingapi extends BaseController
 		header('Content-type: application/json');
 		$document =& Factory::getDocument();
 		$document->setMimeEncoding('application/json');
-		$input  = Factory::getApplication()->input->get();
+		$input  = Factory::getApplication()->getInput()->get();
 		$userid = $input->get('userid','','STRING');
 
 		if(empty($userid))
@@ -182,7 +182,7 @@ class jticketingControllerjticketingapi extends BaseController
 		$base_dir = JPATH_SITE;
 
 		$lang->load($extension, $base_dir);
-		$input  = Factory::getApplication()->input->get();
+		$input  = Factory::getApplication()->getInput()->get();
 		$eventid = $input->get('eventid', 0, 'STRING');
 		$var = $input->get('attendtype', 'all', 'STRING');
 
@@ -239,7 +239,7 @@ class jticketingControllerjticketingapi extends BaseController
 		header('Content-type: application/json');
 		$document =& Factory::getDocument();
 		$document->setMimeEncoding('application/json');
-		$input  = Factory::getApplication()->input->get();
+		$input  = Factory::getApplication()->getInput()->get();
 		$useremail = $input->get('useremail', 0, 'STRING');
 		$useremail=trim($useremail);
 		$var = $input->get('attendtype', 'all', 'STRING');
@@ -292,7 +292,7 @@ class jticketingControllerjticketingapi extends BaseController
 		$extension = 'com_jticketing';
 		$base_dir = JPATH_SITE;
 		$lang->load($extension, $base_dir);
-		$input  = Factory::getApplication()->input->get();
+		$input  = Factory::getApplication()->getInput()->get();
 		$useremail = $input->get('useremail', 0, 'STRING');
 		$useremail=trim($useremail);
 		$var = $input->get('attendtype', 'all', 'STRING');

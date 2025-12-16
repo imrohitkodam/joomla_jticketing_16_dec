@@ -40,19 +40,19 @@ class JTicketingIntegrationsHelper
 		{
 			if ($socialIntegrationOption == 'joomla')
 			{
-				jimport('techjoomla.jsocial.joomla');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/joomla.php'; }
 			}
 			elseif ($socialIntegrationOption == 'jomsocial')
 			{
-				jimport('techjoomla.jsocial.jomsocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/jomsocial.php'; }
 			}
 			elseif ($socialIntegrationOption == 'EasySocial')
 			{
-				jimport('techjoomla.jsocial.easysocial');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/easysocial.php'; }
 			}
 			elseif($socialIntegrationOption == 'cb')
 			{
-				jimport('techjoomla.jsocial.cb');
+				if (file_exists(JPATH_LIBRARIES . '/techjoomla/jsocial/cb.php')) { require_once JPATH_LIBRARIES . '/techjoomla/jsocial/cb.php'; }
 			}
 		}
 	}

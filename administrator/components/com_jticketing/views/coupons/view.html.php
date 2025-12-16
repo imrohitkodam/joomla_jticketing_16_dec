@@ -179,7 +179,7 @@ class JticketingViewCoupons extends BaseHtmlView
 
 		JticketingHelper::addSubmenu('coupons');
 		$this->addToolbar();
-		$this->sidebar = \JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 		parent::display($tpl);
 	}
@@ -193,26 +193,26 @@ class JticketingViewCoupons extends BaseHtmlView
 	 */
 	protected function addToolbar()
 	{
-		JLoader::register('JticketingHelper', JPATH_COMPONENT . '/components/com_jticketing/helpers/jticketing.php');
+		JLoader::register('JticketingHelper', JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/components/com_jticketing/helpers/jticketing.php');
 		$canDo = ContentHelper::getActions('com_jticketing');
 
-		ToolBarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_COUPONS'), 'list');
+		ToolbarHelper::title(Text::_('COM_JTICKETING_COMPONENT') . Text::_('COM_JTICKETING_TITLE_COUPONS'), 'list');
 
-		if ($canDo->get('coupon.create'))
+		if ($canDo->{'coupon.create'})
 		{
-			ToolBarHelper::addNew('coupon.add', 'JTOOLBAR_NEW');
+			ToolbarHelper::addNew('coupon.add', 'JTOOLBAR_NEW');
 		}
 
-		if ($canDo->get('coupon.edit') && isset($this->items[0]))
+		if ($canDo->{'coupon.edit'} && isset($this->items[0]))
 		{
-			ToolBarHelper::editList('coupon.edit', 'JTOOLBAR_EDIT');
+			ToolbarHelper::editList('coupon.edit', 'JTOOLBAR_EDIT');
 		}
 
-		if ($canDo->get('coupon.edit.state'))
+		if ($canDo->{'coupon.edit.state'})
 		{
-			ToolBarHelper::divider();
-			ToolBarHelper::publish('coupons.publish', 'JTOOLBAR_PUBLISH', true);
-			ToolBarHelper::unpublish('coupons.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+			ToolbarHelper::divider();
+			ToolbarHelper::publish('coupons.publish', 'JTOOLBAR_PUBLISH', true);
+			ToolbarHelper::unpublish('coupons.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 
 			if (isset($this->items[0]->checked_out))
 			{
@@ -222,18 +222,17 @@ class JticketingViewCoupons extends BaseHtmlView
 
 		if (isset($this->items[0]))
 		{
-			if ($canDo->get('coupon.delete'))
+			if ($canDo->{'coupon.delete'})
 			{
-				ToolBarHelper::deleteList(Text::_('COM_JTICKETING_ARE_YOU_SURE_YOU_TO_DELETE_THE_COUPON'), 'coupons.delete', 'JTOOLBAR_DELETE');
+				ToolbarHelper::deleteList(Text::_('COM_JTICKETING_ARE_YOU_SURE_YOU_TO_DELETE_THE_COUPON'), 'coupons.delete', 'JTOOLBAR_DELETE');
 			}
 		}
 
-		if ($canDo->get('core.admin'))
+		if ($canDo->{'core.admin'})
 		{
-			ToolBarHelper::preferences('com_jticketing');
+			ToolbarHelper::preferences('com_jticketing');
 		}
 
-		// Set sidebar action - New in 3.0
-		\JHtmlSidebar::setAction('index.php?option=com_jticketing&view=coupons');
+		// Joomla 6: HTMLHelperSidebar::setAction() removed - sidebar functionality removed
 	}
 }

@@ -19,7 +19,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
-HTMLHelper::_('formbehavior.chosen', 'select');
+// Joomla 6: formbehavior.chosen removed - using native select
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('bootstrap.renderModal', 'a.modal');
 HTMLHelper::script('administrator/components/com_tjfields/assets/js/tjfields.js');

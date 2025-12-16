@@ -24,14 +24,16 @@ class jticketingViewfields extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		if (JVERSION >= '3.0' && JVERSION < '4.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '3.0' && JVERSION < '4.0')
 			JHtmlBehavior::framework();
-		else if (JVERSION < '3.0')
+		else // Joomla 6: JVERSION check removed
+		if (false) // Legacy < '3.0')
 			HTMLHelper::_('behavior.mootools');
 		$JticketingHelper=new JticketingHelper();
 		$JticketingHelper->addSubmenu('fields');
 		if(JVERSION>='3.0')
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = ""; // Joomla 6: HTMLHelperSidebar::render() removed
 
 
 		parent::display($tpl);

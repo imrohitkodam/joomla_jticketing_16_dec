@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
  *
  * @since  1.0
  */
-class JFormFieldAupFileQuick2cart extends JFormField
+class JFormFieldAupFileQuick2cart extends FormField
 {
 	/**
 	 * The form field type.
@@ -38,9 +38,9 @@ class JFormFieldAupFileQuick2cart extends JFormField
 	{
 		if ($this->id == 'jform_params_aupfilequick2cart')
 		{
-			$html = '<div style="float:left"><a href="' . JURI::root() . 'plugins/payment/alphauserpoints/alphauserpoints/quick2cart_aup.zip"> ' .
+			$html = '<div style="float:left"><a href="' . Uri::root() . 'plugins/payment/alphauserpoints/alphauserpoints/quick2cart_aup.zip"> ' .
 				Text::_('AUP_CLK') . '</a><span> ' . Text::_('AUP_INST') . ' </span><a href="' .
-				JURI::base() . 'index.php?option=com_alphauserpoints&task=plugins" target="_blank">' . Text::_('HERE') .
+				Uri::base() . 'index.php?option=com_alphauserpoints&task=plugins" target="_blank">' . Text::_('HERE') .
 				'</a>. <a href="https://techjoomla.com/documentation-for-quick2cart/configuring-common-payment-gateway.html" target="_blank">' .
 				Text::_('CLK_DOC') . '</a></div>';
 

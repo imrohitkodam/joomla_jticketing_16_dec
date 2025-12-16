@@ -19,8 +19,7 @@ use Joomla\CMS\Factory;
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('bootstrap.tooltip');
-HTMLHelper::_('formbehavior.chosen', '#jform_event_ids');
-HTMLHelper::_('formbehavior.chosen', '#jform_val_type');
+// Joomla 6: formbehavior.chosen removed - Chosen.js is deprecated
 
 /** @var $this JticketingViewCouponform */
 

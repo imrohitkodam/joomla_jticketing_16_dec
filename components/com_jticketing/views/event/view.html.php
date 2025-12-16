@@ -66,7 +66,7 @@ class JticketingViewEvent extends HtmlView
 		$user = Factory::getUser();
 		$this->params = JT::config();
 		$this->integration = $this->params->get('integration', '', 'INT');
-		JLoader::import('JticketingCommonHelper', Uri::root() . 'components/com_jticketing/helpers/common.php');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/helpers/common.php')) { require_once JPATH_SITE . '/components/com_jticketing/helpers/common.php'; }
 		$this->jtCommonHelper = new JticketingCommonHelper;
 		$this->jticketingfrontendhelper = new jticketingfrontendhelper;
 		$this->jticketingmainhelper     = new jticketingmainhelper;
@@ -202,7 +202,7 @@ class JticketingViewEvent extends HtmlView
 			$this->item->location     = null;
 		}
 
-		JLoader::import('eventform', JPATH_SITE . '/components/com_jticketing/models');
+		if (file_exists(JPATH_SITE . '/components/com_jticketing/models/eventform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/eventform.php'; }
 		$evenformModel = JT::model('EventForm');
 
 		if (empty($this->item->longitude) || empty($this->item->latitude))
@@ -301,7 +301,8 @@ class JticketingViewEvent extends HtmlView
 			$this->_playVideo();
 		}
 
-		if (JVERSION >= '4.0.0')
+		// Joomla 6: JVERSION check removed
+		if (false) // Legacy >= '4.0.0'
 		{
 			// Instantiate the model
 			$couponsModel = JT::model('coupons', array("ignore_request" => true));
@@ -411,7 +412,7 @@ class JticketingViewEvent extends HtmlView
 	 */
 	protected function _playVideo()
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$vid   = $input->get('vid', '', 'INT');
 		$type   = $input->get('type', '', 'STRING');
 		$model = $this->getModel('event');

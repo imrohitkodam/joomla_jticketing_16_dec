@@ -20,8 +20,8 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Date\Date;
 JLoader::register('JSocialHelper', JPATH_LIBRARIES . '/techjoomla/jsocial/helper.php');
 
-JLoader::import('fronthelper', JPATH_SITE . '/components/com_tjvendors/helpers');
-JLoader::import('vendorclientxref', JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables');
+if (file_exists(JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php')) { require_once JPATH_SITE . '/components/com_tjvendors/helpers/fronthelper.php'; }
+if (file_exists(JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables/vendorclientxref.php')) { require_once JPATH_ADMINISTRATOR . '/components/com_tjvendors/tables/vendorclientxref.php'; }
 JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
 require_once JPATH_SITE . '/components/com_tjvendors/includes/tjvendors.php';
 
@@ -91,7 +91,7 @@ class JticketingViewEventform extends HtmlView
 	{
 		$app   = Factory::getApplication();
 		$user  = Factory::getUser();
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$this->form  = $this->get('Form');
 		$currentTime = new DateTime('now', new DateTimeZone('UTC'));
 		$startTime = $currentTime->format('H:i');
@@ -195,7 +195,7 @@ class JticketingViewEventform extends HtmlView
 
 		if (!empty($this->item->id))
 		{
-			$app->input->set("content_id", $this->item->id);
+			$app->getInput()->set("content_id", $this->item->id);
 
 			$this->form_extra = array();
 

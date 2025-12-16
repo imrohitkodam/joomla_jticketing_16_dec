@@ -14,14 +14,40 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-JLoader::import('route', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('components.com_jticketing.events.order', JPATH_SITE);
-JLoader::import('tickettype', JPATH_SITE . '/components/com_jticketing/models');
-JLoader::import('main', JPATH_SITE . '/components/com_jticketing/helpers');
-JLoader::import('enrollment', JPATH_SITE . '/components/com_jticketing/models');
+
+// Joomla 6: JLoader removed - use require_once
+$routeHelperPath = JPATH_SITE . '/components/com_jticketing/helpers/route.php';
+if (file_exists($routeHelperPath))
+{
+	require_once $routeHelperPath;
+}
+
+$orderPath = JPATH_SITE . '/components/com_jticketing/events/order.php';
+if (file_exists($orderPath))
+{
+	require_once $orderPath;
+}
+
+$tickettypePath = JPATH_SITE . '/components/com_jticketing/models/tickettype.php';
+if (file_exists($tickettypePath))
+{
+	require_once $tickettypePath;
+}
+
+$mainHelperPath = JPATH_SITE . '/components/com_jticketing/helpers/main.php';
+if (file_exists($mainHelperPath))
+{
+	require_once $mainHelperPath;
+}
+
+$enrollmentPath = JPATH_SITE . '/components/com_jticketing/models/enrollment.php';
+if (file_exists($enrollmentPath))
+{
+	require_once $enrollmentPath;
+}
 
 /**
  * common helper class
@@ -247,7 +273,7 @@ class JticketingCommonHelper
 		// If free ticket then confirm automatically and redirect to Invoice View.
 		if ($order['order_info']['0']->amount == 0 || $flag == 1)
 		{
-			$input = Factory::getApplication()->input;
+			$input = Factory::getApplication()->getInput();
 			$confirmOrder = array();
 			$confirmOrder['buyer_email']    = '';
 			$confirmOrder['status']         = 'C';
@@ -353,7 +379,7 @@ class JticketingCommonHelper
 				// If online event create user on adobe site and register for this event
 				if ($eventDetails->online_events == 1)
 				{
-					JLoader::import('components.com_jticketing.models.venueform', JPATH_SITE);
+					if (file_exists(JPATH_SITE . '/components/com_jticketing/models/venueform.php')) { require_once JPATH_SITE . '/components/com_jticketing/models/venueform.php'; }
 					$venueModel = BaseDatabaseModel::getInstance('VenueForm', 'JticketingModel');
 					$venueDetail = $venueModel->getItem($eventDetails->venue);
 					$eventParams = json_decode($eventDetails->params, true);
@@ -597,7 +623,7 @@ class JticketingCommonHelper
 	 *
 	 * @return  boolean
 	 *
-	 * @deprecated  3.2.0 Use $user = JFactory::getUser(); and verify if user is persent or not
+	 * @deprecated  3.2.0 Use $user = Factory::getUser(); and verify if user is persent or not
 	 */
 	public function validateUserLogin()
 	{

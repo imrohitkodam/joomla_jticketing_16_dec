@@ -15,7 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
 
-require_once JPATH_COMPONENT . '/controller.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_jticketing'. '/controller.php';
 
 /**
  * Makepayment controller class.
@@ -37,7 +37,7 @@ class JticketingControllermasspayment extends jticketingController
 		$siteadmin_comm_per = $com_params->get('siteadmin_comm_per');
 		$private_key_cronjob = $com_params->get('private_key_cronjob');
 
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$pkey = $input->get('pkey', '');
 
 		if ($pkey != $private_key_cronjob)

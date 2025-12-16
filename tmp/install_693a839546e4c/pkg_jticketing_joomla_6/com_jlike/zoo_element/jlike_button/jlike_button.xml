@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<element type="jlike_button" group="jlike">
+	<name>jlike_button</name>
+
+	<author>Techjoomla</author>
+    <copyright>Copyright © 2013-2014 TechJoomla. All rights reserved.</copyright>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>http://www.techjoomla.com</authorUrl>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <creationDate>27th Oct 2015</creationDate>
+	<version>3.0</version>
+
+	<description>Jlike button</description>
+	<params group="render">
+		<param name="jlike_comments" type="radio" default="1" label="Turn on comments" description="Turn on comments" >
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</param>
+	</params>
+</element>

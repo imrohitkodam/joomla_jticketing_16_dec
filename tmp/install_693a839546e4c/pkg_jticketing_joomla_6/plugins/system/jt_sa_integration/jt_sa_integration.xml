@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="system" method="upgrade">
+	<name>plg_system_jt_sa_integration</name>
+	<creationDate>11th September 2018</creationDate>
+	<version>2.4.0</version>
+	<author>Techjoomla</author>
+	<authorEmail>extensions@techjoomla.com</authorEmail>
+	<authorUrl>https://techjoomla.com</authorUrl>
+	<copyright>Copyright (c) 2009-2018 TechJoomla. All rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>PLG_SYSTEM_JT_SA_INTEGRATION_XML_DESC</description>
+	<files>
+		<filename plugin="jt_sa_integration">jt_sa_integration.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB/en-GB.plg_jt_sa_integration.ini</language>
+	</languages>
+</extension>

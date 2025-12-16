@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+<fields name="plugin" label="COM_TJFIELDS_FIELD_BASIC_LABEL">
+	<fieldset name="plugin">
+		<field
+			name="tenantId"
+			type="text"
+			label="PLG_TJEVENTS_MICROSOFTTEAMS_TENANT_ID_LABEL"
+			description="PLG_TJEVENTS_MICROSOFTTEAMS_TENANT_ID_DESC"
+			class="required form-group"
+			default=""
+			required="true"
+		/>
+		<field
+			name="clientId"
+			type="text"
+			label="PLG_TJEVENTS_MICROSOFTTEAMS_CLIENT_ID_LABEL"
+			description="PLG_TJEVENTS_MICROSOFTTEAMS_CLIENT_ID_DESC"
+			class="required form-group"
+			default=""
+			required="true"
+		/>
+		<field
+			name="clientSecret"
+			type="text"
+			length="200"
+			label="PLG_TJEVENTS_MICROSOFTTEAMS_CLIENT_SECRET_LABEL"
+			description="PLG_TJEVENTS_MICROSOFTTEAMS_CLIENT_SECRET_DESC"
+			class="required form-group"
+			default=""
+			required="true"
+		/>
+		<field
+			name="objectId"
+			type="text"
+			label="PLG_TJEVENTS_MICROSOFTTEAMS_OBJECT_ID_LABEL"
+			description="PLG_TJEVENTS_MICROSOFTTEAMS_OBJECT_ID_DESC"
+			class="required form-group"
+			default=""
+			required="true"
+		/>
+	</fieldset>
+</fields>
+</form>

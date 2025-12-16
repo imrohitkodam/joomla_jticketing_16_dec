@@ -1,0 +1,46 @@
+
+This is a non-exhaustive changelog for jomLike component (starting from ver. 1.0.1)
+
+Legend:
+  # -> Bug Fix
+  + -> Addition
+  ^ -> Change
+  - -> Removed
+  ! -> Note
+
+---------------- 1.0.9 Released -- [DEC 23, 2011] ------------------
+^  Changed titles to base64 encoding to work around json_en/decode from not working properly with utf8 chars. -BUR 12/21/2011
++  Added code to allow commenting on activity stream likes in JomSocial 2.4.x. -BUR 12/23/2011
+
+---------------- 1.0.8 Released -- [OCT 17, 2011] ------------------
+#  Fixed Joomla! apostrope mangling in titles. Using $_REQUEST instead of JRequest::_getVar -BUR 10/17/2011
++  Added French translation. Thank you Jean-Marie! -BUR 7/19/2011
+#  Fixed language file call for jomSocial activity stream plug-in. -BUR 7/19/2011
+
+---------------- 1.0.7 Released -- [July 18, 2011] ------------------
++  Adding support for jomRes -BUR 7/6/2011
+^  Changed JomSocial activity stream translation to add present tense verbs for likes in other languages. -BUR 7/18/2011
+^  Changed how article URL's are created. —BUR 7/18/2011
+
+---------------- 1.0.6 Released -- [July 1, 2011] ------------------
+#  JomSocial link fix for activity stream.
++  Adding var jomLikeVal; to stop IE JS errors from showing up for those two people that may have JS debugging turned on in IE.
+
+---------------- 1.0.5 Released -- [Jun 6, 2011] ------------------
++  Future proofed stream liking to not add to the activity stream for unknown likes from JomSocial.
+
+---------------- 1.0.4 Released -- [May 17, 2011] ------------------
+#  Fixed XML for K2 plug-in
++  Added jQuery.noConflict so that multiple versions may run on the same site as jomLike
+
+---------------- 1.0.3 Released -- [May 11, 2011] ------------------
++  Added support for jomSocial activity stream for articles, K2, and jomSocial like buttons
++  Uninstaller removes associated plug-ins.
+
+---------------- 1.0.2 Beta -- [May 9, 2011] ------------------
+^  Moved Assets to front end.
++  Added ability to upload any type of image, not just PNG files.
++  Added licensing to all the files.
+#  Fixed SQL query to enable all the plug-ins.
+
+---------------- 1.0.1 Beta -- [] ------------------
